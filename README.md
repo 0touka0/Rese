@@ -1,1 +1,3 @@
 # docker_laravel
+
+#.gitkeepというファイルをsrcディレクトリとmysqlディレクトリのdataディレクトリから削除してください。
