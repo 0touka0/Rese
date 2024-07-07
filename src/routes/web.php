@@ -1,6 +1,7 @@
 <?php
 
-
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/thanks', function () {
 	return view('thanks');
-});
+})->name('thanks');
+
+Route::get('/', [ShopController::class, 'index']);
