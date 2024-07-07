@@ -1,0 +1,38 @@
+/* * {
+	border: solid 1px rgb(255, 183, 74);
+} */
+
+body {
+	background: rgb(235, 235, 235);
+	font-family: Arial, sans-serif;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	margin: 50px 100px;
+}
+
+.header__logo {
+	display: flex;
+	align-items: center;
+	color: rgb(48, 86, 255);
+}
+
+.fa-bars-staggered {
+	padding: 8px;
+	background: rgb(48, 86, 255);
+	color: #fff;
+	font-size: 25px;
+	border-radius: 5px;
+	box-shadow: 3px 3px 5px #6e6e6e;
+}
+
+.header__title {
+	margin-left: 25px;
+}
+
+/* エラーメッセージ */
+.message {
+	color: red;
+}
