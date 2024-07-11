@@ -1,0 +1,50 @@
+.shop-lists {
+	padding: 0 100px;
+}
+
+.shop-card {
+	height: 300px;
+	width: 300px;
+	background: #fff;
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 2px 2px 5px #6e6e6e;
+}
+
+.shop-card__img {
+	height: 50%;
+	text-align: center;
+}
+
+.shop-card__img img {
+	object-fit: cover;
+}
+
+.shop-card__content {
+	padding: 20px;
+}
+
+.shop-card__tag--address, .shop-card__tag--category, .shop-card__nav {
+	display: inline-block;
+}
+
+.shop-card__tag {
+	margin-bottom: 16px;
+}
+
+.nav__btn {
+	letter-spacing: 2px;
+	padding: 5px 18px;
+	border-radius: 5px;
+}
+
+.shop-card__like {
+	float: right;
+	width: 35px;
+	height: 35px;
+}
+
+.fa-heart {
+	font-size: 35px;
+	color: #e6e6e6;
+}

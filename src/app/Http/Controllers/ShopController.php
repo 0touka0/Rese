@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
+use App\Models\Reservation;
+use App\Models\Shop;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
     public function index()
     {
-        return view('shop_all');
+        $shops = Shop::all();
+
+        return view('shop_all', compact('shops'));
     }
 }

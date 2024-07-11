@@ -20,4 +20,6 @@ Route::get('/thanks', function () {
 	return view('thanks');
 })->name('thanks');
 
-Route::get('/', [ShopController::class, 'index']);
+Route::middleware('auth')->group(function () {
+	Route::get('/', [ShopController::class, 'index']);
+});

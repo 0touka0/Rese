@@ -1,12 +1,10 @@
 .content {
-	/* height: 20rem; */
-	width: 90%;
-	margin: 150px auto 0;
+	padding: 100px;
 }
 
 .register-form {
+	width: 500px;
 	margin: 0 auto;
-	width: 30%;
 	background: #fff;
 	border-radius: 5px;
 	box-shadow: 3px 3px 5px #6e6e6e;
@@ -20,21 +18,27 @@
 }
 
 .register-form__inner {
-	padding: 28px 38px;
+	padding: 28px 35px;
 }
 
 .register-form__group {
+	display: flex;
 	line-height: 24px;
 	padding-bottom: 20px;
 }
 
-.icon {
+.icon-container {
+	width: 5%;
 	font-size: 24px;
 }
 
+.register-form__item {
+	width: 95%;
+	margin-left: 15px;
+}
+
 .register-form__group--input {
-	margin-left: 10px;
-	width: 90%;
+	width: 100%;
 	font-size: 20px;
 	border-bottom: solid 2px #000;
 }
@@ -47,6 +51,4 @@
 .register-form__btn--submit {
 	border-radius: 5px;
 	padding: 8px 20px;
-	background-color: rgb(46, 102, 255);
-	color: #fff;
 }

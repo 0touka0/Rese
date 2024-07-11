@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts/app')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/auth/register.css') }}">
@@ -11,26 +11,34 @@
 		@csrf
 		<div class="register-form__inner">
 			<div class="register-form__group">
-				<i class="fa-solid fa-user icon"></i>
-				<input type="text" id="name" class="register-form__group--input" name="name" placeholder="Username">
+				<div class="icon-container"><i class="fa-solid fa-user icon"></i></div>
+				<div class="register-form__item">
+					<input type="text" id="name" class="register-form__group--input" name="name" placeholder="Username">
+				</div>
 				<p class="message">
 					@error('name')
 							{{ $message }}
 					@enderror
 				</p>
 			</div>
+
 			<div class="register-form__group">
-				<i class="fa-solid fa-envelope icon"></i>
-				<input type="email" id="email" class="register-form__group--input" name="email" placeholder="Email">
+				<div class="icon-container"><i class="fa-solid fa-envelope icon"></i></div>
+				<div class="register-form__item">
+					<input type="email" id="email" class="register-form__group--input" name="email" placeholder="Email">
+				</div>
 				<p class="message">
 					@error('email')
 							{{ $message }}
 					@enderror
 				</p>
 			</div>
+
 			<div class="register-form__group">
-				<i class="fa-solid fa-lock icon"></i>
-				<input type="password" id="password" class="register-form__group--input" name="password" placeholder="Password">
+				<div class="icon-container"><i class="fa-solid fa-lock icon"></i></div>
+				<div class="register-form__item">
+					<input type="password" id="password" class="register-form__group--input" name="password" placeholder="Password">
+				</div>
 				<p class="message">
 					@error('password')
 							{{ $message }}
