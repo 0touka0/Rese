@@ -19,6 +19,7 @@ class CreateShopsTable extends Migration
             $table->string('address');
             $table->string('category');
             $table->text('overview')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

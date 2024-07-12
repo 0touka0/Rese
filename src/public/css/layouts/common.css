@@ -4,9 +4,10 @@ body {
 }
 
 .header {
-	display: flex;
-	justify-content: space-between;
-	margin: 50px 100px;
+	width: 100%;
+	padding: 40px 100px;
+	text-align: center;
+	border: solid 1px red;
 }
 
 .header__logo {

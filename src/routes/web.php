@@ -22,4 +22,7 @@ Route::get('/thanks', function () {
 
 Route::middleware('auth')->group(function () {
 	Route::get('/', [ShopController::class, 'index']);
+	Route::get('/search', [ShopController::class, 'search']);
+	Route::get('/detail', [ShopController::class, 'detail']);
+	// Route::post('/reservation', [ShopController::class, 'reservation']);
 });

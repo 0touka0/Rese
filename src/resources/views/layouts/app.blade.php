@@ -11,19 +11,15 @@
 	@yield('css')
 </head>
 <body>
-	<div class="container">
-		<header class="header">
-			<div class="header__logo">
-				<i class="fa-solid fa-bars-staggered"></i>
-				<h1 class="header__title">Rese</h1>
-			</div>
-			<div class="seach-form">
-				@yield('seach-form')
-			</div>
-		</header>
-		<div class="content">
-			@yield('content')
+	<header class="header">
+		<div class="header__logo">
+			<i class="fa-solid fa-bars-staggered"></i>
+			<h1 class="header__title">Rese</h1>
 		</div>
-  </div>
+		@yield('search-form')
+	</header>
+	<div class="content">
+		@yield('content')
+	</div>
 </body>
 </html>
