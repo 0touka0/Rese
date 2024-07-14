@@ -12,7 +12,11 @@ class ShopsTableSeeder extends Seeder
      *
      * @return void
      */
-    // ['name' => '', 'address' => '', 'category' => '', 'overview' =>'', 'image' => ''],
+    /**
+     * example code
+     *
+     * ['name' => '', 'address' => '', 'category' => '', 'overview' =>'', 'image' => ''],
+     */
     public function run()
     {
         $shops = [

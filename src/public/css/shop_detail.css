@@ -1,0 +1,49 @@
+body {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 130px 900px;
+}
+
+.content {
+	grid-column: 1;
+	margin-left: 100px;
+}
+
+.shop-detail {
+    width: 560px;
+}
+
+.shop-header__nav {
+	text-decoration: none;
+	background: #fff;
+	padding: 5px 10px;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 5px;
+}
+
+.shop-header {
+	display: flex;
+	align-items: center;
+}
+
+.shop-image {
+	margin: 30px 0;
+}
+
+img {
+	width: 570px;
+}
+
+.shop-tag {
+	margin-bottom: 30px;
+}
+
+.shop-tag__address, .shop-tag__category {
+	display: inline-block;
+}
+
+.reservation-form {
+	grid-column: 2;
+	grid-row: 1;
+}

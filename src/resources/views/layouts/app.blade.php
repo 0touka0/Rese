@@ -21,5 +21,6 @@
 	<div class="content">
 		@yield('content')
 	</div>
+	@yield('reservation-form')
 </body>
 </html>

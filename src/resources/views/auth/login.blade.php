@@ -14,23 +14,23 @@
 				<div class="icon-container"><i class="fa-solid fa-envelope icon"></i></div>
 				<div class="login-form__item">
 					<input type="email" id="email" class="login-form__group--input" name="email" placeholder="Email">
+					<p class="message">
+						@error('email')
+								{{ $message }}
+						@enderror
+					</p>
 				</div>
-				<p class="message">
-					@error('email')
-							{{ $message }}
-					@enderror
-				</p>
 			</div>
 			<div class="login-form__group">
 				<div class="icon-container"><i class="fa-solid fa-lock icon"></i></div>
 				<div class="login-form__item">
 					<input type="password" id="password" class="login-form__group--input" name="password" placeholder="Password">
+					<p class="message">
+						@error('password')
+								{{ $message }}
+						@enderror
+					</p>
 				</div>
-				<p class="message">
-					@error('password')
-							{{ $message }}
-					@enderror
-				</p>
 			</div>
 			<div class="login-form__btn">
 				<input type="submit" class="login-form__btn--submit btn" value="ログイン">

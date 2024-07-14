@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Laravel\Fortify\Fortify;
 
 class RegisterController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, CreatesNewUsers $creator)
     {
-        User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]);
+        if (config('fortify.lowercase_usernames')) {
+            $request->merge([
+                Fortify::username() => Str::lower($request->{Fortify::username()}),
+            ]);
+        }
+
+        $user = $creator->create($request->all());
+        event(new Registered($user));
 
         return redirect()->route('thanks');
     }

@@ -20,12 +20,12 @@ class ShopController extends Controller
 
     public function search(Request $request)
     {
-        $shopTags = Shop::select('address', 'category')->get();
-
         $shops = Shop::AddressSearch($request->address)
                     ->CategorySearch($request->category)
                     ->KeywordSearch($request->keyword)
                     ->get();
+
+        $shopTags = Shop::select('address', 'category')->get();
 
         return view('shop_all', compact('shops', 'shopTags'));
     }

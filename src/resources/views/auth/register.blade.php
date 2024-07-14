@@ -14,36 +14,36 @@
 				<div class="icon-container"><i class="fa-solid fa-user icon"></i></div>
 				<div class="register-form__item">
 					<input type="text" id="name" class="register-form__group--input" name="name" placeholder="Username">
+					<p class="message">
+						@error('name')
+								{{ $message }}
+						@enderror
+					</p>
 				</div>
-				<p class="message">
-					@error('name')
-							{{ $message }}
-					@enderror
-				</p>
 			</div>
 
 			<div class="register-form__group">
 				<div class="icon-container"><i class="fa-solid fa-envelope icon"></i></div>
 				<div class="register-form__item">
 					<input type="email" id="email" class="register-form__group--input" name="email" placeholder="Email">
+					<p class="message">
+						@error('email')
+								{{ $message }}
+						@enderror
+					</p>
 				</div>
-				<p class="message">
-					@error('email')
-							{{ $message }}
-					@enderror
-				</p>
 			</div>
 
 			<div class="register-form__group">
 				<div class="icon-container"><i class="fa-solid fa-lock icon"></i></div>
 				<div class="register-form__item">
 					<input type="password" id="password" class="register-form__group--input" name="password" placeholder="Password">
+					<p class="message">
+						@error('password')
+								{{ $message }}
+						@enderror
+					</p>
 				</div>
-				<p class="message">
-					@error('password')
-							{{ $message }}
-					@enderror
-				</p>
 			</div>
 			<div class="register-form__btn">
 				<input type="submit" class="register-form__btn--submit btn" value="登録">
