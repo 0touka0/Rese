@@ -1,7 +1,7 @@
 body {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 130px 900px;
+	grid-template-rows: 130px 650px;
 }
 
 .content {
@@ -10,7 +10,7 @@ body {
 }
 
 .shop-detail {
-    width: 560px;
+    width: 570px;
 }
 
 .shop-header__nav {
@@ -20,6 +20,11 @@ body {
 	font-size: 20px;
 	font-weight: bold;
 	border-radius: 5px;
+	box-shadow: 2px 2px 5px #6e6e6e;
+}
+
+.shop-header__title {
+	margin-left: 10px;
 }
 
 .shop-header {
@@ -45,5 +50,124 @@ img {
 
 .reservation-form {
 	grid-column: 2;
-	grid-row: 1;
+	grid-row: 1/3;
+	background: rgb(54, 96, 235);
+	color: #fff;
+	height: 700px;
+	width: 570px;
+	margin: 40px auto;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.reservation-form__inner {
+	padding: 30px;
+}
+
+.reservation-form__input, .reservation-form__select {
+	background: #fff;
+	margin-top: 15px;
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+
+.reservation-form__input {
+	width: 35%;
+}
+
+.reservation-form__select {
+	width: 95%;
+}
+
+.confirm-text {
+	width: 90%;
+	margin-top: 20px;
+	background: rgb(83, 131, 236);
+	border-radius: 5px;
+	padding: 25px 20px;
+}
+
+.confirm-text__item:nth-child(-n+3) {
+	padding-bottom: 10px;
+}
+
+.confirm-text__item--p {
+	display: inline-block;
+	width: 60px;
+	margin-right: 40px;
+}
+
+.reservation-form__btn {
+	text-align: center;
+	background: rgb(43, 63, 238);
+	margin-top: 225px;
+	line-height: 4rem;
+}
+
+.reservation-form__btn--submit {
+	color: #fff;
+}
+
+/* モーダルウィンドウ */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+		margin: 0 auto;
+    overflow: auto;
+		background-color: #fefefe;
+}
+
+.modal-content {
+	height: 100%;
+	width: 1440px;
+	margin: 0 auto;
+}
+
+.close-btn {
+	padding: 50px 120px;
+	margin-bottom: 100px;
+}
+
+.close {
+	background: rgb(48, 86, 255);
+	color: #fff;
+	padding: 5px 12px;
+	border-radius: 5px;
+	font-size: 28px;
+	float: left;
+	box-shadow: 3px 3px 5px #6e6e6e;
+}
+
+.close:hover,
+.close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-nav {
+	height: 30%;
+	width: 30%;
+	margin: 0 auto;
+	padding: 80px;
+}
+
+.modal-nav__list {
+	margin-bottom: 20px;
+}
+
+.modal-nav__list--link, .modal-nav__list--form {
+	text-decoration: none;
+	color: rgb(48, 86, 255);
+	font-size: 2rem;
+}
+
+.modal-nav__btn--submit {
+	color: rgb(48, 86, 255);
+	font-size: 2rem;
 }

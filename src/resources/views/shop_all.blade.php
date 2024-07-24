@@ -4,6 +4,56 @@
 <link rel="stylesheet" href="{{ asset('css/shop_all.css')}}">
 @endsection
 
+{{-- モーダルウィンドウ --}}
+@section('script')
+<div id="myModal" class="modal">
+	<div class="modal-content">
+		<div class="close-btn">
+			<span class="close">&times;</span>
+		</div>
+		<nav class="modal-nav">
+			<div class="modal-nav__list">
+				<a class="modal-nav__list--link" href="/">Home</a>
+			</div>
+			<div class="modal-nav__list">
+				<form class="modal-nav__list--form" action="/logout" method="post">
+					@csrf
+					<button type="submit" class="modal-nav__btn--submit">Logout</button>
+				</form>
+			</div>
+			<div class="modal-nav__list">
+				<form class="modal-nav__list--form" action="/mypage/{{ auth()->user()->id }}" method="get">
+					@csrf
+					<button type="submit" class="modal-nav__btn--submit">Mypage</button>
+				</form>
+			</div>
+		</nav>
+	</div>
+</div>
+<script>
+// ボタン要素を取得
+var btn = document.getElementById("openModal");
+// モーダル要素を取得
+var modal = document.getElementById("myModal");
+// 閉じるボタン（×）要素を取得
+var span = document.getElementsByClassName("close")[0];
+// ボタンがクリックされたときにモーダルを表示
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+// 閉じるボタン（×）がクリックされたときにモーダルを非表示
+span.onclick = function() {
+  modal.style.display = "none";
+}
+// モーダルの外側をクリックされたときにモーダルを非表示
+window.onclick = function(event) {
+	if (event.target == modal) {
+		modal.style.display = "none";
+	}
+}
+</script>
+@endsection
+
 @section('search-form')
 <div class="search-form">
 	<form class="search-form__inner" action="/search" method="get">
@@ -11,17 +61,19 @@
 		<div class="search-form__select">
 			<select class="search-form__select-box" name="address">
 				<option value="">All area</option>
-				@foreach ($shopTags as $tag)
-				<option value="{{ $tag['address'] }}">{{ $tag['address'] }}</option>
-				@endforeach
+				<option value="東京都">東京都</option>
+				<option value="大阪府">大阪府</option>
+				<option value="福岡県">福岡県</option>
 			</select>
 		</div>
 		<div class="search-form__select">
 			<select class="search-form__select-box" name="category">
-				<option value="all">All genre</option>
-				@foreach ($shopTags as $tag)
-				<option value="{{ $tag['category'] }}">{{ $tag['category'] }}</option>
-				@endforeach
+				<option value="">All genre</option>
+				<option value="寿司">寿司</option>
+				<option value="焼肉">焼肉</option>
+				<option value="居酒屋">居酒屋</option>
+				<option value="イタリアン">イタリアン</option>
+				<option value="ラーメン">ラーメン</option>
 			</select>
 		</div>
 		<div class="search-form__input">
@@ -41,24 +93,24 @@
 		<div class="shop-card__content">
 			<h2 class="shop-card__name">{{ $shop['name'] }}</h2>
 			<div class="shop-card__tag">
-				<p class="shop-card__tag--address">#{{ $shop['address']}}</p>
-				<p class="shop-card__tag--category">#{{ $shop['category']}}</p>
+				<p class="shop-card__tag--address">#{{ $shop['address'] }}</p>
+				<p class="shop-card__tag--category">#{{ $shop['category'] }}</p>
 			</div>
 			<div class="shop-card__nav">
-				<form action="/detail" method="get">
+				<form action="/detail/{{ $shop['id'] }}" method="get">
 					@csrf
-					<input type="hidden" name="id" value="{{ $shop['id'] }}">
 					<button type="submit" class="nav__btn btn">詳しくみる</button>
 				</form>
 			</div>
-			<div class="shop-card__like"><i class="fa-solid fa-heart"></i></div>
+			<div class="shop-card__like">
+				<form action="/like/{{ $shop['id'] }}" method="post">
+					@csrf
+					<button type="submit" class="shop-card__like-btn"><i class="fa-solid fa-heart" style="color: {{ $likedShops[$shop->id] ? 'red' : 'grey' }}"></i></button>
+				</form>
+			</div>
 		</div>
 	</div>
 	@endforeach
 </div>
-<form class="form" action="/logout" method="post">
-	@csrf
-	<button class="header-nav__button">ログアウト</button>
-</form>
 @endsection
 

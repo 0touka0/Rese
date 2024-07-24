@@ -14,6 +14,17 @@ class Shop extends Model
         'image',
     ];
 
+    public function reservations()
+    {
+        return $this->hasMany('App\Models\Reservation');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany('App\Models\Like');
+    }
+
+    // 検索機能
     public function scopeAddressSearch($query, $address)
     {
         if (!empty($address)) {

@@ -20,6 +20,7 @@ class CreateReservationsTable extends Migration
             $table->dateTime('datetime');
             $table->integer('number');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

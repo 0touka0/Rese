@@ -1,13 +1,13 @@
 body {
 	background: rgb(235, 235, 235);
 	font-family: Arial, sans-serif;
+	width: 1440px;
+	margin: 0 auto;
 }
 
 .header {
-	width: 100%;
 	padding: 40px 100px;
 	text-align: center;
-	/* border: solid 1px red; */
 }
 
 .header__logo {

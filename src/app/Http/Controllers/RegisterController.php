@@ -12,12 +12,6 @@ class RegisterController extends Controller
 {
     public function store(Request $request, CreatesNewUsers $creator)
     {
-        if (config('fortify.lowercase_usernames')) {
-            $request->merge([
-                Fortify::username() => Str::lower($request->{Fortify::username()}),
-            ]);
-        }
-
         $user = $creator->create($request->all());
         event(new Registered($user));
 

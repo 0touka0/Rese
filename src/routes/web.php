@@ -3,6 +3,7 @@
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Reservation;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,12 @@ Route::get('/thanks', function () {
 Route::middleware('auth')->group(function () {
 	Route::get('/', [ShopController::class, 'index']);
 	Route::get('/search', [ShopController::class, 'search']);
-	Route::get('/detail', [ShopController::class, 'detail']);
-	// Route::post('/reservation', [ShopController::class, 'reservation']);
+	Route::get('/detail/{shop_id}', [ShopController::class, 'detail']);
+	Route::post('/reservation', [ShopController::class, 'reservation']);
+	Route::post('/like/{shop_id}', [ShopController::class, 'like']);
+	Route::get('/mypage/{user_id}', [ShopController::class, 'mypage']);
+	Route::get('/softdelete/{reservation_id}', function ($reservation_id) {
+		Reservation::find($reservation_id)->delete();
+		return redirect()->back();
+	});
 });
