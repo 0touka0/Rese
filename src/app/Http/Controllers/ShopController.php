@@ -71,17 +71,33 @@ class ShopController extends Controller
     public function reservation(Request $request)
     {
         $reservation = $request->all();
-        $datetime = $request['date'] . " " . $request['time'];
+        $datetime = $request->date . " " . $request->time;
         // 登録不要カラムを取り除く
         $reservationData = Arr::except($reservation, ['date', 'time']);
         // 統合したカラムを追加
         $reservationData['datetime'] = $datetime;
 
-        Reservation::create($reservationData);
-
-        return view('done');
+        if($this->canReserve($reservationData)) {
+            Reservation::create($reservationData);
+            return view('done');
+        }
+        return redirect()->back()->with('message', '既に同じ時間帯に予約が入っています。');
     }
 
+    // 予約の重複確認
+    public function canReserve($reservationData)
+    {
+        $user_id = $reservationData['user_id'];
+        $reservationTime = $reservationData['datetime'];
+
+        $conflictCount = Reservation::where('user_id', $user_id)
+        ->where('datetime', $reservationTime)
+        ->count();
+
+        return $conflictCount === 0;
+    }
+
+    // お気に入り登録
     public function like($shop_id)
     {
         $user_id = Auth::id();
@@ -109,12 +125,13 @@ class ShopController extends Controller
         }
     }
 
+    // マイページ表示
     public function mypage($user_id)
     {
         $user = User::find($user_id);
 
         // 予約情報の取得
-        $reservations = $user->reservations()->whereNull('deleted_at')->get();
+        $reservations = $user->reservations()->whereNull('deleted_at')->orderBy('datetime', 'asc')->get();
 
         // 予約時間の分割
         foreach($reservations as $reservation) {
@@ -123,8 +140,7 @@ class ShopController extends Controller
         }
 
         // お気に入りの取得
-        $likes = $user->likes()->where('like', 1)->get();
-        // dd($likes);
+        $likes = $user->likes()->where('like', 1)->orderBy('updated_at', 'asc')->get();
 
         return view('mypage', compact('user', 'reservations', 'likes'));
     }

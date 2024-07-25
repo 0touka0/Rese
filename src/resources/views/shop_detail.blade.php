@@ -120,6 +120,11 @@ window.onclick = function(event) {
 					<p class="confirm-text__item--p">Number</p><span class="confirm-text__item--span" id="selected-number"></span>
 				</div>
 			</div>
+			<div class="error-message">
+				@if (session('message'))
+				{{ session('message') }}
+				@endif
+			</div>
 		</div>
 		<div class="reservation-form__btn">
 			<input type="hidden" name="user_id" value="{{ $user['id'] }}">

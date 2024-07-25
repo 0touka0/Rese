@@ -15,6 +15,7 @@
 
 /* 予約状況 */
 .reservation-confirm {
+	width: 580px;
 	padding: 0 20px;
 }
 
@@ -72,11 +73,15 @@
 }
 
 /* お気に入り店舗 */
+.likes-confirm {
+	width: 760px;
+}
+
 .likes-confirm__lists {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 70px;
-	margin-bottom: 10px;
+	padding-bottom: 20px;
 }
 
 .shop-card {

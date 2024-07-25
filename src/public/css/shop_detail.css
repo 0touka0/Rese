@@ -61,6 +61,7 @@ img {
 }
 
 .reservation-form__inner {
+	height: 630px;
 	padding: 30px;
 }
 
@@ -98,14 +99,24 @@ img {
 }
 
 .reservation-form__btn {
+	margin-top: 10px;
+	padding: 6px;
 	text-align: center;
+	line-height: 3rem;
 	background: rgb(43, 63, 238);
-	margin-top: 225px;
-	line-height: 4rem;
 }
 
 .reservation-form__btn--submit {
 	color: #fff;
+}
+
+/* 	エラーメッセージ */
+.error-message {
+	margin-top: 210px;
+	text-align: center;
+	color:	rgb(230, 33, 33);
+	font-size: 18px;
+	font-weight: bold;
 }
 
 /* モーダルウィンドウ */
