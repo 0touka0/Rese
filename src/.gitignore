@@ -13,3 +13,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+src/app/Http/Requests/
+src/app/Rules/
