@@ -49,7 +49,7 @@
 # 環境構築
 Dockerビルド
 
-1. `git clone git@github.com:0touka0/Rese.git`<br>
+1. `git clone git@github.com:0touka0/Rese.git`
 2. `docker-compose up -d --build`
 
 ※MySQLは、OSによって起動しない場合があるのでそれぞれのPCに合わせて、docker-compose.ymlファイルを編集してください。
@@ -58,7 +58,8 @@ Laravel環境構築
 
 1. `docker-compose exec php bash`
 2. `composer install`
-3. `.env.example`ファイルから`.env`を作成し、環境変数を変更
+3. `.env.example`ファイルから`.env`を作成し、環境変数を変更<br>
+(セッションの値を保存する際にデータベースを利用するようにしているので上記に追加してSESSION_DRIVER=databaseに変更してください)
 4. `php artisan key:generate`
 5. `php artisan migrate`
 6. `php artisan db:seed`
