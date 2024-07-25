@@ -3,7 +3,7 @@
 ![Rese-home](https://github.com/user-attachments/assets/b29d80d7-70b8-436f-ae40-e99aa5f07966)
 
 ## 作成した目的
-外部の飲食店予約サービスは手数料を取られるので自社で予約サービスを持ちたい。
+外部の飲食店予約サービスは手数料を取られるので自社で予約サービスを持ちたい為
 
 ## アプリケーションURL
 - http://localhost/
