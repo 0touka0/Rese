@@ -24,6 +24,11 @@ class Shop extends Model
         return $this->hasMany('App\Models\Like');
     }
 
+    public function ratings()
+    {
+        return $this->hasMany('App\Models\Rating');
+    }
+
     // 検索機能
     public function scopeAddressSearch($query, $address)
     {

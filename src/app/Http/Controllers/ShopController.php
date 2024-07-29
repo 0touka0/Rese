@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
+use App\Models\Rating;
 use App\Models\Reservation;
 use App\Models\Shop;
 use App\Models\User;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Http\Requests\ShopRequest;
 
 class ShopController extends Controller
 {
@@ -68,33 +70,19 @@ class ShopController extends Controller
     }
 
     // 予約機能
-    public function reservation(Request $request)
+    public function reservation(ShopRequest $request)
     {
         $reservation = $request->all();
         $datetime = $request->date . " " . $request->time;
+
         // 登録不要カラムを取り除く
         $reservationData = Arr::except($reservation, ['date', 'time']);
         // 統合したカラムを追加
         $reservationData['datetime'] = $datetime;
 
-        if($this->canReserve($reservationData)) {
-            Reservation::create($reservationData);
-            return view('done');
-        }
-        return redirect()->back()->with('message', '既に同じ時間帯に予約が入っています。');
-    }
+        Reservation::create($reservationData);
 
-    // 予約の重複確認
-    public function canReserve($reservationData)
-    {
-        $user_id = $reservationData['user_id'];
-        $reservationTime = $reservationData['datetime'];
-
-        $conflictCount = Reservation::where('user_id', $user_id)
-        ->where('datetime', $reservationTime)
-        ->count();
-
-        return $conflictCount === 0;
+        return view('done');
     }
 
     // お気に入り登録
@@ -143,5 +131,32 @@ class ShopController extends Controller
         $likes = $user->likes()->where('like', 1)->orderBy('updated_at', 'asc')->get();
 
         return view('mypage', compact('user', 'reservations', 'likes'));
+    }
+
+    // 予約更新
+    public function update(Request $request, $reservation_id)
+    {
+        $reservation = $request->all();
+        dd($reservation);
+        $datetime = $request->date . " " . $request->time;
+
+        // 登録不要カラムを取り除く
+        $reservationData = Arr::except($reservation, ['date', 'time']);
+        // 統合したカラムを追加
+        $reservationData['datetime'] = $datetime;
+
+        Reservation::find($reservation_id)->update($reservationData);
+
+        return redirect()->back()->with('message', '予約を更新しました');
+    }
+
+    public function rating(Request $request)
+    {
+        $rating = $request->all();
+        // dd($rating);
+
+        Rating::create($rating);
+
+        return redirect()->back()->with('message', '店舗評価を送信しました');
     }
 }

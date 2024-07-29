@@ -121,9 +121,9 @@ window.onclick = function(event) {
 				</div>
 			</div>
 			<div class="error-message">
-				@if (session('message'))
-				{{ session('message') }}
-				@endif
+				@error('time')
+					{{ $message }}
+				@enderror
 			</div>
 		</div>
 		<div class="reservation-form__btn">

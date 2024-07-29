@@ -32,4 +32,6 @@ Route::middleware('auth')->group(function () {
 		Reservation::find($reservation_id)->delete();
 		return redirect()->back();
 	});
+	Route::put('/reservation/{reservation_id}',[ShopController::class, 'update']);
+	Route::post('/rating', [ShopController::class, 'rating']);
 });

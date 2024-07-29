@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\UniqueReservation;
 
-class ReservationRequest extends FormRequest
+class ShopRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,6 +29,7 @@ class ReservationRequest extends FormRequest
         return [
             'date' => ['required'],
             'time' => ['required', new UniqueReservation($datetime)],
+            'number' =>['required'],
         ];
     }
 }

@@ -26,10 +26,9 @@ class UniqueReservation implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public  function passes($attribute, $value)
     {
         $user_id = Auth::id();
-
         $conflictCount = Reservation::where('user_id', $user_id)
             ->where('datetime', $this->datetime)
             ->count();

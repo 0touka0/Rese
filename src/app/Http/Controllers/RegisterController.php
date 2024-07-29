@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
-use Laravel\Fortify\Fortify;
 
 class RegisterController extends Controller
 {
