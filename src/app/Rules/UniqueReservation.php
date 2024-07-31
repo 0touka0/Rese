@@ -4,19 +4,21 @@ namespace App\Rules;
 
 use App\Models\Reservation;
 use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 
 class UniqueReservation implements Rule
 {
     protected $datetime;
+    protected $shopId;
+    protected $reservationId;
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct($datetime)
+    public function __construct($datetime, $reservationId = null)
     {
         $this->datetime = $datetime;
+        $this->reservationId = $reservationId;
     }
 
     /**
@@ -28,12 +30,13 @@ class UniqueReservation implements Rule
      */
     public  function passes($attribute, $value)
     {
-        $user_id = Auth::id();
-        $conflictCount = Reservation::where('user_id', $user_id)
-            ->where('datetime', $this->datetime)
-            ->count();
+        $query = Reservation::where('datetime', $this->datetime);
 
-            return $conflictCount === 0;
+        if ($this->reservationId) {
+            $query->where('id', '!=', $this->reservationId);
+        }
+
+        return !$query->exists();
     }
 
     /**

@@ -127,7 +127,7 @@ window.onclick = function(event) {
 							</select>
 						</div>
 						<div class="reservation-detail__btn">
-							<input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
+							{{-- <input type="hidden" name="reservation_id" value="{{ $reservation->id }}"> --}}
 							<button type="submit" class="reservation-detail__btn--submit" style="display: none;">変更を保存</button>
 						</div>
 					</form>

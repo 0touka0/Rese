@@ -117,7 +117,6 @@ class ShopController extends Controller
     public function mypage($user_id)
     {
         $user = User::find($user_id);
-
         // 予約情報の取得
         $reservations = $user->reservations()->whereNull('deleted_at')->orderBy('datetime', 'asc')->get();
 
@@ -134,12 +133,10 @@ class ShopController extends Controller
     }
 
     // 予約更新
-    public function update(Request $request, $reservation_id)
+    public function update(ShopRequest $request, $reservation_id)
     {
         $reservation = $request->all();
-        dd($reservation);
         $datetime = $request->date . " " . $request->time;
-
         // 登録不要カラムを取り除く
         $reservationData = Arr::except($reservation, ['date', 'time']);
         // 統合したカラムを追加
@@ -153,8 +150,6 @@ class ShopController extends Controller
     public function rating(Request $request)
     {
         $rating = $request->all();
-        // dd($rating);
-
         Rating::create($rating);
 
         return redirect()->back()->with('message', '店舗評価を送信しました');

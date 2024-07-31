@@ -24,12 +24,29 @@ class ShopRequest extends FormRequest
      */
     public function rules()
     {
+        $rules = [];
         $datetime = $this->date . " " . $this->time;
+        $reservationId = $this->route('reservation_id'); // ルートパラメータから予約IDを取得
 
-        return [
-            'date' => ['required'],
-            'time' => ['required', new UniqueReservation($datetime)],
-            'number' =>['required'],
-        ];
+        switch ($this->route()->getName()) {
+            case 'reservation': // 店舗予約バリデーション
+                $rules = [
+                    'date' => ['required', 'date'],
+                    'time' => ['required', 'date_format:H:i', new UniqueReservation($datetime)],
+                    'number' => ['required','integer', 'min:1'],
+                ];
+                break;
+
+            case 'reservation.update': // 予約更新バリデーション
+                $rules = [
+                    'date' => ['required', 'date'],
+                    'time' => ['required', 'date_format:H:i', new UniqueReservation($datetime, $reservationId)],
+                    'number' => ['required', 'integer', 'min:1'],
+                ];
+                break;
+
+        }
+
+        return $rules;
     }
 }
