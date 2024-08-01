@@ -8,16 +8,17 @@ use Illuminate\Contracts\Validation\Rule;
 class UniqueReservation implements Rule
 {
     protected $datetime;
-    protected $shopId;
+    protected $userId;
     protected $reservationId;
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct($datetime, $reservationId = null)
+    public function __construct($datetime, $userId, $reservationId = null)
     {
         $this->datetime = $datetime;
+        $this->userId = $userId;
         $this->reservationId = $reservationId;
     }
 
@@ -30,7 +31,7 @@ class UniqueReservation implements Rule
      */
     public  function passes($attribute, $value)
     {
-        $query = Reservation::where('datetime', $this->datetime);
+        $query = Reservation::where('datetime', $this->datetime)->where('user_id', $this->userId);
 
         if ($this->reservationId) {
             $query->where('id', '!=', $this->reservationId);

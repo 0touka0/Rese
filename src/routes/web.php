@@ -22,16 +22,16 @@ Route::get('/thanks', function () {
 })->name('thanks');
 
 Route::middleware('auth')->group(function () {
-	Route::get('/', [ShopController::class, 'index']);
-	Route::get('/search', [ShopController::class, 'search']);
-	Route::get('/detail/{shop_id}', [ShopController::class, 'detail']);
+	Route::get('/', [ShopController::class, 'index'])->name('index');
+	Route::get('/search', [ShopController::class, 'search'])->name('search');
+	Route::get('/detail/{shop_id}', [ShopController::class, 'detail'])->name('detail');
 	Route::post('/reservation', [ShopController::class, 'reservation'])->name('reservation');
-	Route::post('/like/{shop_id}', [ShopController::class, 'like']);
-	Route::get('/mypage/{user_id}', [ShopController::class, 'mypage']);
+	Route::post('/like/{shop_id}', [ShopController::class, 'like'])->name('like');
+	Route::get('/mypage/{user_id}', [ShopController::class, 'mypage'])->name('mypage');
 	Route::get('/softdelete/{reservation_id}', function ($reservation_id) {
 		Reservation::find($reservation_id)->delete();
 		return redirect()->back();
 	});
 	Route::put('/reservation/{reservation_id}',[ShopController::class, 'update'])->name('reservation.update');
-	Route::post('/rating', [ShopController::class, 'rating']);
+	Route::post('/rating', [ShopController::class, 'rating'])->name('rating');
 });

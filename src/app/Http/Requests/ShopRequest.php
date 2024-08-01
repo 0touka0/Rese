@@ -26,13 +26,14 @@ class ShopRequest extends FormRequest
     {
         $rules = [];
         $datetime = $this->date . " " . $this->time;
+        $userId = $this->user_id;
         $reservationId = $this->route('reservation_id'); // ルートパラメータから予約IDを取得
 
         switch ($this->route()->getName()) {
             case 'reservation': // 店舗予約バリデーション
                 $rules = [
                     'date' => ['required', 'date'],
-                    'time' => ['required', 'date_format:H:i', new UniqueReservation($datetime)],
+                    'time' => ['required', 'date_format:H:i', new UniqueReservation($datetime, $userId)],
                     'number' => ['required','integer', 'min:1'],
                 ];
                 break;
@@ -40,7 +41,7 @@ class ShopRequest extends FormRequest
             case 'reservation.update': // 予約更新バリデーション
                 $rules = [
                     'date' => ['required', 'date'],
-                    'time' => ['required', 'date_format:H:i', new UniqueReservation($datetime, $reservationId)],
+                    'time' => ['required', 'date_format:H:i', new UniqueReservation($datetime, $userId, $reservationId)],
                     'number' => ['required', 'integer', 'min:1'],
                 ];
                 break;
