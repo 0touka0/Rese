@@ -30,15 +30,8 @@ class ShopRequest extends FormRequest
         $reservationId = $this->route('reservation_id'); // ルートパラメータから予約IDを取得
 
         switch ($this->route()->getName()) {
-            case 'reservation': // 店舗予約バリデーション
-                $rules = [
-                    'date' => ['required', 'date'],
-                    'time' => ['required', 'date_format:H:i', new UniqueReservation($datetime, $userId)],
-                    'number' => ['required','integer', 'min:1'],
-                ];
-                break;
-
-            case 'reservation.update': // 予約更新バリデーション
+            case 'reservation':        // 店舗予約ルート
+            case 'reservation.update': // 予約更新ルート
                 $rules = [
                     'date' => ['required', 'date'],
                     'time' => ['required', 'date_format:H:i', new UniqueReservation($datetime, $userId, $reservationId)],

@@ -65,6 +65,6 @@ Laravel環境構築
 6. `php artisan db:seed`
 
 ## 機能確認用ユーザー
-- ユーザー名：テスト
-- メールアドレス：test@example.com
-- パスワード：testexample
+- ユーザー名：管理者
+- メールアドレス：admin@example.com
+- パスワード：adminexample

@@ -15,33 +15,37 @@
 			<div class="modal-nav__list">
 				<a class="modal-nav__list--link" href="/">Home</a>
 			</div>
-			<div class="modal-nav__list">
-				<form class="modal-nav__list--form" action="/logout" method="post">
-					@csrf
-					<button type="submit" class="modal-nav__btn--submit">Logout</button>
-				</form>
-			</div>
-			<div class="modal-nav__list">
-				<form class="modal-nav__list--form" action="/mypage/{{ auth()->user()->id }}" method="get">
-					@csrf
-					<button type="submit" class="modal-nav__btn--submit">Mypage</button>
-				</form>
-			</div>
+			@if (auth()->check())
+				<div class="modal-nav__list">
+					<form class="modal-nav__list--form" action="/logout" method="post">
+						@csrf
+						<button type="submit" class="modal-nav__btn--submit">Logout</button>
+					</form>
+				</div>
+				<div class="modal-nav__list">
+					<form class="modal-nav__list--form" action="/mypage/{{ auth()->user()->id }}" method="get">
+						@csrf
+						<button type="submit" class="modal-nav__btn--submit">Mypage</button>
+					</form>
+				</div>
+			@else
+				<div class="modal-nav__list">
+					<a class="modal-nav__list--link" href="/register">Registration</a>
+				</div>
+				<div class="modal-nav__list">
+					<a class="modal-nav__list--link" href="/login">Login</a>
+				</div>
+			@endif
 		</nav>
 	</div>
 </div>
 <script>
-// ボタン要素を取得
 var btn = document.getElementById("openModal");
-// モーダル要素を取得
 var modal = document.getElementById("myModal");
-// 閉じるボタン（×）要素を取得
 var span = document.getElementsByClassName("close")[0];
-// ボタンがクリックされたときにモーダルを表示
 btn.onclick = function() {
   modal.style.display = "block";
 }
-// 閉じるボタン（×）がクリックされたときにモーダルを非表示
 span.onclick = function() {
   modal.style.display = "none";
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Shop extends Model
 {
     protected $fillable = [
+        'owner_id',
         'name',
         'address',
         'category',
@@ -27,6 +28,11 @@ class Shop extends Model
     public function ratings()
     {
         return $this->hasMany('App\Models\Rating');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'owner_id', 'id');
     }
 
     // 検索機能

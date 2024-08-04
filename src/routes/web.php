@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Reservation;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +18,17 @@ use App\Models\Reservation;
 |
 */
 
+Route::get('/', [ShopController::class, 'index'])->name('index');
+Route::get('/search', [ShopController::class, 'search'])->name('search');
 Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/thanks', function () {
+	if (Gate::allows('isAdmin')) {
+		return redirect()->back()->with('message', '店舗代表者を作成しました。');
+	}
 	return view('thanks');
 })->name('thanks');
 
 Route::middleware('auth')->group(function () {
-	Route::get('/', [ShopController::class, 'index'])->name('index');
-	Route::get('/search', [ShopController::class, 'search'])->name('search');
 	Route::get('/detail/{shop_id}', [ShopController::class, 'detail'])->name('detail');
 	Route::post('/reservation', [ShopController::class, 'reservation'])->name('reservation');
 	Route::post('/like/{shop_id}', [ShopController::class, 'like'])->name('like');
@@ -34,4 +39,9 @@ Route::middleware('auth')->group(function () {
 	});
 	Route::put('/reservation/{reservation_id}',[ShopController::class, 'update'])->name('reservation.update');
 	Route::post('/rating', [ShopController::class, 'rating'])->name('rating');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+	Route::get('/admin',[AdminController::class, 'admin'])->name('admin');
+	Route::get('/owners', [AdminController::class, 'owners'])->name('owners.confirm');
 });

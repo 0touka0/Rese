@@ -1,0 +1,83 @@
+body {
+	background: rgb(235, 235, 235);
+	font-family: Arial, sans-serif;
+	width: 1440px;
+	margin: 0 auto;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 7rem;
+  width: 70%;
+  margin: 0 auto;
+  color: #000;
+  padding: 1rem;
+}
+
+.header__title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.header__nav-list {
+  display: flex;
+}
+
+.header__nav-item {
+	list-style: none;
+}
+
+.header__nav-item:first-of-type {
+	margin-right: 30px;
+}
+
+.header__nav-item--link {
+  background-color: #fff;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+	text-decoration: none;
+}
+
+main {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.owners-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.owners-table__tr {
+	line-height: 2rem;
+}
+
+.owners-table__th:first-of-type,
+.owners-table__td:first-of-type {
+	width: 10%;
+}
+
+.owners-table__th:nth-child(n+2),
+.owners-table__td:nth-child(n+2) {
+	width: 30%;
+}
+.owners-table__th,
+.owners-table__td {
+	text-align: left;
+	padding-left: 20px;
+}
+
+.owners-table__td:first-of-type {
+	text-align: right;
+	padding-right: 15px;
+}
