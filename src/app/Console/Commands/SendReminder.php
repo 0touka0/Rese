@@ -42,10 +42,13 @@ class SendReminder extends Command
      */
     public function handle()
     {
-        $now = Carbon::now();
-        $oneHourLater = $now->copy()->addHour()->format('Y-m-d H:i:s');
-        // 1時間後に予約があるレコードを取得
-        $reservations = Reservation::where('datetime', $oneHourLater)->get();
+        $now = Carbon::now()->startOfMinute();
+        $oneHourLater = $now->copy()->addHour();
+        // 約1時間後に予約があるレコードを取得
+        $reservations = Reservation::whereBetween('datetime', [
+            $oneHourLater->format('Y-m-d H:i:00'),
+            $oneHourLater->format('Y-m-d H:i:59')
+        ])->get();
 
         foreach ($reservations as $reservation) {
             Mail::raw("Reminder: Your reservation is at {$reservation->datetime}", function ($message) use ($reservation) {

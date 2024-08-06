@@ -18,17 +18,17 @@ class ShopController extends Controller
     // 店舗一覧ページ表示
     public function index()
     {
-        // 表示する店舗情報取得
-        $shops = Shop::all();
-        $shopTags = Shop::select('address', 'category')->get();
-
-        $user_id = Auth::id();
-        //インスタンスがないので配列を作成する
-        $likedShops = [];
+        $user_id    = Auth::id();
+        $shops      = Shop::all();
+        $shopTags   = Shop::select('address', 'category')->get();
+        $likedShops = []; //お気に入り登録済みの店舗の配列
 
         // お気に入り登録されているか確認
         foreach($shops as $shop) {
-            $isLiked = Like::where('user_id', $user_id)->where('shop_id', $shop->id)->where('like', 1)->exists();
+            $isLiked = Like::where('user_id', $user_id)
+                           ->where('shop_id', $shop->id)
+                           ->where('like'   , 1)
+                           ->exists();
             $likedShops[$shop->id] = $isLiked;
         }
 
@@ -39,9 +39,9 @@ class ShopController extends Controller
     public function search(Request $request)
     {
         $shops = Shop::AddressSearch($request->address)
-                    ->CategorySearch($request->category)
-                    ->KeywordSearch($request->keyword)
-                    ->get();
+                     ->CategorySearch($request->category)
+                     ->KeywordSearch($request->keyword)
+                     ->get();
         $shopTags = Shop::select('address', 'category')->get();
 
         $user_id = Auth::id();
@@ -50,7 +50,10 @@ class ShopController extends Controller
 
         // お気に入り登録されているか確認
         foreach ($shops as $shop) {
-            $isLiked = Like::where('user_id', $user_id)->where('shop_id', $shop->id)->where('like', 1)->exists();
+            $isLiked = Like::where('user_id', $user_id)
+                           ->where('shop_id', $shop->id)
+                           ->where('like'   , 1)
+                           ->exists();
             $likedShops[$shop->id] = $isLiked;
         }
 
@@ -73,35 +76,35 @@ class ShopController extends Controller
     public function reservation(ShopRequest $request)
     {
         $reservation = $request->all();
-        $datetime = $request->date . " " . $request->time;
+        $datetime    = $request->date . " " . $request->time;
 
-        // 登録不要カラムを取り除く
-        $reservationData = Arr::except($reservation, ['date', 'time']);
-        // 統合したカラムを追加
-        $reservationData['datetime'] = $datetime;
+        $reservationData = Arr::except($reservation, ['date', 'time']); // 登録不要カラムを取り除く
+        $reservationData['datetime'] = $datetime;                       // 統合したカラムを追加
 
         Reservation::create($reservationData);
 
         return view('done');
     }
 
-    // お気に入り登録
+    // お気に入り登録機能
     public function like($shop_id)
     {
         $user_id = Auth::id();
 
         // 既にお気に入り登録されているか確認
-        $existingLike = Like::where('shop_id', $shop_id)->where('user_id', $user_id)->first();
+        $existingLike = Like::where('shop_id', $shop_id)
+                            ->where('user_id', $user_id)
+                            ->first();
 
         if ($existingLike) {
             if ($existingLike->like == 1) {
                 $existingLike->like = 0;
                 $existingLike->save();
-                return redirect()->back();// 状態を返すために後ほど変更
+                return redirect()->back();
             } else {
                 $existingLike->like = 1;
                 $existingLike->save();
-                return redirect()->back();// 状態を返すために後ほど変更
+                return redirect()->back();
             }
         } else {
             $like = new Like;
@@ -109,7 +112,7 @@ class ShopController extends Controller
             $like->user_id = $user_id;
             $like->like = 1;
             $like->save();
-            return redirect()->back();// 状態を返すために後ほど変更
+            return redirect()->back();
         }
     }
 
@@ -118,7 +121,10 @@ class ShopController extends Controller
     {
         $user = User::find($user_id);
         // 予約情報の取得
-        $reservations = $user->reservations()->whereNull('deleted_at')->orderBy('datetime', 'asc')->get();
+        $reservations = $user->reservations()
+                             ->whereNull('deleted_at')
+                             ->orderBy('datetime', 'asc') //datetimeを昇順にソート
+                             ->get();
 
         // 予約時間の分割
         foreach($reservations as $reservation) {
@@ -136,11 +142,9 @@ class ShopController extends Controller
     public function update(ShopRequest $request, $reservation_id)
     {
         $reservation = $request->all();
-        $datetime = $request->date . " " . $request->time;
-        // 登録不要カラムを取り除く
-        $reservationData = Arr::except($reservation, ['date', 'time']);
-        // 統合したカラムを追加
-        $reservationData['datetime'] = $datetime;
+        $datetime = $request->date . " " . $request->time;              // 日付と時間を結合
+        $reservationData = Arr::except($reservation, ['date', 'time']); // 登録不要カラムを取り除く
+        $reservationData['datetime'] = $datetime;                       // 統合したカラムを追加
 
         Reservation::find($reservation_id)->update($reservationData);
 

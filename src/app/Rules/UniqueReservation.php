@@ -31,7 +31,8 @@ class UniqueReservation implements Rule
      */
     public  function passes($attribute, $value)
     {
-        $query = Reservation::where('datetime', $this->datetime)->where('user_id', $this->userId);
+        $query = Reservation::where('datetime', $this->datetime)
+                            ->where('user_id', $this->userId);
 
         if ($this->reservationId) {
             $query->where('id', '!=', $this->reservationId);

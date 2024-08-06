@@ -177,7 +177,7 @@ window.onclick = function(event) {
 					}, timeRemaining);
 				}
 			});
-			// 評価フォーム表示(オーバーレイ)
+			// 評価フォーム表示機能
 			function showOverlay(reservationCard) {
 				var overlay = $('<div class="overlay"></div>');
 				var overlayContent = $('<div class="overlay-content"></div>');
