@@ -57,6 +57,21 @@ main {
 .mail-form__item {
   width: 95%;
   margin: 20px auto 44px;
+  position: relative;
+}
+
+.mail-form__item:first-of-type:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 35px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid #111111;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .mail-form__label {
@@ -68,9 +83,9 @@ main {
   font-weight: bold;
 }
 
+
 .mail-form__text {
   width: 80%;
-  border: solid 1px #000;
   line-height: 18px;
   padding: 5px 8px;
   border: 1px solid #ccc;
