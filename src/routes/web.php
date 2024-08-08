@@ -44,4 +44,5 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
 	Route::get('/admin',[AdminController::class, 'admin'])->name('admin');
 	Route::get('/owners', [AdminController::class, 'owners'])->name('owners.confirm');
+	Route::get('/mail', [AdminController::class, 'mail'])->name('mail.send');
 });

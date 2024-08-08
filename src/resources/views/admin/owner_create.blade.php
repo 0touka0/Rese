@@ -12,11 +12,7 @@
 	<header>
 		<h3 class="header__title">店舗代表者作成</h3>
 		<nav class="header__nav">
-			<ul class="header__nav-list">
-				<li class="header__nav-item">
-					<a class="header__nav-item--link" href="/login">ログイン</a>
-				</li>
-			</ul>
+			<a class="header__nav-link" href="/owners">代表者一覧</a>
 		</nav>
 	</header>
 	<main>

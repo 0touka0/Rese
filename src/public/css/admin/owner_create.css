@@ -21,20 +21,14 @@ header {
   font-size: 1.5rem;
 }
 
-.header__nav-list {
-  display: flex;
-}
-
-.header__nav-item {
-	list-style: none;
-}
-
-.header__nav-item--link {
+.header__nav-link {
+  display: inline-block;
+  width: 120px;
+  text-align: center;
   background-color: #fff;
   border: 2px solid #4CAF50;
   color: #4CAF50;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  padding: 5px 10px;
   cursor: pointer;
   border-radius: 5px;
 	text-decoration: none;
@@ -81,10 +75,11 @@ main {
 }
 
 .owner-form__btn--submit {
+  width: 120px;
+  text-align: center;
   background-color: #4CAF50;
   color: white;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  padding: 7px 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;

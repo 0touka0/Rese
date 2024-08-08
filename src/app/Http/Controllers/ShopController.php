@@ -128,12 +128,16 @@ class ShopController extends Controller
 
         // 予約時間の分割
         foreach($reservations as $reservation) {
-            $reservation->reservation_date = Carbon::parse($reservation->datetime)->format('Y-m-d');
-            $reservation->reservation_time = Carbon::parse($reservation->datetime)->format('H:i:s');
+            $reservation->reservation_date =
+            Carbon::parse($reservation->datetime)->format('Y-m-d');
+            $reservation->reservation_time =
+            Carbon::parse($reservation->datetime)->format('H:i:s');
         }
 
         // お気に入りの取得
-        $likes = $user->likes()->where('like', 1)->orderBy('updated_at', 'asc')->get();
+        $likes = $user->likes()->where('like', 1)
+                               ->orderBy('updated_at', 'asc')
+                               ->get();
 
         return view('mypage', compact('user', 'reservations', 'likes'));
     }

@@ -17,4 +17,9 @@ class AdminController extends Controller
         $shops = shop::all();
         return view('admin/owners_confirm', compact('shops'));
     }
+
+    public function mail()
+    {
+        return view('admin/mail_send');
+    }
 }

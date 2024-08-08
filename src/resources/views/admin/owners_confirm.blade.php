@@ -14,7 +14,7 @@
 		<nav class="header__nav">
 			<ul class="header__nav-list">
 				<li class="header__nav-item">
-					<a class="header__nav-item--link" href="">メール配信</a>
+					<a class="header__nav-item--link" href="/mail">メール配信</a>
 				</li>
 				<li class="header__nav-item">
 					<a class="header__nav-item--link" href="/admin">新規作成</a>
