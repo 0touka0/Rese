@@ -5,7 +5,7 @@
 @endsection
 
 {{-- モーダルウィンドウ --}}
-@section('script')
+@section('header-script')
 <div id="myModal" class="modal">
 	<div class="modal-content">
 		<div class="close-btn">
@@ -25,21 +25,15 @@
 	</div>
 </div>
 <script>
-// ボタン要素を取得
-var btn = document.getElementById("openModal");
-// モーダル要素を取得
+var btn = document.getElementById("header-openModal");
 var modal = document.getElementById("myModal");
-// 閉じるボタン（×）要素を取得
 var span = document.getElementsByClassName("close")[0];
-// ボタンがクリックされたときにモーダルを表示
 btn.onclick = function() {
   modal.style.display = "block";
 }
-// 閉じるボタン（×）がクリックされたときにモーダルを非表示
 span.onclick = function() {
   modal.style.display = "none";
 }
-// モーダルの外側をクリックされたときにモーダルを非表示
 window.onclick = function(event) {
 	if (event.target == modal) {
 		modal.style.display = "none";

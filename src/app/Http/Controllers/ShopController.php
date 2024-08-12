@@ -18,21 +18,11 @@ class ShopController extends Controller
     // 店舗一覧ページ表示
     public function index()
     {
-        $user_id    = Auth::id();
         $shops      = Shop::all();
-        $shopTags   = Shop::select('address', 'category')->get();
-        $likedShops = []; //お気に入り登録済みの店舗の配列
+        $ratings    = Rating::all();
+        $likedShops = $this->getUserLikedShops($shops);
 
-        // お気に入り登録されているか確認
-        foreach($shops as $shop) {
-            $isLiked = Like::where('user_id', $user_id)
-                           ->where('shop_id', $shop->id)
-                           ->where('like'   , 1)
-                           ->exists();
-            $likedShops[$shop->id] = $isLiked;
-        }
-
-        return view('shop_all', compact('shops', 'shopTags', 'likedShops'));
+        return view('shop_all', compact('shops', 'ratings', 'likedShops'));
     }
 
     // 検索機能
@@ -42,60 +32,37 @@ class ShopController extends Controller
                      ->CategorySearch($request->category)
                      ->KeywordSearch($request->keyword)
                      ->get();
-        $shopTags = Shop::select('address', 'category')->get();
+        $likedShops = $this->getUserLikedShops($shops);
 
-        $user_id = Auth::id();
-        //インスタンスがないので配列を作成する
+        return view('shop_all', compact('shops', 'likedShops'));
+    }
+
+    // ユーザーのお気に入り店舗の情報取得
+    private function getUserLikedShops($shops)
+    {
+        $user_id    = Auth::id();
         $likedShops = [];
 
-        // お気に入り登録されているか確認
         foreach ($shops as $shop) {
             $isLiked = Like::where('user_id', $user_id)
                            ->where('shop_id', $shop->id)
-                           ->where('like'   , 1)
+                           ->where('like', 1)
                            ->exists();
             $likedShops[$shop->id] = $isLiked;
         }
 
-        return view('shop_all', compact('shops', 'shopTags', 'likedShops'));
+        return $likedShops;
     }
 
-    // 予約ページ表示
-    public function detail($shop_id)
-    {
-        $user_id = Auth::id();
-        $user = User::where('id', $user_id)->first();
-
-        // 予約する店舗のデータを取得
-        $shop = Shop::find($shop_id);
-
-        return view('shop_detail', compact('shop', 'user'));
-    }
-
-    // 予約機能
-    public function reservation(ShopRequest $request)
-    {
-        $reservation = $request->all();
-        $datetime    = $request->date . " " . $request->time;
-
-        $reservationData = Arr::except($reservation, ['date', 'time']); // 登録不要カラムを取り除く
-        $reservationData['datetime'] = $datetime;                       // 統合したカラムを追加
-
-        Reservation::create($reservationData);
-
-        return view('done');
-    }
-
-    // お気に入り登録機能
+    // お気に入り登録
     public function like($shop_id)
     {
-        $user_id = Auth::id();
-
-        // 既にお気に入り登録されているか確認
+        $user_id      = Auth::id();
         $existingLike = Like::where('shop_id', $shop_id)
                             ->where('user_id', $user_id)
                             ->first();
 
+        // likeカラムの更新or登録
         if ($existingLike) {
             if ($existingLike->like == 1) {
                 $existingLike->like = 0;
@@ -116,11 +83,71 @@ class ShopController extends Controller
         }
     }
 
+    // 店舗詳細、予約ページ表示
+    public function detail($shop_id)
+    {
+        $user_id = Auth::id();
+        $user    = User::where('id', $user_id)->first();
+        $shop    = Shop::find($shop_id); // 予約する店舗のデータを取得
+
+        return view('shop_detail', compact('shop', 'user'));
+    }
+
+    // 予約機能
+    public function reservation(ShopRequest $request)
+    {
+        $reservation      = $request->all();
+        $combinedDateTime = $request->date . " " . $request->time;
+
+        $reservationData = Arr::except($reservation, ['date', 'time']); // 登録不要カラムを取り除く
+        $reservationData['datetime'] = $combinedDateTime;
+
+        Reservation::create($reservationData);
+
+        return view('done');
+    }
+
+    // 予約更新
+    public function update(ShopRequest $request, $reservation_id)
+    {
+        $reservation      = $request->all();
+        $combinedDateTime = $request->date . " " . $request->time;
+
+        $reservationData = Arr::except($reservation, ['date', 'time']); // 登録不要カラムを取り除く
+        $reservationData['datetime'] = $combinedDateTime;
+
+        Reservation::find($reservation_id)->update($reservationData);
+
+        return redirect()->back()->with('message', '予約を更新しました');
+    }
+
+    // 店舗の評価作成or更新
+    public function rating(Request $request)
+    {
+        $userId     = $request->input('user_id');
+        $shopId    = $request->input('shop_id');
+        $ratingData = $request->only(['score', 'comment']);
+        
+        $existingRating = Rating::where('user_id' , $userId)
+        ->where('shop_id', $shopId)
+        ->first();
+        
+        if ($existingRating) {
+            $existingRating->update($ratingData);
+            $message = '店舗評価を更新しました';
+        } else {
+            Rating::create(array_merge($ratingData, ['user_id' => $userId, 'shop_id' => $shopId]));
+            $message = '店舗評価を送信しました';
+        }
+
+        return redirect()->back()->with('message', $message);
+    }
+
     // マイページ表示
     public function mypage($user_id)
     {
         $user = User::find($user_id);
-        // 予約情報の取得
+
         $reservations = $user->reservations()
                              ->whereNull('deleted_at')
                              ->orderBy('datetime', 'asc') //datetimeを昇順にソート
@@ -134,32 +161,10 @@ class ShopController extends Controller
             Carbon::parse($reservation->datetime)->format('H:i:s');
         }
 
-        // お気に入りの取得
         $likes = $user->likes()->where('like', 1)
                                ->orderBy('updated_at', 'asc')
                                ->get();
 
         return view('mypage', compact('user', 'reservations', 'likes'));
-    }
-
-    // 予約更新
-    public function update(ShopRequest $request, $reservation_id)
-    {
-        $reservation = $request->all();
-        $datetime = $request->date . " " . $request->time;              // 日付と時間を結合
-        $reservationData = Arr::except($reservation, ['date', 'time']); // 登録不要カラムを取り除く
-        $reservationData['datetime'] = $datetime;                       // 統合したカラムを追加
-
-        Reservation::find($reservation_id)->update($reservationData);
-
-        return redirect()->back()->with('message', '予約を更新しました');
-    }
-
-    public function rating(Request $request)
-    {
-        $rating = $request->all();
-        Rating::create($rating);
-
-        return redirect()->back()->with('message', '店舗評価を送信しました');
     }
 }

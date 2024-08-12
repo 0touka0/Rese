@@ -13,8 +13,8 @@
 <body>
 	<header class="header">
 		<div class="header__logo">
-			<button id="openModal"><i class="fa-solid fa-bars-staggered"></i></button>
-			@yield('script')
+			<button id="header-openModal"><i class="fa-solid fa-bars-staggered"></i></button>
+			@yield('header-script')
 			<h1 class="header__title">Rese</h1>
 		</div>
 		@yield('search-form')

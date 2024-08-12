@@ -5,11 +5,11 @@
 @endsection
 
 {{-- モーダルウィンドウ --}}
-@section('script')
-<div id="myModal" class="modal">
+@section('header-script')
+<div id="headerModal" class="modal">
 	<div class="modal-content">
 		<div class="close-btn">
-			<span class="close">&times;</span>
+			<span class="headerModal-close">&times;</span>
 		</div>
 		<nav class="modal-nav">
 			<div class="modal-nav__list">
@@ -40,24 +40,25 @@
 	</div>
 </div>
 <script>
-var btn = document.getElementById("openModal");
-var modal = document.getElementById("myModal");
-var span = document.getElementsByClassName("close")[0];
-btn.onclick = function() {
-  modal.style.display = "block";
+var headerBtn   = document.getElementById("header-openModal");
+var headerModal = document.getElementById("headerModal");
+var headerClose = document.getElementsByClassName("headerModal-close")[0];
+
+headerBtn.onclick = function() {
+  headerModal.style.display = "block";
 }
-span.onclick = function() {
-  modal.style.display = "none";
+headerClose.onclick = function() {
+  headerModal.style.display = "none";
 }
-// モーダルの外側をクリックされたときにモーダルを非表示
 window.onclick = function(event) {
-	if (event.target == modal) {
-		modal.style.display = "none";
+	if (event.target == headerModal) {
+		headerModal.style.display = "none";
 	}
 }
 </script>
 @endsection
 
+{{-- 検索フォーム --}}
 @section('search-form')
 <div class="search-form">
 	<form class="search-form__inner" action="/search" method="get">
@@ -87,6 +88,7 @@ window.onclick = function(event) {
 </div>
 @endsection
 
+{{-- 店舗一覧 --}}
 @section('content')
 <div class="shop-lists">
 	@foreach ($shops as $shop)
@@ -96,6 +98,116 @@ window.onclick = function(event) {
 		</div>
 		<div class="shop-card__content">
 			<h2 class="shop-card__name">{{ $shop['name'] }}</h2>
+			@if ($shop->ratings->isNotEmpty())
+				<div class="rating" data-rating="{{ $shop->ratings->avg('score') }}" data-modal-id="ratingModal{{ $shop->id }}"></div>
+			@else
+				<div class="rating" data-rating="No rating"></div>
+			@endif
+			{{-- 評価モーダル --}}
+			<div id="ratingModal{{ $shop->id }}" class="modal">
+				<div class="modal-content">
+					<div class="rating-header">
+						<h2 class="rating-header__info">レビュー:<span class="rating-header__shop-name">{{ $shop['name'] }}</span></h2>
+						<div class="rating-header__content">
+							<div class="rating-icon" data-rating="{{ $shop->ratings->avg('score') }}"></div>
+							<p class="aveRating">{{ $shop->ratings->avg('score') }}/5</p>
+						</div>
+					</div>
+					<span class="ratingModal-close">&times;</span>
+					<div class="rating-list">
+						@foreach ($shop->ratings as $rating)
+						<div class="rating-card">
+							<div class="rating-card__user-name">
+								<p>{{ $rating->user->name }}</p>
+							</div>
+							<div class="rating-card__rating">
+								<div class="rating-icon" data-rating="{{ $rating->score }}"></div>
+							</div>
+							<span class="rating-card__date">{{ $rating->created_at->format('Y年m月d日') }}にレビュー済み</span>
+							<div class="rating-card__text">
+								<span class="rating-card__comment">{{ $rating->comment }}</span>
+							</div>
+						</div>
+						@endforeach
+					</div>
+				</div>
+			</div>
+			<script>
+				document.addEventListener('DOMContentLoaded', function () {
+					// 星の評価をレンダリングする関数
+					function renderStars(rating, element) {
+						element.innerHTML = '';
+						const fullStars = Math.floor(rating);
+						const hasHalfStar = rating % 1 >= 0.5;
+						for (let i = 1; i <= 5; i++) {
+							if (i <= fullStars) {
+								element.innerHTML += '<i class="fas fa-star"></i>';
+							} else if (i === fullStars + 1 && hasHalfStar) {
+								element.innerHTML += '<i class="fas fa-star-half-alt"></i>';
+							}	else {
+								element.innerHTML += '<i class="far fa-star"></i>';
+							}
+						}
+					}
+
+					// 評価アイコンの表示
+					function initializeRatings() {
+						const ratingElements = document.querySelectorAll('.rating');
+						ratingElements.forEach(function (ratingElement) {
+							const rating = parseFloat(ratingElement.getAttribute('data-rating'));
+							renderStars(rating, ratingElement);
+						});
+
+						const ratingIcons = document.querySelectorAll('.rating-icon');
+						ratingIcons.forEach(function (ratingIcon) {
+							const rating = parseFloat(ratingIcon.getAttribute('data-rating'));
+							renderStars(rating, ratingIcon);
+						});
+					}
+
+					// 評価モーダルの表示
+					function initializeModal() {
+						const ratingModal = document.getElementById('ratingModal');
+						const ratingClose = document.querySelector('.ratingModal-close');
+
+						const ratingElements = document.querySelectorAll('.rating');
+						ratingElements.forEach(function (ratingElement) {
+							ratingElement.addEventListener('click', function () {
+								const modalId = ratingElement.dataset.modalId; // 店舗IDをデータ属性から取得
+								const ratingModal = document.getElementById(modalId); // 対応するモーダルを取得
+								if (ratingModal) {
+									ratingModal.style.display = 'block';
+								}
+							});
+						});
+
+						// モーダルを閉じるイベント
+						const ratingCloseElements = document.querySelectorAll('.ratingModal-close');
+            ratingCloseElements.forEach(function (ratingClose) {
+							ratingClose.addEventListener('click', function() {
+								const modals = document.querySelectorAll('.modal');
+								modals.forEach(function (modal) {
+									modal.style.display = 'none';
+								});
+							});
+            });
+
+						// モーダルの外側をクリックしたときに閉じる
+						window.addEventListener('click', function(event) {
+							const modals = document.querySelectorAll('.modal');
+							modals.forEach(function (modal) {
+								if (event.target == modal) {
+									modal.style.display = 'none';
+								}
+							});
+						});
+					}
+
+					// 初期化関数を実行
+					initializeRatings();
+					initializeModal();
+				});
+			</script>
 			<div class="shop-card__tag">
 				<p class="shop-card__tag--address">#{{ $shop['address'] }}</p>
 				<p class="shop-card__tag--category">#{{ $shop['category'] }}</p>

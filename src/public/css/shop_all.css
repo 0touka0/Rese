@@ -103,7 +103,9 @@
 }
 
 .shop-card__name {
+	display: inline-block;
 	line-height: 36px;
+	width: 152px;
 }
 
 .shop-card__tag--address, .shop-card__tag--category, .shop-card__nav {
@@ -133,32 +135,35 @@
 	color: #e6e6e6;
 }
 
-/* モーダルウィンドウ */
+/* モーダル */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-		margin: 0 auto;
-    overflow: auto;
-		background-color: #fefefe;
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	overflow: auto;
+	background-color: rgb(235, 235, 235);
 }
 
 .modal-content {
 	height: 100%;
 	width: 1440px;
 	margin: 0 auto;
+	background: #fff;
+	position: relative;
 }
 
+/* ヘッダーモーダル */
 .close-btn {
 	padding: 50px 120px;
 	margin-bottom: 100px;
 }
 
-.close {
+.headerModal-close {
 	background: rgb(48, 86, 255);
 	color: #fff;
 	padding: 5px 12px;
@@ -195,4 +200,80 @@
 .modal-nav__btn--submit {
 	color: rgb(48, 86, 255);
 	font-size: 2rem;
+}
+
+/* 評価モーダル */
+.rating-header {
+	border-bottom: 2px solid #ddd;
+	padding: 15px 24px;
+	margin-bottom: 15px;
+}
+
+.rating-header__info {
+	padding-bottom: 8px;
+}
+
+.rating-header__content {
+	display: flex;
+}
+
+.aveRating {
+	padding-left: 10px;
+}
+
+/* 閉じるボタン */
+.ratingModal-close {
+	color: #333;
+	font-size: 30px;
+	font-weight: bold;
+	cursor: pointer;
+	position: absolute; /* モーダルの右上に固定するために絶対位置を設定 */
+	top: 12px;
+	right: 24px;
+}
+
+.ratingModal-close:hover,
+.ratingModal-close:focus {
+	color: #000;
+	text-decoration: none;
+}
+
+.rating-list {
+	padding: 0 15px;
+}
+
+.rating-card {
+	padding: 15px;
+	margin-bottom: 10px;
+}
+
+.rating-card__user-name p {
+	font-weight: bold;
+}
+
+.rating-card__rating {
+	margin: 5px 0;
+}
+
+.rating-card__date {
+	color: #666;
+	font-size: 0.9em;
+}
+
+.rating-card__text {
+	margin-top: 10px;
+}
+
+.rating-card__comment {
+	font-style: italic;
+}
+
+/* 店舗評価アイコン */
+.rating {
+	display: inline-block;
+	font-size: 17px;
+}
+
+.fa-star, .fa-star-half-alt {
+	color: gold;
 }
