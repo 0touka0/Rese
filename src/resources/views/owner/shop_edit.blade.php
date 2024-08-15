@@ -10,6 +10,7 @@
 </head>
 <body>
 	<header>
+		<h3 class="header__title">{{ $shop->name }}</h3>
 		<nav class="header__nav">
 			<ul class="header__nav-list">
 				<li class="header__nav-item">
