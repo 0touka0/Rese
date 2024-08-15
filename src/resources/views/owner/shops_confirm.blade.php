@@ -40,7 +40,7 @@
 					<td class="shops-table__td">{{$shop->address}}</td>
 					<td class="shops-table__td">{{$shop->category}}</td>
 					<td class="shops-table__td">{{$shop->overview}}</td>
-					<td class="shops-table__td"><a class="shops-table__td--link" href="/shopedit">編集</a></td>
+					<td class="shops-table__td"><a class="shops-table__td--link" href="/shopedit{{$shop->id}}">編集</a></td>
 				</tr>
 			@endforeach
 		</table>

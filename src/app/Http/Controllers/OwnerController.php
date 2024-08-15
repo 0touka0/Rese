@@ -27,8 +27,18 @@ class OwnerController extends Controller
         return view('owner/shops_confirm', compact('shops'));
     }
 
-    public function shopEdit()
+    public function shopEdit($shop_id)
     {
-        return view('owner/shop_edit');
+        $shop = Shop::find($shop_id);
+
+        return view('owner/shop_edit', compact('shop'));
+    }
+
+    public function shopPut(Request $request, $shop_id)
+    {
+        $shop = $request->all();
+        Shop::find($shop_id)->update($shop);
+
+        return redirect('/shopsconfirm');
     }
 }

@@ -52,5 +52,6 @@ Route::middleware(['auth', 'owner'])->group(function () {
 	Route::get('/newshop', [OwnerController::class, 'newshop'])->name('newshop');
 	Route::post('/newshop/store', [OwnerController::class, 'store']);
 	Route::get('/shopsconfirm', [OwnerController::class, 'shopsConfirm'])->name('shops.confirm');
-	Route::get('/shopedit', [OwnerController::class, 'shopEdit'])->name('shop.edit');
+	Route::get('/shopedit{shop_id}', [OwnerController::class, 'shopEdit'])->name('shop.edit');
+	Route::put('/shopedit{shop_id}/put', [OwnerController::class, 'shopPut'])->name('shop.put');
 	});
