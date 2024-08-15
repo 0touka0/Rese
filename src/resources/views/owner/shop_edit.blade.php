@@ -19,28 +19,28 @@
 		</nav>
 	</header>
 	<main>
-		<form class="shopCreate-form" action="/shopedit{{$shop->id}}/put" method="post">
+		<form class="shopEdit-form" action="/shopedit{{$shop->id}}/put" method="post">
 			@csrf
 			@method('PUT')
-			<div class="shopCreate-form__inner">
-				<div class="shopCreate-form__item">
-					<label class="shopCreate-form__label" for="shopName">店名</label>
-					<input class="shopCreate-form__text" type="text" name="name" id="shopName" value="{{ $shop->name }}">
+			<div class="shopEdit-form__inner">
+				<div class="shopEdit-form__item">
+					<label class="shopEdit-form__label" for="shopName">店名</label>
+					<input class="shopEdit-form__text" type="text" name="name" id="shopName" value="{{ $shop->name }}">
 				</div>
-				<div class="shopCreate-form__item">
-					<label class="shopCreate-form__label" for="address">地域</label>
-					<input class="shopCreate-form__text" type="text"name="address" id="address" value="{{ $shop->address }}">
+				<div class="shopEdit-form__item">
+					<label class="shopEdit-form__label" for="address">地域</label>
+					<input class="shopEdit-form__text" type="text"name="address" id="address" value="{{ $shop->address }}">
 				</div>
-				<div class="shopCreate-form__item">
-					<label class="shopCreate-form__label" for="category">ジャンル</label>
-					<input class="shopCreate-form__text" type="text" name="category" id="category" value="{{ $shop->category }}">
+				<div class="shopEdit-form__item">
+					<label class="shopEdit-form__label" for="category">ジャンル</label>
+					<input class="shopEdit-form__text" type="text" name="category" id="category" value="{{ $shop->category }}">
 				</div>
-				<div class="shopCreate-form__item">
-					<label class="shopCreate-form__label" for="overview">店舗概要</label>
-					<textarea class="shopCreate-form__text" name="overview" id="overview" cols="30" rows="6">{{ $shop->overview }}</textarea>
+				<div class="shopEdit-form__item">
+					<label class="shopEdit-form__label" for="overview">店舗概要</label>
+					<textarea class="shopEdit-form__text" name="overview" id="overview" cols="30" rows="6">{{ $shop->overview }}</textarea>
 				</div>
-				<div class="shopCreate-form__btn">
-					<button class="shopCreate-form__btn--submit" type="submit">編集</button>
+				<div class="shopEdit-form__btn">
+					<button class="shopEdit-form__btn--submit" type="submit">編集</button>
 				</div>
 			</div>
 		</form>
