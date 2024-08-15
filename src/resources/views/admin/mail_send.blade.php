@@ -24,7 +24,7 @@
 			<div class="mail-form__inner">
 				<div class="mail-form__item">
 					<label class="mail-form__label" for="sendTo">送信対象</label>
-					<select class="mail-form__text select" name="name" id="sendTo">
+					<select class="mail-form__text" name="name" id="sendTo">
 						<option value=""></option>
 						<option value="">全体</option>
 					</select>

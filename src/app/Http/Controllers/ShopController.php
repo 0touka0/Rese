@@ -125,13 +125,13 @@ class ShopController extends Controller
     public function rating(Request $request)
     {
         $userId     = $request->input('user_id');
-        $shopId    = $request->input('shop_id');
+        $shopId     = $request->input('shop_id');
         $ratingData = $request->only(['score', 'comment']);
-        
+
         $existingRating = Rating::where('user_id' , $userId)
         ->where('shop_id', $shopId)
         ->first();
-        
+
         if ($existingRating) {
             $existingRating->update($ratingData);
             $message = '店舗評価を更新しました';

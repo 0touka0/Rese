@@ -25,17 +25,17 @@ class ShopRequest extends FormRequest
     public function rules()
     {
         $rules = [];
-        $datetime = $this->date . " " . $this->time;
-        $userId = $this->user_id;
+        $datetime      = $this->date . " " . $this->time;
+        $userId        = $this->user_id;
         $reservationId = $this->route('reservation_id'); // ルートパラメータから予約IDを取得
 
         switch ($this->route()->getName()) {
             case 'reservation':        // 店舗予約ルート
             case 'reservation.update': // 予約更新ルート
                 $rules = [
-                    'date' => ['required', 'date'],
-                    'time' => ['required', 'date_format:H:i', new UniqueReservation($datetime, $userId, $reservationId)],
-                    'number' => ['required', 'integer', 'min:1'],
+                    'date'   => ['required', 'date'],
+                    'time'   => ['required', 'date_format:H:i', new UniqueReservation($datetime, $userId, $reservationId)],
+                    'number' => ['required', 'integer'        , 'min:1'],
                 ];
                 break;
 
