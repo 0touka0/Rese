@@ -1,7 +1,7 @@
 body {
 	background: rgb(235, 235, 235);
 	font-family: Arial, sans-serif;
-	width: 1440px;
+	max-width: 1440px;
 	margin: 0 auto;
 }
 
@@ -10,7 +10,7 @@ header {
 	justify-content: space-between;
 	align-items: center;
 	height: 7rem;
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
   color: #000;
   padding: 1rem;
@@ -47,12 +47,16 @@ header {
 }
 
 main {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+	padding: 0 30px;
+}
+
+.shops-container {
+	max-width: 1200px;
+	margin: 2rem auto;
+	padding: 1rem;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
 }
 
 .shops-table {
@@ -117,4 +121,18 @@ main {
   cursor: pointer;
   border-radius: 5px;
 	text-decoration: none;
+}
+
+/* レスポンシブ (768px以下)*/
+@media screen and (max-width : 768px) {
+	header {
+		width: 95%;
+	}
+
+	.shops-table__th:nth-child(3),
+	.shops-table__th:nth-child(4),
+	.shops-table__td:nth-child(3),
+	.shops-table__td:nth-child(4) {
+		width: 15%;
+	}
 }

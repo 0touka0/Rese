@@ -1,7 +1,7 @@
 body {
 	background: rgb(235, 235, 235);
 	font-family: Arial, sans-serif;
-	width: 1440px;
+	max-width: 1440px;
 	margin: 0 auto;
 }
 
@@ -47,12 +47,16 @@ header {
 }
 
 main {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+	padding: 0 35px;
+}
+
+.owners-container {
+	max-width: 800px;
+	margin: 2rem auto;
+	padding: 1rem;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
 }
 
 .owners-table {
@@ -81,4 +85,11 @@ main {
 
 .owners-table__td:first-of-type {
 	text-align: center;
+}
+
+/* レスポンシブ (768px以下)*/
+@media screen and (max-width : 768px) {
+	header {
+		width: 90%;
+	}
 }

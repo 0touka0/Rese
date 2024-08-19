@@ -23,27 +23,29 @@
 		</nav>
 	</header>
 	<main>
-		<table class="shops-table">
-			<tr class="shops-table__tr">
-				<th class="shops-table__th">id</th>
-				<th class="shops-table__th">店舗名</th>
-				<th class="shops-table__th">地域</th>
-				<th class="shops-table__th">ジャンル</th>
-				<th class="shops-table__th">店舗概要</th>
-				<th class="shops-table__th"></th>
-			</tr>
-			{{-- 以下繰り返し --}}
-			@foreach ($shops as $shop)
+		<div class="shops-container">
+			<table class="shops-table">
 				<tr class="shops-table__tr">
-					<td class="shops-table__td">{{$shop->id}}</td>
-					<td class="shops-table__td">{{$shop->name}}</td>
-					<td class="shops-table__td">{{$shop->address}}</td>
-					<td class="shops-table__td">{{$shop->category}}</td>
-					<td class="shops-table__td">{{$shop->overview}}</td>
-					<td class="shops-table__td"><a class="shops-table__td--link" href="/shopedit{{$shop->id}}">編集</a></td>
+					<th class="shops-table__th">id</th>
+					<th class="shops-table__th">店舗名</th>
+					<th class="shops-table__th">地域</th>
+					<th class="shops-table__th">ジャンル</th>
+					<th class="shops-table__th">店舗概要</th>
+					<th class="shops-table__th"></th>
 				</tr>
-			@endforeach
-		</table>
+				{{-- 以下繰り返し --}}
+				@foreach ($shops as $shop)
+					<tr class="shops-table__tr">
+						<td class="shops-table__td">{{$shop->id}}</td>
+						<td class="shops-table__td">{{$shop->name}}</td>
+						<td class="shops-table__td">{{$shop->address}}</td>
+						<td class="shops-table__td">{{$shop->category}}</td>
+						<td class="shops-table__td">{{$shop->overview}}</td>
+						<td class="shops-table__td"><a class="shops-table__td--link" href="/shopedit{{$shop->id}}">編集</a></td>
+					</tr>
+				@endforeach
+			</table>
+		</div>
 	</main>
 </body>
 </html>

@@ -38,11 +38,15 @@ header {
 }
 
 main {
-  max-width: 800px;
-  margin: 2rem auto;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+	padding: 0 30px;
+}
+
+.reservation-container {
+	max-width: 800px;
+	margin: 2rem auto;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
 }
 
 .reservations-daily {
@@ -81,4 +85,11 @@ main {
 	width: 25%;
 	padding-left: 50px;
 	text-align: left;
+}
+
+/* レスポンシブ (768px以下)*/
+@media screen and (max-width : 768px) {
+	header {
+		width: 95%;
+	}
 }

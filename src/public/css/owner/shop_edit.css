@@ -1,7 +1,7 @@
 body {
 	background: rgb(235, 235, 235);
 	font-family: Arial, sans-serif;
-	width: 1440px;
+	max-width: 1440px;
 	margin: 0 auto;
 }
 
@@ -95,4 +95,11 @@ main {
 
 .shopEdit-form__btn--submit:hover {
   background-color: #45a049;
+}
+
+/* レスポンシブ (768px以下)*/
+@media screen and (max-width : 768px) {
+	header {
+		width: 95%;
+	}
 }

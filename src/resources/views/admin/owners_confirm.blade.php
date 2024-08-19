@@ -23,23 +23,25 @@
 		</nav>
 	</header>
 	<main>
-		<table class="owners-table">
-			<tr class="owners-table__tr">
-				<th class="owners-table__th">id</th>
-				<th class="owners-table__th">代表者名</th>
-				<th class="owners-table__th">店舗名一覧</th>
-				<th class="owners-table__th">登録日</th>
-			</tr>
-			{{-- 以下繰り返し --}}
-			@foreach ($shops as $shop)
+		<div class="owners-container">
+			<table class="owners-table">
 				<tr class="owners-table__tr">
-					<td class="owners-table__td">{{ $shop->id }}</td>
-					<td class="owners-table__td">{{ $shop->user->name}}</td>
-					<td class="owners-table__td">{{ $shop->name }}</td>
-					<td class="owners-table__td">{{ $shop->created_at->format('Y年 n月 j日') }}</td>
+					<th class="owners-table__th">id</th>
+					<th class="owners-table__th">代表者名</th>
+					<th class="owners-table__th">店舗名一覧</th>
+					<th class="owners-table__th">登録日</th>
 				</tr>
-			@endforeach
-		</table>
+				{{-- 以下繰り返し --}}
+				@foreach ($shops as $shop)
+					<tr class="owners-table__tr">
+						<td class="owners-table__td">{{ $shop->id }}</td>
+						<td class="owners-table__td">{{ $shop->user->name}}</td>
+						<td class="owners-table__td">{{ $shop->name }}</td>
+						<td class="owners-table__td">{{ $shop->created_at->format('Y年 n月 j日') }}</td>
+					</tr>
+				@endforeach
+			</table>
+		</div>
 	</main>
 </body>
 </html>
