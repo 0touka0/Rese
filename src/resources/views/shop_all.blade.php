@@ -94,7 +94,7 @@ window.onclick = function(event) {
 	@foreach ($shops as $shop)
 	<div class="shop-card">
 		<div class="shop-card__img">
-			<img src="{{ $shop['image'] }}" alt="{{ $shop['name'] }}" width="100%" height="150px">
+			<img src="{{ $shop['image'] }}" alt="{{ $shop['name'] }}">
 		</div>
 		<div class="shop-card__content">
 			<h2 class="shop-card__name">{{ $shop['name'] }}</h2>

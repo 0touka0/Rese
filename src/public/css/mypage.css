@@ -1,8 +1,11 @@
+.content {
+	max-width: 100%;
+}
+
 .grid-container {
 	display: grid;
-	grid-template-columns: 1fr 2fr;
-	grid-template-rows: 100px 500px;
-	padding-left: 100px;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 80px 500px;
 }
 
 .user-name {
@@ -15,8 +18,7 @@
 
 /* 予約状況 */
 .reservation-confirm {
-	width: 580px;
-	padding: 0 20px;
+	padding: 0 80px;
 }
 
 .reservation-confirm__header, .likes-confirm__header {
@@ -42,7 +44,6 @@
 	position: relative;
 	height: 280px;
 	width: 460px;
-	margin-right: 80px;
 	margin-bottom: 90px;
 	padding: 30px;
 	background: rgb(48, 86, 255);
@@ -172,19 +173,19 @@ button.reservation-detail__btn--submit {
 
 /* お気に入り店舗 */
 .likes-confirm {
-	width: 760px;
+	padding-right: 20px;
 }
 
 .likes-confirm__lists {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 70px;
 	padding-bottom: 20px;
 }
 
 .shop-card {
 	height: 300px;
 	width: 330px;
+	margin: 0 10px 20px;
 	background: #fff;
 	border-radius: 5px;
 	overflow: hidden;
@@ -252,16 +253,16 @@ button.reservation-detail__btn--submit {
 
 /* モーダルウィンドウ */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 5;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-		margin: 0 auto;
-    overflow: auto;
-		background-color: #fefefe;
+	display: none;
+	position: fixed;
+	z-index: 5;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	overflow: auto;
+	background-color: rgb(235, 235, 235);
 }
 
 .modal-content {
@@ -318,4 +319,11 @@ button.reservation-detail__btn--submit {
 input[type="date"]::-webkit-calendar-picker-indicator {
 	display: none;
 	-webkit-appearance: none;
+}
+
+/* レスポンシブ (768px以下)*/
+@media screen and (max-width : 768px) {
+	.reservation-confirm {
+	padding: 0 20px;
+}
 }

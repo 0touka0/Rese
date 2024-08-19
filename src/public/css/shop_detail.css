@@ -6,11 +6,11 @@ body {
 
 .content {
 	grid-column: 1;
-	margin-left: 100px;
+	padding: 20px 60px 20px 95px;
 }
 
 .shop-detail {
-    width: 570px;
+	width: 570px;
 }
 
 .shop-header__nav {
@@ -37,7 +37,8 @@ body {
 }
 
 img {
-	width: 570px;
+	height: 100%;
+	width: 100%;
 }
 
 .shop-tag {
@@ -48,14 +49,18 @@ img {
 	display: inline-block;
 }
 
-.reservation-form {
+.reservation {
 	grid-column: 2;
 	grid-row: 1/3;
+	padding: 40px;
+}
+
+.reservation-form {
 	background: rgb(54, 96, 235);
 	color: #fff;
 	height: 700px;
-	width: 570px;
-	margin: 40px auto;
+	width: 550px;
+	margin: 0 auto;
 	border-radius: 5px;
 	overflow: hidden;
 }
@@ -121,22 +126,23 @@ img {
 
 /* モーダルウィンドウ */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-		margin: 0 auto;
-    overflow: auto;
-		background-color: #fefefe;
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	overflow: auto;
+	background-color: rgb(235, 235, 235);
 }
 
 .modal-content {
 	height: 100%;
-	width: 1440px;
+	max-width: 1440px;
 	margin: 0 auto;
+	background: #fff;
 }
 
 .close-btn {
@@ -144,7 +150,7 @@ img {
 	margin-bottom: 100px;
 }
 
-.close {
+.headerModal-close {
 	background: rgb(48, 86, 255);
 	color: #fff;
 	padding: 5px 12px;
@@ -162,8 +168,7 @@ img {
 }
 
 .modal-nav {
-	height: 30%;
-	width: 30%;
+	width: 50%;
 	margin: 0 auto;
 	padding: 80px;
 }
@@ -181,4 +186,17 @@ img {
 .modal-nav__btn--submit {
 	color: rgb(48, 86, 255);
 	font-size: 2rem;
+}
+
+/* レスポンシブ (768px以下)*/
+@media screen and (max-width : 768px) {
+	body {
+	grid-template-columns: 1fr;
+	}
+
+	.reservation {
+	grid-column: 1;
+	grid-row: 3;
+	}
+
 }

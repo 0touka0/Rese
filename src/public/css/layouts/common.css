@@ -1,12 +1,13 @@
 body {
 	background: rgb(235, 235, 235);
 	font-family: Arial, sans-serif;
-	width: 1440px;
+	max-width: 1440px;
+	width: 100%;
 	margin: 0 auto;
 }
 
 .header {
-	padding: 40px 100px;
+	padding: 40px 55px;
 	text-align: center;
 }
 
@@ -17,7 +18,7 @@ body {
 }
 
 .header__title {
-	margin-left: 25px;
+	margin: 0 15px;
 }
 
 /* ロゴアイコン */
@@ -40,3 +41,4 @@ body {
 .message {
 	color: red;
 }
+

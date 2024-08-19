@@ -84,6 +84,7 @@ window.onclick = function(event) {
 				</div>
 			</div>
 			<div class="register-form__btn">
+				<input type="hidden" name="role" value="1">
 				<input type="submit" class="register-form__btn--submit btn" value="登録">
 			</div>
 		</div>

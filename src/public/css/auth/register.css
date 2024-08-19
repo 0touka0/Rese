@@ -55,21 +55,21 @@
 
 /* モーダルウィンドウ */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-		margin: 0 auto;
-    overflow: auto;
-		background-color: #fefefe;
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	overflow: auto;
+	background-color: #fefefe;
 }
 
 .modal-content {
 	height: 100%;
-	width: 1440px;
+	max-width: 1440px;
 	margin: 0 auto;
 }
 
@@ -96,8 +96,7 @@
 }
 
 .modal-nav {
-	height: 30%;
-	width: 30%;
+	width: 50%;
 	margin: 0 auto;
 	padding: 80px;
 }

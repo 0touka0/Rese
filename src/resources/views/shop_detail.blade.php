@@ -9,7 +9,7 @@
 <div id="myModal" class="modal">
 	<div class="modal-content">
 		<div class="close-btn">
-			<span class="close">&times;</span>
+			<span class="headerModal-close">&times;</span>
 		</div>
 		<nav class="modal-nav">
 			<div class="modal-nav__list">
@@ -23,7 +23,6 @@
 			</div>
 			<div class="modal-nav__list">
 				<form class="modal-nav__list--form" action="/mypage/{{ auth()->user()->id }}" method="get">
-					@csrf
 					<button type="submit" class="modal-nav__btn--submit">Mypage</button>
 				</form>
 			</div>
@@ -33,7 +32,7 @@
 <script>
 var btn = document.getElementById("header-openModal");
 var modal = document.getElementById("myModal");
-var span = document.getElementsByClassName("close")[0];
+var span = document.getElementsByClassName("headerModal-close")[0];
 btn.onclick = function() {
   modal.style.display = "block";
 }
@@ -68,64 +67,66 @@ window.onclick = function(event) {
 @endsection
 
 @section('reservation-form')
-<div class="reservation-form">
-	<form action="/reservation" method="post">
-		@csrf
-		<div class="reservation-form__inner">
-			<h2>予約</h2>
-			<div class="reservation-form__input">
-				<input type="date" class="reservation-form__input--date" name="date" id="reservation-date">
-			</div>
-			<div class="reservation-form__select">
-				<select name="time" id="reservation-time">
-					<option value="17:00">17:00</option>
-					<option value="17:30">17:30</option>
-					<option value="18:00">18:00</option>
-					<option value="18:30">18:30</option>
-					<option value="19:00">19:00</option>
-					<option value="19:30">19:30</option>
-					<option value="20:00">20:00</option>
-					<option value="20:30">20:30</option>
-					<option value="21:00">21:00</option>
-					<option value="21:30">21:30</option>
-				</select>
-			</div>
-			<div class="reservation-form__select">
-				<select name="number" id="reservation-number">
-					<option value="1">1人</option>
-					<option value="2">2人</option>
-					<option value="3">3人</option>
-					<option value="4">4人</option>
-					<option value="5">5人</option>
-					<option value="6">6人</option>
-				</select>
-			</div>
-			<div class="confirm-text">
-				<div class="confirm-text__item">
-					<p class="confirm-text__item--p">Shop</p><span class="confirm-text__item--span">{{ $shop['name'] }}</span>
+<div class="reservation">
+	<div class="reservation-form">
+		<form action="/reservation" method="post">
+			@csrf
+			<div class="reservation-form__inner">
+				<h2>予約</h2>
+				<div class="reservation-form__input">
+					<input type="date" class="reservation-form__input--date" name="date" id="reservation-date">
 				</div>
-				<div class="confirm-text__item">
-					<p class="confirm-text__item--p">Date</p><span class="confirm-text__item--span" id="selected-date"></span>
+				<div class="reservation-form__select">
+					<select name="time" id="reservation-time">
+						<option value="17:00">17:00</option>
+						<option value="17:30">17:30</option>
+						<option value="18:00">18:00</option>
+						<option value="18:30">18:30</option>
+						<option value="19:00">19:00</option>
+						<option value="19:30">19:30</option>
+						<option value="20:00">20:00</option>
+						<option value="20:30">20:30</option>
+						<option value="21:00">21:00</option>
+						<option value="21:30">21:30</option>
+					</select>
 				</div>
-				<div class="confirm-text__item">
-					<p class="confirm-text__item--p">Time</p><span class="confirm-text__item--span" id="selected-time"></span>
+				<div class="reservation-form__select">
+					<select name="number" id="reservation-number">
+						<option value="1">1人</option>
+						<option value="2">2人</option>
+						<option value="3">3人</option>
+						<option value="4">4人</option>
+						<option value="5">5人</option>
+						<option value="6">6人</option>
+					</select>
 				</div>
-				<div class="confirm-text__item">
-					<p class="confirm-text__item--p">Number</p><span class="confirm-text__item--span" id="selected-number"></span>
+				<div class="confirm-text">
+					<div class="confirm-text__item">
+						<p class="confirm-text__item--p">Shop</p><span class="confirm-text__item--span">{{ $shop['name'] }}</span>
+					</div>
+					<div class="confirm-text__item">
+						<p class="confirm-text__item--p">Date</p><span class="confirm-text__item--span" id="selected-date"></span>
+					</div>
+					<div class="confirm-text__item">
+						<p class="confirm-text__item--p">Time</p><span class="confirm-text__item--span" id="selected-time"></span>
+					</div>
+					<div class="confirm-text__item">
+						<p class="confirm-text__item--p">Number</p><span class="confirm-text__item--span" id="selected-number"></span>
+					</div>
+				</div>
+				<div class="error-message">
+					@error('time')
+						{{ $message }}
+					@enderror
 				</div>
 			</div>
-			<div class="error-message">
-				@error('time')
-					{{ $message }}
-				@enderror
+			<div class="reservation-form__btn">
+				<input type="hidden" name="user_id" value="{{ $user['id'] }}">
+				<input type="hidden" name="shop_id" value="{{ $shop['id'] }}">
+				<button type="submit"	class="reservation-form__btn--submit">予約する</button>
 			</div>
-		</div>
-		<div class="reservation-form__btn">
-			<input type="hidden" name="user_id" value="{{ $user['id'] }}">
-			<input type="hidden" name="shop_id" value="{{ $shop['id'] }}">
-			<button type="submit"	class="reservation-form__btn--submit">予約する</button>
-		</div>
-	</form>
+		</form>
+	</div>
 </div>
 
 <script>
