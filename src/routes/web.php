@@ -23,13 +23,14 @@ Route::get( '/'        , [ShopController::class, 'index'])->name('index');
 Route::get( '/search'	 , [ShopController::class, 'search'])->name('search');
 Route::post('/register', [RegisterController::class, 'store']);
 Route::get( '/thanks'	 , function () {
+	// 管理者の場合サンクスページの表示は不要
 	if (Gate::allows('isAdmin')) {
 		return redirect()->back()->with('message', '店舗代表者を作成しました。');
 	}
-	return view('thanks');
+	return view('thanks')->with('message', '確認用のメールを送信しました。');
 })->name('thanks');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'role.email.check')->group(function () {
 	Route::get( '/detail/{shop_id}', [ShopController::class, 'detail'])->name('detail');
 	Route::post('/reservation'     , [ShopController::class, 'reservation'])->name('reservation');
 	Route::post('/like/{shop_id}'  , [ShopController::class, 'like'])->name('like');
@@ -43,16 +44,17 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-	Route::get('/admin' , [AdminController::class, 'admin'])->name('admin');
-	Route::get('/owners', [AdminController::class, 'owners'])->name('owners.confirm');
-	Route::get('/mail'  , [AdminController::class, 'mail'])->name('mail.send');
+	Route::get( '/admin' 		, [AdminController::class, 'admin'])->name('admin');
+	Route::get( '/owners'		, [AdminController::class, 'owners'])->name('owners.confirm');
+	Route::get( '/mail'  		, [AdminController::class, 'mailForm'])->name('mail.create');
+	Route::post('/mail/send', [AdminController::class, 'sendMail'])->name('sendMail');
 });
 
 Route::middleware(['auth', 'owner'])->group(function () {
-	Route::get('/newshop', [OwnerController::class, 'newshop'])->name('newshop');
-	Route::post('/newshop/store', [OwnerController::class, 'store']);
-	Route::get('/shopsconfirm', [OwnerController::class, 'shopsConfirm'])->name('shops.confirm');
-	Route::get('/shopedit{shop_id}', [OwnerController::class, 'shopEdit'])->name('shop.edit');
-	Route::put('/shopedit{shop_id}/put', [OwnerController::class, 'shopPut'])->name('shop.put');
-	Route::get('/reservations', [OwnerController::class, 'reservations'])->name('reservations');
+	Route::get( '/newshop'						  , [OwnerController::class, 'newShop'])->name('shop.create');
+	Route::post('/newshop/store'			  , [OwnerController::class, 'store'])->name('shop.store');
+	Route::get( '/shopsconfirm'				  , [OwnerController::class, 'shopsConfirm'])->name('shops.confirm');
+	Route::get( '/shopedit{shop_id}' 	  , [OwnerController::class, 'shopEdit'])->name('shop.edit');
+	Route::put( '/shopedit{shop_id}/put', [OwnerController::class, 'shopPut'])->name('shop.put');
+	Route::get( '/reservations'				  , [OwnerController::class, 'reservations'])->name('reservations');
 	});

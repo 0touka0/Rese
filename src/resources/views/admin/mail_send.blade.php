@@ -20,22 +20,27 @@
 		</nav>
 	</header>
 	<main>
-		<form class="mail-form" action="" method="post">
+		@if (session('success'))
+			{{ session('success') }}
+		@endif
+		<form class="mail-form" action="{{ route('sendMail') }}" method="post">
+			@csrf
 			<div class="mail-form__inner">
 				<div class="mail-form__item">
 					<label class="mail-form__label" for="sendTo">送信対象</label>
-					<select class="mail-form__text" name="name" id="sendTo">
-						<option value=""></option>
-						<option value="">全体</option>
+					<select class="mail-form__text" name="recipient" id="sendTo">
+						<option value="">選択</option>
+						<option value="allOwners">全店舗代表者</option>
+						<option value="allUsers">全利用者</option>
 					</select>
 				</div>
 				<div class="mail-form__item">
 					<label class="mail-form__label" for="subject">件名</label>
-					<input class="mail-form__text" type="text" id="subject">
+					<input class="mail-form__text" type="text" name="subject" id="subject">
 				</div>
 				<div class="mail-form__item">
-					<label class="mail-form__label" for="contents">内容</label>
-					<textarea class="mail-form__text" name="contents" id="contents" cols="30" rows="6"></textarea>
+					<label class="mail-form__label" for="message">内容</label>
+					<textarea class="mail-form__text" name="message" id="message" cols="30" rows="6"></textarea>
 				</div>
 				<div class="mail-form__btn">
 					<button class="mail-form__btn--submit" type="submit">配信</button>

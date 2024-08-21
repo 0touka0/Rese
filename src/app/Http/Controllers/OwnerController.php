@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class OwnerController extends Controller
 {
     // 店舗作成ページ
-    public function newshop()
+    public function newShop()
     {
         return view('owner/shop_create');
     }
@@ -45,7 +45,7 @@ class OwnerController extends Controller
         $shop = $request->all();
         Shop::find($shop_id)->update($shop);
 
-        return redirect('/shopsconfirm');
+        return redirect()->route('shops.confirm');
     }
 
     // 店舗予約一覧ページ

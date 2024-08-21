@@ -44,7 +44,7 @@ class SendReminder extends Command
     {
         $now = Carbon::now()->startOfMinute();
         $oneHourLater = $now->copy()->addHour();
-        // 約1時間後に予約があるレコードを取得
+        // 1時間後のみの設定だとメールが送信されない
         $reservations = Reservation::whereBetween('datetime', [
             $oneHourLater->format('Y-m-d H:i:00'),
             $oneHourLater->format('Y-m-d H:i:59')

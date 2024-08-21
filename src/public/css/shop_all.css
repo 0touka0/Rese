@@ -63,6 +63,13 @@
 	padding-left: 10px;
 }
 
+.verify-message {
+	color: red;
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
 /* 店舗一覧 */
 .content {
 	max-width: 1400px;
@@ -293,6 +300,10 @@
 
 	.content {
 		width: 768px;
+	}
+
+	.verify-message {
+		text-align: center;
 	}
 
 	.shop-lists {

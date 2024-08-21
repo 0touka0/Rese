@@ -29,8 +29,8 @@ header {
   width: 120px;
 	text-align: center;
   background-color: #fff;
-  border: 2px solid #4CAF50;
-  color: #4CAF50;
+  border: 2px solid rgb(48, 86, 255);
+  color: rgb(48, 86, 255);
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 5px;
@@ -80,7 +80,7 @@ main {
 .shopCreate-form__btn--submit {
   width: 120px;
 	text-align: center;
-  background-color: #4CAF50;
+  background-color: rgb(48, 86, 255);
   color: white;
   padding: 7px 10px;
   border: none;
@@ -89,7 +89,7 @@ main {
 }
 
 .shopCreate-form__btn--submit:hover {
-  background-color: #45a049;
+  background-color: rgb(9, 50, 231);
 }
 
 /* レスポンシブ (768px以下)*/

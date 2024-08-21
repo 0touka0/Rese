@@ -90,6 +90,11 @@ window.onclick = function(event) {
 
 {{-- 店舗一覧 --}}
 @section('content')
+<p class="verify-message">
+	@if (session('message'))
+		{{ session('message') }}
+	@endif
+</p>
 <div class="shop-lists">
 	@foreach ($shops as $shop)
 	<div class="shop-card">
