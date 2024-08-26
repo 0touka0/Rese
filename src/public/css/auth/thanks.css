@@ -1,5 +1,10 @@
+.header {
+	max-width: 1440px;
+	margin: 0 auto;
+}
+
 .thanks-message {
-	width: 550px;
+	max-width: 550px;
 	height: 350px;
 	margin: 0 auto;
 	padding: 100px 30px;
@@ -10,20 +15,21 @@
 }
 
 .thanks-message__text {
-	padding-bottom: 50px;
+	padding-bottom: 30px;
 	font-size: 25px;
 	font-weight: bold;
 	letter-spacing: 3px;
 }
 
-.shops-nav {
-	width: 15%;
-	margin: 0 auto;
-	padding: 8px 20px;
-	border-radius: 5px;
+.verify-message {
+	padding-bottom: 50px;
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 3px;
 }
 
-.shops-nav__link {
-	color: #fff;
+.login-nav__btn {
+	padding: 8px 20px;
+	border-radius: 5px;
 	text-decoration: none;
 }

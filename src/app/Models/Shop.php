@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Shop extends Model
 {
     protected $fillable = [
+        'address_id',
+        'category_id',
         'owner_id',
         'name',
-        'address',
-        'category',
         'overview',
         'image',
     ];
@@ -30,6 +30,16 @@ class Shop extends Model
         return $this->hasMany('App\Models\Rating');
     }
 
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'owner_id', 'id');
@@ -39,14 +49,18 @@ class Shop extends Model
     public function scopeAddressSearch($query, $address)
     {
         if (!empty($address)) {
-            $query->where('address',$address);
+            $query->whereHas('address', function($q) use ($address) {
+                $q->where('address',$address);
+            });
         }
     }
 
     public function scopeCategorySearch($query, $category)
     {
         if (!empty($category) && $category != 'all') {
-            $query->where('category',$category);
+            $query->whereHas('category', function ($q) use ($category) {
+                $q->where('category', $category);
+            });
         }
     }
 

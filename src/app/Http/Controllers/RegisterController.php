@@ -11,6 +11,7 @@ class RegisterController extends Controller
     public function store(Request $request, CreatesNewUsers $creator)
     {
         $user = $creator->create($request->all());
+        // 確認メールを送信するため
         event(new Registered($user));
 
         return redirect()->route('thanks');

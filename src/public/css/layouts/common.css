@@ -1,23 +1,21 @@
 body {
 	background: rgb(235, 235, 235);
 	font-family: Arial, sans-serif;
-	max-width: 1440px;
-	width: 100%;
-	margin: 0 auto;
 }
 
 .header {
+	height: 120px;
 	padding: 40px 55px;
 	text-align: center;
 }
 
-.header__logo {
+.header-logo {
 	display: flex;
 	align-items: center;
 	color: rgb(48, 86, 255);
 }
 
-.header__title {
+.header-title {
 	margin: 0 15px;
 }
 
@@ -42,3 +40,134 @@ body {
 	color: red;
 }
 
+/* モーダルウィンドウ */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 10;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	overflow: auto;
+}
+
+.modal__content {
+	height: 100%;
+	max-width: 1440px;
+	margin: 0 auto;
+	background: #fff;
+	position: relative;
+}
+
+/* ヘッダー用モーダル */
+.header-modal__close {
+	position: absolute;
+	top: 40px;
+	left: 55px;
+	padding: 5px 13px;
+	background: rgb(48, 86, 255);
+	color: #fff;
+	border-radius: 5px;
+	font-size: 27px;
+	box-shadow: 3px 3px 5px #6e6e6e;
+	cursor: pointer;
+}
+
+.header-modal__close:hover,
+.header-modal__close:focus {
+	color: black;
+	text-decoration: none;
+}
+
+.header-modal__nav {
+	max-width: 650px;
+	margin: 0 auto;
+	padding: 200px 0;
+}
+
+.header-modal__list {
+	max-width: 100%;
+	margin: auto;
+	list-style: none;
+}
+
+.header-modal__item {
+	margin-bottom: 20px;
+}
+
+.header-modal__link,
+.header-modal__form {
+	text-decoration: none;
+	color: rgb(48, 86, 255);
+	font-size: 2rem;
+}
+
+.header-modal__btn {
+	color: rgb(48, 86, 255);
+	font-size: 2rem;
+}
+
+/* 評価用モーダル */
+.rating-modal__header {
+	border-bottom: 2px solid #ddd;
+	padding: 25px 30px;
+	margin-bottom: 15px;
+	position: relative;
+}
+
+.rating-modal__title {
+	padding-bottom: 8px;
+}
+
+.rating-modal__summary {
+	display: flex;
+}
+
+.rating-modal__average {
+	padding-left: 10px;
+}
+
+.rating-modal__close {
+	position: absolute;
+	top: 20px;
+	right: 32px;
+	color: #333;
+	font-size: 32px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.rating-modal__close:hover,
+.rating-modal__close:focus {
+	color: #000;
+	text-decoration: none;
+}
+
+.rating-modal__body {
+	padding: 0 15px;
+}
+
+.review-card {
+	padding: 15px;
+	margin-bottom: 10px;
+}
+
+.review-card__user-name {
+	font-weight: bold;
+}
+
+.review-card__rating {
+	margin: 5px 0;
+}
+
+.review-card__date {
+	color: #666;
+	font-size: 0.9em;
+}
+
+.review-card__comment {
+	margin-top: 4px;
+	font-style: italic;
+}

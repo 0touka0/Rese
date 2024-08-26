@@ -1,11 +1,15 @@
-.content {
-	max-width: 100%;
+.header {
+	height: 120px;
+	max-width: 1440px;
+	margin: 0 auto;
 }
 
 .grid-container {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 2fr;
 	grid-template-rows: 80px 500px;
+	max-width: 1440px;
+	margin: 0 auto;
 }
 
 .user-name {
@@ -247,72 +251,8 @@ button.reservation-detail__btn--submit {
 	font-size: 17px;
 }
 
-.rating .fa-star {
+.fa-star, .fa-star-half-alt {
 	color: gold;
-}
-
-/* モーダルウィンドウ */
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 5;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	margin: 0 auto;
-	overflow: auto;
-	background-color: rgb(235, 235, 235);
-}
-
-.modal-content {
-	height: 100%;
-	width: 1440px;
-	margin: 0 auto;
-}
-
-.close-btn {
-	padding: 50px 120px;
-	margin-bottom: 100px;
-}
-
-.close {
-	background: rgb(48, 86, 255);
-	color: #fff;
-	padding: 5px 12px;
-	border-radius: 5px;
-	font-size: 28px;
-	float: left;
-	box-shadow: 3px 3px 5px #6e6e6e;
-}
-
-.close:hover,
-.close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.modal-nav {
-	height: 30%;
-	width: 30%;
-	margin: 0 auto;
-	padding: 80px;
-}
-
-.modal-nav__list {
-	margin-bottom: 20px;
-}
-
-.modal-nav__list--link, .modal-nav__list--form {
-	text-decoration: none;
-	color: rgb(48, 86, 255);
-	font-size: 2rem;
-}
-
-.modal-nav__btn--submit {
-	color: rgb(48, 86, 255);
-	font-size: 2rem;
 }
 
 /* カレンダーアイコンを消すCSS */

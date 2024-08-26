@@ -2,9 +2,11 @@ body {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 130px 650px;
+	max-width: 1440px;
+	margin: 0 auto;
 }
 
-.content {
+.main {
 	grid-column: 1;
 	padding: 20px 60px 20px 95px;
 }
@@ -13,7 +15,7 @@ body {
 	width: 570px;
 }
 
-.shop-header__nav {
+.shop-detail__nav {
 	text-decoration: none;
 	background: #fff;
 	padding: 5px 10px;
@@ -23,30 +25,35 @@ body {
 	box-shadow: 2px 2px 5px #6e6e6e;
 }
 
-.shop-header__title {
+.shop-detail__title {
 	margin-left: 10px;
 }
 
-.shop-header {
+.shop-detail__header {
 	display: flex;
 	align-items: center;
 }
 
-.shop-image {
+.shop-detail__image {
 	margin: 30px 0;
 }
 
-img {
+.shop-detail__image img {
 	height: 100%;
 	width: 100%;
 }
 
-.shop-tag {
+.shop-detail__tags {
 	margin-bottom: 30px;
 }
 
-.shop-tag__address, .shop-tag__category {
+.shop-detail__tag--address,
+.shop-detail__tag--category {
 	display: inline-block;
+}
+
+.shop-detail__description {
+	margin-top: 20px;
 }
 
 .reservation {
@@ -55,7 +62,7 @@ img {
 	padding: 40px;
 }
 
-.reservation-form {
+.reservation__form {
 	background: rgb(54, 96, 235);
 	color: #fff;
 	height: 700px;
@@ -65,27 +72,47 @@ img {
 	overflow: hidden;
 }
 
-.reservation-form__inner {
+.reservation__form-inner {
 	height: 630px;
 	padding: 30px;
 }
 
-.reservation-form__input, .reservation-form__select {
+.reservation__form-group {
+	width: 95%;
 	background: #fff;
 	margin-top: 15px;
 	border-radius: 5px;
 	padding: 5px 10px;
+	position: relative;
 }
 
-.reservation-form__input {
-	width: 35%;
+.reservation__form-group:first-of-type {
+	width: 36%;
 }
 
-.reservation-form__select {
-	width: 95%;
+.reservation__form-group:nth-child(n+3)::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	width: 0;
+	height: 0;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-top: 8px solid #dfdfdf;
+	transform: translateY(-50%);
+	pointer-events: none;
 }
 
-.confirm-text {
+.reservation__input--date {
+	width: 100%;
+}
+
+.reservation__form-group select {
+	width: 100%;
+}
+
+.reservation__confirm {
 	width: 90%;
 	margin-top: 20px;
 	background: rgb(83, 131, 236);
@@ -93,26 +120,47 @@ img {
 	padding: 25px 20px;
 }
 
-.confirm-text__item:nth-child(-n+3) {
+.reservation__confirm-item {
 	padding-bottom: 10px;
 }
 
-.confirm-text__item--p {
+.reservation__confirm-label {
 	display: inline-block;
 	width: 60px;
 	margin-right: 40px;
 }
 
-.reservation-form__btn {
-	margin-top: 10px;
-	padding: 6px;
+.reservation__error {
+	margin-top: 210px;
 	text-align: center;
-	line-height: 3rem;
+	color:	rgb(230, 33, 33);
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.reservation__submit {
+	margin-top: 10px;
+	text-align: center;
 	background: rgb(43, 63, 238);
 }
 
-.reservation-form__btn--submit {
+.reservation__btn {
+	width: 100%;
+	padding: 18px;
 	color: #fff;
+	cursor: pointer;
+}
+
+/* レスポンシブ (768px以下)*/
+@media screen and (max-width: 768px) {
+	body {
+		grid-template-columns: 1fr;
+	}
+
+	.reservation {
+		grid-column: 1;
+		grid-row: 3;
+	}
 }
 
 /* 	エラーメッセージ */
@@ -122,81 +170,4 @@ img {
 	color:	rgb(230, 33, 33);
 	font-size: 18px;
 	font-weight: bold;
-}
-
-/* モーダルウィンドウ */
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	margin: 0 auto;
-	overflow: auto;
-	background-color: rgb(235, 235, 235);
-}
-
-.modal-content {
-	height: 100%;
-	max-width: 1440px;
-	margin: 0 auto;
-	background: #fff;
-}
-
-.close-btn {
-	padding: 50px 120px;
-	margin-bottom: 100px;
-}
-
-.headerModal-close {
-	background: rgb(48, 86, 255);
-	color: #fff;
-	padding: 5px 12px;
-	border-radius: 5px;
-	font-size: 28px;
-	float: left;
-	box-shadow: 3px 3px 5px #6e6e6e;
-}
-
-.close:hover,
-.close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.modal-nav {
-	width: 50%;
-	margin: 0 auto;
-	padding: 80px;
-}
-
-.modal-nav__list {
-	margin-bottom: 20px;
-}
-
-.modal-nav__list--link, .modal-nav__list--form {
-	text-decoration: none;
-	color: rgb(48, 86, 255);
-	font-size: 2rem;
-}
-
-.modal-nav__btn--submit {
-	color: rgb(48, 86, 255);
-	font-size: 2rem;
-}
-
-/* レスポンシブ (768px以下)*/
-@media screen and (max-width : 768px) {
-	body {
-	grid-template-columns: 1fr;
-	}
-
-	.reservation {
-	grid-column: 1;
-	grid-row: 3;
-	}
-
 }

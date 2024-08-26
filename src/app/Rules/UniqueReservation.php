@@ -17,8 +17,8 @@ class UniqueReservation implements Rule
      */
     public function __construct($datetime, $userId, $reservationId = null)
     {
-        $this->datetime = $datetime;
-        $this->userId = $userId;
+        $this->datetime      = $datetime;
+        $this->userId        = $userId;
         $this->reservationId = $reservationId;
     }
 
@@ -29,7 +29,7 @@ class UniqueReservation implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public  function passes($attribute, $value)
+    public function passes($attribute, $value)
     {
         $query = Reservation::where('datetime', $this->datetime)
                             ->where('user_id', $this->userId);

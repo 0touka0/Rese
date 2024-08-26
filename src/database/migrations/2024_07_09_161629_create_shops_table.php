@@ -15,10 +15,10 @@ class CreateShopsTable extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('address_id')->constrained('addresses')->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();
             $table->string('name');
-            $table->string('address');
-            $table->string('category');
             $table->text('overview')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();

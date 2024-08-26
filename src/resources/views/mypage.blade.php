@@ -4,49 +4,6 @@
 <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
 @endsection
 
-{{-- モーダルウィンドウ --}}
-@section('header-script')
-<div id="myModal" class="modal">
-	<div class="modal-content">
-		<div class="close-btn">
-			<span class="close">&times;</span>
-		</div>
-		<nav class="modal-nav">
-			<div class="modal-nav__list">
-				<a class="modal-nav__list--link" href="/">Home</a>
-			</div>
-			<div class="modal-nav__list">
-				<form class="modal-nav__list--form" action="/logout" method="post">
-					@csrf
-					<button type="submit" class="modal-nav__btn--submit">Logout</button>
-				</form>
-			</div>
-			<div class="modal-nav__list">
-				<form class="modal-nav__list--form" action="/mypage/{{ auth()->user()->id }}" method="get">
-					<button type="submit" class="modal-nav__btn--submit">Mypage</button>
-				</form>
-			</div>
-		</nav>
-	</div>
-</div>
-<script>
-var btn = document.getElementById("header-openModal");
-var modal = document.getElementById("myModal");
-var span = document.getElementsByClassName("close")[0];
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-span.onclick = function() {
-  modal.style.display = "none";
-}
-window.onclick = function(event) {
-	if (event.target == modal) {
-		modal.style.display = "none";
-	}
-}
-</script>
-@endsection
-
 @section('content')
 <div class=grid-container>
 	<div class='user-name'>
@@ -83,16 +40,7 @@ window.onclick = function(event) {
 						<div class="reservation-card__detail-list">
 							<p class="reservation-card__detail-label">Date</p>
 							<input type="date" name="date" value="{{ $reservation->reservation_date }}" id="reservation-date-{{ $reservation->id }}" class="reservation-card__detail-input auto-save" data-id="{{ $reservation->id }}">
-							<script>
-								document.addEventListener('DOMContentLoaded', function() {
-									// Dateを指定
-									var dateInput = document.getElementById('reservation-date-{{ $reservation->id }}');
-									// 上記をクリックした際カレンダーを表示
-									dateInput.addEventListener('click', function() {
-										this.showPicker();
-									});
-								});
-							</script>
+							<script src="{{ asset('js/reservationDatePicker.js') }}"></script>
 						</div>
 						<div class="reservation-card__detail-list">
 							<p class="reservation-card__detail-label">Time</p>
@@ -149,51 +97,10 @@ window.onclick = function(event) {
 				</div>
 			</div>
 		@endforeach
+		{{-- 予約情報変更ボタン表示機能、評価フォーム表示機能 --}}
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="{{ asset('js/ratingOverlay.js') }}"></script>
 	</div>
-{{-- 評価フォーム表示、予約情報変更ボタン --}}
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			// 評価フォーム表示条件
-			$('.reservation-card').each(function() {
-				var reservationCard = $(this);
-				var datetime = reservationCard.data('datetime');
-				var datetimeDate = new Date(datetime);
-				var now = new Date();
-				var oneHourLater = new Date(datetimeDate.getTime() + 60 * 60 * 1000);
-
-				if (now >= oneHourLater) {
-					showOverlay(reservationCard);
-				} else {
-					var timeRemaining = oneHourLater - now;
-					setTimeout(function() {
-						showOverlay(reservationCard);
-					}, timeRemaining);
-				}
-			});
-			// 評価フォーム表示機能
-			function showOverlay(reservationCard) {
-				var overlay = $('<div class="overlay"></div>');
-				var overlayContent = $('<div class="overlay-content"></div>');
-				var closeButton = $('<button class="close-button">閉じる</button>');
-
-				closeButton.on('click', function() {
-					overlay.remove();
-				});
-
-				overlayContent.append(closeButton);
-				overlayContent.append(reservationCard.find('.rating-form').clone().show());
-				overlay.append(overlayContent);
-				reservationCard.append(overlay);
-			}
-
-			// 予約情報変更ボタンを表示
-			$('.auto-save').on('input change', function() {
-				var reservationId = $(this).data('id');
-				$('#reservation-form-' + reservationId + ' .reservation-detail__btn--submit').show();
-			});
-		});
-	</script>
 {{-- お気に入り店舗 --}}
 	<div class="likes-confirm">
 		<h2 class="likes-confirm__header">お気に入り店舗</h2>
@@ -206,34 +113,13 @@ window.onclick = function(event) {
 				<div class="shop-card__content">
 					<h2 class="shop-card__name">{{ $like->shop->name }}</h2>
 					@if ($like->shop->ratings->isNotEmpty())
-						<div class="rating" data-rating="{{ $like->shop->ratings->first()->score }}"></div>
+						<div class="rating" data-rating="{{ $like->shop->ratings->avg('score') }}" data-modal-id="ratingModal{{ $like->shop->id }}"></div>
 					@else
 						<div class="rating" data-rating="No rating"></div>
 					@endif
-					<script>
-						document.addEventListener('DOMContentLoaded', function () {
-							const ratingElements = document.querySelectorAll('.rating');
-							ratingElements.forEach(function (ratingElement) {
-								const rating = parseFloat(ratingElement.getAttribute('data-rating'));
-								renderStars(rating, ratingElement);
-							});
-
-							function renderStars(rating, element) {
-								element.innerHTML = '';
-								const fullStars = Math.floor(rating);
-								for (let i = 1; i <= 5; i++) {
-									if (i <= fullStars) {
-										element.innerHTML += '<i class="fas fa-star"></i>';
-									} else {
-										element.innerHTML += '<i class="far fa-star"></i>';
-									}
-								}
-							}
-						});
-					</script>
 					<div class="shop-card__tag">
-						<p class="shop-card__tag--address">#{{ $like->shop->address }}</p>
-						<p class="shop-card__tag--category">#{{ $like->shop->category }}</p>
+						<p class="shop-card__tag--address">#{{ $like->shop->address->address }}</p>
+						<p class="shop-card__tag--category">#{{ $like->shop->category->category }}</p>
 					</div>
 					<div class="shop-card__nav">
 						<form action="/detail/{{ $like->shop->id }}" method="get">
@@ -249,8 +135,34 @@ window.onclick = function(event) {
 					</div>
 				</div>
 			</div>
+			{{-- 評価モーダル --}}
+			<div id="ratingModal{{ $like->shop->id }}" class="modal">
+				<div class="modal__content">
+					<div class="rating-modal__header">
+						<h2 class="rating-modal__title">レビュー: <span class="modal__shop-name">{{ $like->shop['name'] }}</span></h2>
+						<div class="rating-modal__summary">
+							<div class="rating__icon" data-rating="{{ $like->shop->ratings->avg('score') }}"></div>
+							<p class="rating-modal__average">{{ $like->shop->ratings->avg('score') }}/5</p>
+						</div>
+						<span class="rating-modal__close">&times;</span>
+					</div>
+					<div class="rating-modal__body">
+						@foreach ($like->shop->ratings as $rating)
+							<div class="review-card">
+								<p class="review-card__user-name">{{ $rating->user->name }}</p>
+								<div class="review-card__rating">
+									<div class="rating__icon" data-rating="{{ $rating->score }}"></div>
+								</div>
+								<span class="review-card__date">{{ $rating->created_at->format('Y年m月d日') }}にレビュー済み</span>
+								<p class="review-card__comment">{{ $rating->comment }}</p>
+							</div>
+						@endforeach
+					</div>
+				</div>
+			</div>
 			@endforeach
 		</div>
+		<script src="{{ asset('js/ratingModal.js') }}"></script>
 	</div>
 </div>
 @endsection
