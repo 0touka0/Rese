@@ -11,7 +11,7 @@ use App\Models\Shop;
 class NewShopController extends Controller
 {
     // 店舗作成ページ
-    public function newShop()
+    public function shopCreate()
     {
         return view('owner/shop_create');
     }

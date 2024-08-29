@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\Admin\OwnerCreateController;
+use App\Http\Controllers\Admin\OwnersConfirmController;
+use App\Http\Controllers\Admin\MailSenderController;
+use App\Http\Controllers\Owner\NewShopController;
+use App\Http\Controllers\Owner\ShopConfirmController;
+use App\Http\Controllers\Owner\ShopEditController;
+use App\Http\Controllers\Owner\ShopReservationController;
 use App\Http\Controllers\Shop\DetailController;
 use App\Http\Controllers\Shop\MypageController;
 use App\Http\Controllers\Shop\ShopController;
-use App\Http\Controllers\Owner\NewShopController;
-use App\Http\Controllers\Owner\ShopEditController;
-use App\Http\Controllers\Owner\ShopConfirmController;
-use App\Http\Controllers\Owner\ShopReservationController;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -25,8 +26,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get( '/'        , [ShopController::class, 'index' ])->name('index');
-Route::get( '/search'	 , [ShopController::class, 'search'])->name('search');
+Route::get( '/'        , [ShopController::class, 'index' 		])->name('index');
+Route::get( '/search'	 , [ShopController::class, 'search'		])->name('search');
 
 Route::post('/register', [RegisterController::class, 'store']);
 
@@ -55,20 +56,22 @@ Route::middleware('auth', 'role.email.check')->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-	Route::get( '/admin' 		, [AdminController::class, 'admin'	 ])->name('admin');
-	Route::get( '/owners'		, [AdminController::class, 'owners'	 ])->name('owners.confirm');
-	Route::get( '/mail'  		, [AdminController::class, 'mailForm'])->name('mail.create');
-	Route::post('/mail/send', [AdminController::class, 'sendMail'])->name('sendMail');
+	Route::get( '/ownerCreate', [OwnerCreateController::class, 'ownerCreate'		])->name('owner.create');
+
+	Route::get( '/owners'			, [OwnersConfirmController::class, 'ownersConfirm'])->name('owners.confirm');
+
+	Route::get( '/mail'  			, [MailSenderController::class, 'mailForm'				])->name('mail.create');
+	Route::post('/mail/send'	, [MailSenderController::class, 'sendMail'				])->name('mail.send');
 });
 
 Route::middleware(['auth', 'owner'])->group(function () {
-	Route::get( '/newshop'			, [NewShopController::class, 'newShop'				  	 ])->name('shop.create');
-	Route::post('/newshop/store', [NewShopController::class, 'store'					  	 ])->name('shop.store');
+	Route::get( '/shopCreate'		, [NewShopController::class, 'shopCreate'				   ])->name('shop.create');
+	Route::post('/newShop/store', [NewShopController::class, 'store'					  	 ])->name('shop.store');
 
-	Route::get( '/shopsconfirm' , [ShopConfirmController::class, 'shopsConfirm' 	 ])->name('shops.confirm');
+	Route::get( '/shopsConfirm' , [ShopConfirmController::class, 'shopsConfirm' 	 ])->name('shops.confirm');
 
-	Route::get( '/shopedit{shop_id}' 		, [ShopEditController::class, 'shopEdit'	 ])->name('shop.edit');
-	Route::put( '/shopedit{shop_id}/put', [ShopEditController::class, 'shopPut'		 ])->name('shop.put');
+	Route::get( '/shopEdit/{shop_id}' 		, [ShopEditController::class, 'shopEdit'	 ])->name('shop.edit');
+	Route::put( '/shopEdit/{shop_id}/put', [ShopEditController::class, 'shopPut'		 ])->name('shop.put');
 
 	Route::get( '/reservations' , [ShopReservationController::class, 'reservations'])->name('reservations');
 	});

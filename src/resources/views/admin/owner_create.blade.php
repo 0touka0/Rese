@@ -5,7 +5,7 @@
 @section('header_title', '店舗代表者作成')
 
 @section('header_nav')
-	<a class="header__nav-link" href="/owners">代表者一覧</a>
+	<a class="header__nav-link" href="{{ route('owners.confirm') }}">代表者一覧</a>
 @endsection
 
 @section('css')
