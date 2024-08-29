@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/shop_all.css')}}">
 @endsection
 
-{{-- 検索フォーム --}}
+<!-- 検索フォーム -->
 @section('search-form')
 <div class="search-form">
 	<form class="search-form__inner" action="/search" method="get">
@@ -34,7 +34,7 @@
 </div>
 @endsection
 
-{{-- 店舗一覧 --}}
+<!-- 店舗一覧 -->
 @section('content')
 <p class="verify-message">
 	@if (session('message'))
@@ -54,25 +54,26 @@
 			@else
 				<div class="rating" data-rating="No rating"></div>
 			@endif
-			<div class="shop-card__tag">
-				<p class="shop-card__tag--address">#{{ $shop->address->address }}</p>
-				<p class="shop-card__tag--category">#{{ $shop->category->category }}</p>
+			<div class="shop-card__tags">
+				<span class="shop-card__tag">#{{ $shop->address->address }}</span>
+				<span class="shop-card__tag">#{{ $shop->category->category }}</span>
 			</div>
-			<div class="shop-card__nav">
+			<div class="shop-card__actions">
 				<form action="/detail/{{ $shop->id }}" method="get">
 					@csrf
-					<button type="submit" class="nav__btn btn">詳しくみる</button>
+					<button type="submit" class="btn shop-card__btn">詳しくみる</button>
 				</form>
-			</div>
-			<div class="shop-card__like">
 				<form action="/like/{{ $shop->id }}" method="post">
 					@csrf
-					<button type="submit" class="shop-card__like-btn"><i class="fa-solid fa-heart" style="color: {{ $likedShops[$shop->id] ? 'red' : 'grey' }}"></i></button>
+					<button type="submit" class="shop-card__like-btn {{ $likedShops[$shop->id] ? 'shop-card__liked' : 'shop-card__not-liked' }}">
+						<i class="fa-solid fa-heart"></i>
+					</button>
 				</form>
 			</div>
 		</div>
 	</div>
-	{{-- 評価モーダル --}}
+
+	<!-- 評価モーダル -->
 	<div id="ratingModal{{ $shop->id }}" class="modal">
     <div class="modal__content">
 			<div class="rating-modal__header">
@@ -99,6 +100,9 @@
 	</div>
 	@endforeach
 </div>
-<script src="{{ asset('js/ratingModal.js') }}"></script>
+@endsection
+
+@section('scripts')
+	<script src="{{ asset('js/ratingModal.js') }}"></script>
 @endsection
 

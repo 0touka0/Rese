@@ -265,5 +265,5 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 @media screen and (max-width : 768px) {
 	.reservation-confirm {
 	padding: 0 20px;
-}
+	}
 }

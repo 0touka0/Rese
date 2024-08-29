@@ -6,6 +6,10 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Shop\DetailController;
 use App\Http\Controllers\Shop\MypageController;
 use App\Http\Controllers\Shop\ShopController;
+use App\Http\Controllers\Owner\NewShopController;
+use App\Http\Controllers\Owner\ShopEditController;
+use App\Http\Controllers\Owner\ShopConfirmController;
+use App\Http\Controllers\Owner\ShopReservationController;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -58,10 +62,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'owner'])->group(function () {
-	Route::get( '/newshop'						  , [OwnerController::class, 'newShop'		 ])->name('shop.create');
-	Route::post('/newshop/store'			  , [OwnerController::class, 'store'			 ])->name('shop.store');
-	Route::get( '/shopsconfirm'				  , [OwnerController::class, 'shopsConfirm'])->name('shops.confirm');
-	Route::get( '/shopedit{shop_id}' 	  , [OwnerController::class, 'shopEdit'		 ])->name('shop.edit');
-	Route::put( '/shopedit{shop_id}/put', [OwnerController::class, 'shopPut'		 ])->name('shop.put');
-	Route::get( '/reservations'				  , [OwnerController::class, 'reservations'])->name('reservations');
+	Route::get( '/newshop'			, [NewShopController::class, 'newShop'				  	 ])->name('shop.create');
+	Route::post('/newshop/store', [NewShopController::class, 'store'					  	 ])->name('shop.store');
+
+	Route::get( '/shopsconfirm' , [ShopConfirmController::class, 'shopsConfirm' 	 ])->name('shops.confirm');
+
+	Route::get( '/shopedit{shop_id}' 		, [ShopEditController::class, 'shopEdit'	 ])->name('shop.edit');
+	Route::put( '/shopedit{shop_id}/put', [ShopEditController::class, 'shopPut'		 ])->name('shop.put');
+
+	Route::get( '/reservations' , [ShopReservationController::class, 'reservations'])->name('reservations');
 	});

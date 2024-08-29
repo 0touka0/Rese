@@ -39,6 +39,15 @@ class ShopRequest extends FormRequest
                 ];
                 break;
 
+            case 'shop.store':
+            case 'shop.put':
+                $rules = [
+                    'name'     => 'required|string|max:255',
+                    'address'  => 'required|string|max:255',
+                    'category' => 'required|string|max:255',
+                    'overview' => 'required|string|max:1000',
+                ];
+                break;
         }
 
         return $rules;

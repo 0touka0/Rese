@@ -1,62 +1,9 @@
-body {
-	background: rgb(235, 235, 235);
-	font-family: Arial, sans-serif;
-	max-width: 1440px;
-	margin: 0 auto;
+.header {
+	width: 90%;
 }
 
-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	height: 7rem;
-  width: 80%;
-  margin: 0 auto;
-  color: #000;
-  padding: 1rem;
-}
-
-.header__title {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.header__nav-list {
-  display: flex;
-}
-
-.header__nav-item {
-	list-style: none;
-}
-
-.header__nav-item:first-of-type {
-	margin-right: 30px;
-}
-
-.header__nav-item--link {
-	display: inline-block;
-  width: 120px;
-	text-align: center;
-  background-color: #fff;
-  border: 2px solid rgb(48, 86, 255);
-  color: rgb(48, 86, 255);
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-	text-decoration: none;
-}
-
-main {
-	padding: 0 30px;
-}
-
-.shops-container {
+.main {
 	max-width: 1200px;
-	margin: 2rem auto;
-	padding: 1rem;
-	background-color: #fff;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	border-radius: 8px;
 }
 
 .shops-table {
@@ -115,8 +62,8 @@ main {
   width: 60px;
 	text-align: center;
   background-color: #fff;
-  border: 2px solid rgb(48, 86, 255);
-  color: rgb(48, 86, 255);
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 5px;
@@ -124,7 +71,7 @@ main {
 }
 
 .shops-table__td--link:hover {
-	background-color: rgb(48, 86, 255);
+	background-color: #4CAF50;
 	color: #fff;
 }
 

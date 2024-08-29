@@ -5,17 +5,18 @@
 @endsection
 
 @section('content')
+<!-- 店舗詳細 -->
 <div class="shop-detail">
   <div class="shop-detail__header">
-    <p><a href="/" class="shop-detail__nav"><</a></p>
+    <a href="/" class="shop-detail__nav">&lt;</a>
     <h2 class="shop-detail__title">{{ $shop->name }}</h2>
   </div>
   <div class="shop-detail__image">
     <img src="{{ $shop->image }}" alt="{{ $shop->name }}">
   </div>
   <div class="shop-detail__tags">
-    <p class="shop-detail__tag--address">#{{ $shop->address->address }}</p>
-    <p class="shop-detail__tag--category">#{{ $shop->category->category }}</p>
+    <span class="shop-detail__tag">#{{ $shop->address->address }}</span>
+    <span class="shop-detail__tag">#{{ $shop->category->category }}</span>
   </div>
   <div class="shop-detail__description">
     <p>{{ $shop->overview }}</p>
@@ -24,9 +25,12 @@
 @endsection
 
 @section('reservation-form')
+<!-- 予約フォーム -->
 <div class="reservation">
   <form action="/reservation" method="post">
     @csrf
+    <input type="hidden" name="user_id" value="{{ $user->id }}">
+    <input type="hidden" name="shop_id" value="{{ $shop->id }}">
     <div class="reservation__form">
       <div class="reservation__form-inner">
         <h2>予約</h2>
@@ -82,12 +86,13 @@
         </div>
       </div>
       <div class="reservation__submit">
-        <input type="hidden" name="user_id" value="{{ $user->id }}">
-        <input type="hidden" name="shop_id" value="{{ $shop->id }}">
         <button type="submit" class="reservation__btn">予約する</button>
       </div>
     </form>
   </div>
-  <script src="{{ asset('js/reservation.js') }}"></script>
 </div>
+@endsection
+
+@section('scripts')
+  <script src="{{ asset('js/reservation.js') }}"></script>
 @endsection

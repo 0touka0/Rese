@@ -56,5 +56,6 @@
 		@yield('content')
 	</main>
 	@yield('reservation-form')
+	@yield('scripts')
 </body>
 </html>

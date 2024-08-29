@@ -8,7 +8,6 @@ use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-
 use App\Http\Requests\ShopRequest;
 
 class DetailController extends Controller

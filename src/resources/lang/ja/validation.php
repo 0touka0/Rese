@@ -150,6 +150,9 @@ return [
     'attributes' => [
         'name' => 'お名前',
         'email' => 'メールアドレスは「ユーザー名@ドメイン」形式で入力してください',
-        'password' => 'パスワード'
+        'password' => 'パスワード',
+        'address' => '地域',
+        'category' => 'ジャンル',
+        'overview' => '店舗概要',
     ],
 ];

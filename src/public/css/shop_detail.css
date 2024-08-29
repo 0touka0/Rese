@@ -47,9 +47,8 @@ body {
 	margin-bottom: 30px;
 }
 
-.shop-detail__tag--address,
-.shop-detail__tag--category {
-	display: inline-block;
+.shop-detail__tag:first-of-type {
+	margin-right: 3px;
 }
 
 .shop-detail__description {
@@ -73,8 +72,8 @@ body {
 }
 
 .reservation__form-inner {
-	height: 630px;
 	padding: 30px;
+	height: 640px;
 }
 
 .reservation__form-group {
@@ -130,16 +129,7 @@ body {
 	margin-right: 40px;
 }
 
-.reservation__error {
-	margin-top: 210px;
-	text-align: center;
-	color:	rgb(230, 33, 33);
-	font-size: 18px;
-	font-weight: bold;
-}
-
 .reservation__submit {
-	margin-top: 10px;
 	text-align: center;
 	background: rgb(43, 63, 238);
 }
@@ -151,6 +141,15 @@ body {
 	cursor: pointer;
 }
 
+/* 	エラーメッセージ */
+.reservation__error {
+	margin-top: 210px;
+	text-align: center;
+	color:	rgb(230, 33, 33);
+	font-size: 18px;
+	font-weight: bold;
+}
+
 /* レスポンシブ (768px以下)*/
 @media screen and (max-width: 768px) {
 	body {
@@ -160,14 +159,6 @@ body {
 	.reservation {
 		grid-column: 1;
 		grid-row: 3;
+		width: 100%;
 	}
-}
-
-/* 	エラーメッセージ */
-.error-message {
-	margin-top: 210px;
-	text-align: center;
-	color:	rgb(230, 33, 33);
-	font-size: 18px;
-	font-weight: bold;
 }

@@ -6,10 +6,8 @@
 
 @section('content')
 <div class=grid-container>
-	<div class='user-name'>
-		<h1>{{ $user['name'] }}<span class="user-name__text">さん</span></h1>
-	</div>
-	{{-- 予約状況 --}}
+	<h1 class='user-name'>{{ $user['name'] }}<span class="user-name__text">さん</span></h1>
+	<!-- 予約状況 -->
 	<div class='reservation-confirm'>
 		<h2 class='reservation-confirm__header'>予約状況</h2>
 		<div class="message">
@@ -20,6 +18,7 @@
 				{{ session('message') }}
 			@endif
 		</div>
+
 		@foreach ($reservations as $index => $reservation)
 			<div class='reservation-card' data-datetime="{{ $reservation->datetime }} " data-index="{{ $index + 1 }}">
 				<div class="reservation-card__heading">
@@ -37,10 +36,10 @@
 					<form id="reservation-form-{{ $reservation->id }}" action="/reservation/{{ $reservation->id }}" method="post">
 						@csrf
 						@method('PUT')
+						<input type="hidden" name="user_id" value="{{ $reservation->user_id }}">
 						<div class="reservation-card__detail-list">
 							<p class="reservation-card__detail-label">Date</p>
 							<input type="date" name="date" value="{{ $reservation->reservation_date }}" id="reservation-date-{{ $reservation->id }}" class="reservation-card__detail-input auto-save" data-id="{{ $reservation->id }}">
-							<script src="{{ asset('js/reservationDatePicker.js') }}"></script>
 						</div>
 						<div class="reservation-card__detail-list">
 							<p class="reservation-card__detail-label">Time</p>
@@ -69,12 +68,12 @@
 							</select>
 						</div>
 						<div class="reservation-detail__btn">
-							<input type="hidden" name="user_id" value="{{ $reservation->user_id }}">
 							<button type="submit" class="reservation-detail__btn--submit" style="display: none;">変更を保存</button>
 						</div>
 					</form>
 				</div>
-				{{-- 評価フォームは表示用にクローンする --}}
+
+				<!-- 評価フォーム -->
 				<div class="rating-form" style="display: none;">
 					<form action="/rating" method="post">
 						@csrf
@@ -97,11 +96,9 @@
 				</div>
 			</div>
 		@endforeach
-		{{-- 予約情報変更ボタン表示機能、評価フォーム表示機能 --}}
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script src="{{ asset('js/ratingOverlay.js') }}"></script>
 	</div>
-{{-- お気に入り店舗 --}}
+
+	<!-- お気に入り店舗 -->
 	<div class="likes-confirm">
 		<h2 class="likes-confirm__header">お気に入り店舗</h2>
 		<div class="likes-confirm__lists">
@@ -135,7 +132,8 @@
 					</div>
 				</div>
 			</div>
-			{{-- 評価モーダル --}}
+
+			<!-- 評価モーダル -->
 			<div id="ratingModal{{ $like->shop->id }}" class="modal">
 				<div class="modal__content">
 					<div class="rating-modal__header">
@@ -162,7 +160,14 @@
 			</div>
 			@endforeach
 		</div>
-		<script src="{{ asset('js/ratingModal.js') }}"></script>
 	</div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="{{ asset('js/ratingOverlay.js') }}"></script>
+<script src="{{ asset('js/ratingModal.js') }}"></script>
+<script src="{{ asset('js/reservationDatePicker.js') }}"></script>
 @endsection
