@@ -10,7 +10,7 @@
 			<a class="header__nav-link" href="{{ route('mail.create') }}">メール配信</a>
 		</li>
 		<li class="header__nav-item">
-			<a class="header__nav-link" href="{{ route('admin') }}">新規作成</a>
+			<a class="header__nav-link" href="{{ route('owner.create') }}">新規作成</a>
 		</li>
 	</ul>
 @endsection

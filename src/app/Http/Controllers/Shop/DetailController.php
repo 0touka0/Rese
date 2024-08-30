@@ -35,5 +35,4 @@ class DetailController extends Controller
 
         return view('done');
     }
-
 }

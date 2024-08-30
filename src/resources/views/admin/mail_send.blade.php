@@ -7,7 +7,7 @@
 @section('header_nav')
 	<ul class="header__nav-list">
 		<li class="header__nav-item">
-			<a class="header__nav-link" href="/owners">戻る</a>
+			<a class="header__nav-link" href="{{ route('owners.confirm') }}">戻る</a>
 		</li>
 	</ul>
 @endsection
@@ -20,7 +20,7 @@
 	@if (session('success'))
 		{{ session('success') }}
 	@endif
-	<form class="mail-form" action="{{ route('sendMail') }}" method="post">
+	<form class="mail-form" action="{{ route('mail.send') }}" method="post">
 		@csrf
 		<div class="mail-form__inner">
 			<div class="mail-form__item">
