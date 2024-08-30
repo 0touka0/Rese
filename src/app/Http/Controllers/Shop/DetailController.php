@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ReservationCompleted;
 use App\Models\Reservation;
 use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\ShopRequest;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DetailController extends Controller
 {
@@ -31,7 +34,15 @@ class DetailController extends Controller
         $reservationData = Arr::except($reservation, ['date', 'time']); // 登録不要カラムを取り除く
         $reservationData['datetime'] = $combinedDateTime;
 
-        Reservation::create($reservationData);
+        $newReservation = Reservation::create($reservationData);
+
+        // QRコードの生成
+        $qrCode = QrCode::format('png')
+                        ->size(300)
+                        ->generate(route('mypage', ['user_id' => $newReservation->user_id]));
+
+        // メールの送信
+        Mail::to($newReservation->user->email)->send(new ReservationCompleted($newReservation, $qrCode));
 
         return view('done');
     }
