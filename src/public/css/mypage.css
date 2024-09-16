@@ -48,7 +48,7 @@
 	position: relative;
 	height: 280px;
 	width: 460px;
-	margin-bottom: 90px;
+	margin-bottom: 50px;
 	padding: 30px;
 	background: rgb(48, 86, 255);
 	color: #fff;
@@ -99,9 +99,21 @@
 
 .reservation-detail__btn {
 	text-align: right;
+	margin-top: 10px;
 }
 
-button.reservation-detail__btn--submit {
+button.reservation-detail__btn--submit, .reservation-card__payment-link {
+	color: #fff;
+	cursor: pointer;
+}
+
+.reservation-card__payment-link-wrapper  {
+	text-align: center;
+	margin-top: 10px;
+}
+
+.show-rating-form-btn {
+	float: right;
 	color: #fff;
 }
 

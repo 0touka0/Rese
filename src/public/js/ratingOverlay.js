@@ -8,14 +8,26 @@ $(document).ready(function() {
 		var oneHourLater = new Date(datetimeDate.getTime() + 60 * 60 * 1000);
 
 		if (now >= oneHourLater) {
-			showOverlay(reservationCard);
-		} else {
-			var timeRemaining = oneHourLater - now;
-			setTimeout(function() {
-				showOverlay(reservationCard);
-			}, timeRemaining);
-		}
-	});
+      showRatingButton(reservationCard);
+    } else {
+      var timeRemaining = oneHourLater - now;
+      setTimeout(function() {
+        showRatingButton(reservationCard);
+      }, timeRemaining);
+    }
+  });
+
+  // 「評価する」ボタンを表示する
+  function showRatingButton(reservationCard) {
+    reservationCard.find('.show-rating-form-btn').show(); // ボタンを表示
+	}
+
+	// 「評価する」ボタンをクリックしたときの処理
+  $('.show-rating-form-btn').on('click', function() {
+    var reservationCard = $(this).closest('.reservation-card');
+    showOverlay(reservationCard);
+  });
+
 	// 評価フォーム表示機能
 	function showOverlay(reservationCard) {
 		var overlay = $('<div class="overlay"></div>');

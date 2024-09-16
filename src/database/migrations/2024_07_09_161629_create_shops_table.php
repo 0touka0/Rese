@@ -21,6 +21,7 @@ class CreateShopsTable extends Migration
             $table->string('name');
             $table->text('overview')->nullable();
             $table->string('image')->nullable();
+            $table->string('payment_url')->nullable();
             $table->timestamps();
         });
     }

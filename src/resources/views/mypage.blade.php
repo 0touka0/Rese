@@ -71,6 +71,10 @@
 							<button type="submit" class="reservation-detail__btn--submit" style="display: none;">変更を保存</button>
 						</div>
 					</form>
+					<button type="button" class="show-rating-form-btn" data-reservation-id="{{ $reservation->id }}" style="display: none;">評価する</button>
+					<div class="reservation-card__payment-link-wrapper">
+						<a href="{{ $reservation->shop->payment_url }}" class="reservation-card__payment-link" data-reservation-datetime="{{ $reservation->datetime }}">先に支払う</a>
+					</div>
 				</div>
 
 				<!-- 評価フォーム -->
@@ -169,5 +173,5 @@
 
 <script src="{{ asset('js/ratingOverlay.js') }}"></script>
 <script src="{{ asset('js/ratingModal.js') }}"></script>
-<script src="{{ asset('js/reservationDatePicker.js') }}"></script>
+<script src="{{ asset('js/reservationCard.js') }}"></script>
 @endsection

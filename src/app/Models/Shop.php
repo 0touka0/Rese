@@ -13,6 +13,7 @@ class Shop extends Model
         'name',
         'overview',
         'image',
+        'payment_url',
     ];
 
     public function reservations()
