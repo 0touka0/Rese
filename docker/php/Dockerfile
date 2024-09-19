@@ -24,4 +24,11 @@ RUN composer create-project "laravel/laravel=8.*" . --prefer-dist
 # Laravel Qrcodeライブラリをインストール
 RUN composer require simplesoftwareio/simple-qrcode
 
+# StripeのPHP SDKをインストール
+RUN composer require stripe/stripe-php
+
+# AWS SDK for PHPとFlysystem S3プラグインをインストール
+RUN composer require aws/aws-sdk-php \
+  && composer require league/flysystem-aws-s3-v3:^1.0
+
 WORKDIR /var/www
