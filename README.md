@@ -13,7 +13,8 @@
 - http://localhost/mypage/user_id
 - http://localhost/detail/shop_id
 - http://localhost/done
-- http://localhost:8025(mailhog)
+- mailhog
+- http://localhost:8025
 - 管理者用のURL
 - http://localhost/ownerCreate
 - http://localhost/owners
@@ -21,7 +22,7 @@
 - 店舗代表者用のURL
 - http://localhost/shopCreate
 - http://localhost/shopsConfirm
-- http://localhost/shopEdit/{shop_id}
+- http://localhost/shopEdit/shop_id
 - http://localhost/reservations
 
 ## アプリケーションURL(デプロイ)
@@ -32,7 +33,8 @@
 - http://13.208.191.95/mypage/user_id
 - http://13.208.191.95/detail/shop_id
 - http://13.208.191.95/done
-- http://13.208.191.95:8025(mailhog)
+- mailhog
+- http://13.208.191.95:8025
 - 管理者用のURL
 - http://13.208.191.95/ownerCreate
 - http://13.208.191.95/owners
@@ -40,7 +42,7 @@
 - 店舗代表者用のURL
 - http://13.208.191.95/shopCreate
 - http://13.208.191.95/shopsConfirm
-- http://13.208.191.95/shopEdit/{shop_id}
+- http://13.208.191.95/shopEdit/shop_id
 - http://13.208.191.95/reservations
 
 ## 他のリポジトリ
@@ -113,4 +115,4 @@ Laravel環境構築
 - パスワード：ownerexample
 
 ## 注意事項
-- ストレージはS3を使用しているのでローカル環境では店舗作成時画像の保存が行えません
+- ストレージはS3を使用しているので、ローカル環境では店舗作成時画像の保存が行えません
