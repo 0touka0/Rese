@@ -75,7 +75,3 @@
 	</div>
 </form>
 @endsection
-
-<?php
-phpinfo();
-?>
