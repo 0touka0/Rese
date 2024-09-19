@@ -25,10 +25,12 @@ class ReservationRequest extends FormRequest
     public function rules()
     {
         $datetime = $this->date . " " . $this->time;
+        $userId   = auth()->id();
+        $reservationId = $this->reservation_id ?? null;
 
         return [
             'date' => ['required'],
-            'time' => ['required', new UniqueReservation($datetime)],
+            'time' => ['required', new UniqueReservation($datetime, $userId, $reservationId)],
         ];
     }
 }
