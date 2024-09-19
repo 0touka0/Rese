@@ -80,7 +80,8 @@
 - mailhog
 
 ## テーブル設計
-![Rese-table](https://github.com/user-attachments/assets/0494ee62-21f7-4188-803a-8efbebaa3a85)
+![Rese-table](https://github.com/user-attachments/assets/48a2e9f9-145e-4dc9-9fa9-9e07e5b16d60)
+![Rese-table2](https://github.com/user-attachments/assets/7199b870-fd1e-43ba-a4b4-e729fde8b8ab)
 
 ## ER図
 ![rese_ER図](https://github.com/user-attachments/assets/f4498123-4c25-4646-8938-ae99817c3ae9)
