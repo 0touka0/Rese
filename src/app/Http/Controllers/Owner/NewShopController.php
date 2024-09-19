@@ -8,7 +8,6 @@ use App\Models\Address;
 use App\Models\Category;
 use App\Models\Shop;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
 
 class NewShopController extends Controller
 {
@@ -25,8 +24,6 @@ class NewShopController extends Controller
         $createdCategory = Category::firstOrCreate([
             'category' => $request->input('category')
         ]);
-
-        // Addressを作成し、address_idを取得する
         $createdAddress = Address::firstOrCreate([
             'address' => $request->input('address'),
         ]);
@@ -35,7 +32,7 @@ class NewShopController extends Controller
             // ファイルの取得とアップロード
             $image = $request->file('image');
             $path = Storage::disk('s3')->put('rese-image', $image);
-            $url = Storage::disk('s3')->url($path);
+            $url = Storage::disk('s3')->url($path); // エディタの拡張機能側でエラー判定になる場合があるが機能に問題は無い
 
             // Shopの作成
             $shop = $request->only(['owner_id', 'name', 'overview']);
@@ -48,25 +45,5 @@ class NewShopController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', '店舗の作成に失敗しました');
         }
-
-        // $image = $request->file('image');
-        // if (!$image) {
-        //     Log::error('画像の取得に失敗しました。ファイルがアップロードされていません。');
-        //     return redirect()->back()->with('error', '画像の取得に失敗しました');
-        // }
-
-        // if (!$image->isValid()) {
-        //     Log::error('アップロードされた画像が無効です。エラーメッセージ: ' . $image->getErrorMessage());
-        //     return redirect()->back()->with('error', 'アップロードされた画像が無効です');
-        // }
-
-        // // Shopの作成
-        // $shop = $request->only(['owner_id', 'name', 'overview']);
-        // $shop['category_id'] = $createdCategory->id; // category_idを追加
-        // $shop['address_id'] = $createdAddress->id; // address_idを追加
-        // $shop['image'] = $url; // s3の店舗画像urlを追加
-        // Shop::create($shop);
-
-        // return redirect()->back()->with('success', '店舗を作成しました');
     }
 }

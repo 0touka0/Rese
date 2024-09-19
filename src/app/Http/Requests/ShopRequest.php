@@ -39,14 +39,22 @@ class ShopRequest extends FormRequest
                 ];
                 break;
 
-            case 'shop.store':
-            case 'shop.put':
+            case 'shop.store': //店舗作成ルート
                 $rules = [
                     'name'     => 'required|string|max:255',
                     'address'  => 'required|string|max:255',
                     'category' => 'required|string|max:255',
                     'overview' => 'required|string|max:1000',
-                    'image'    => 'required|image|mimes:jpg,jpeg,png|max:10240',
+                    'image'    => 'image|mimes:jpg,jpeg,png|max:10240',
+                ];
+                break;
+
+            case 'shop.put': //店舗編集ルート
+                $rules = [
+                    'name'     => 'required|string|max:255',
+                    'address'  => 'required|string|max:255',
+                    'category' => 'required|string|max:255',
+                    'overview' => 'required|string|max:1000',
                 ];
                 break;
         }
