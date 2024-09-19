@@ -34,6 +34,10 @@
   resize: none;
 }
 
+.shopCreate-form__img {
+  width: 80%;
+}
+
 .shopCreate-form__btn {
   text-align: center;
 }

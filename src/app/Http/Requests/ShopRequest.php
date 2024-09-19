@@ -46,6 +46,7 @@ class ShopRequest extends FormRequest
                     'address'  => 'required|string|max:255',
                     'category' => 'required|string|max:255',
                     'overview' => 'required|string|max:1000',
+                    'image'    => 'required|image|mimes:jpg,jpeg,png|max:10240',
                 ];
                 break;
         }

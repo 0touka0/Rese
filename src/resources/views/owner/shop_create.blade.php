@@ -20,7 +20,7 @@
 		{{ session('success') }}
 	@endif
 </span>
-<form class="shopCreate-form" action="{{ route('shop.store') }}" method="post">
+<form class="shopCreate-form" action="{{ route('shop.store') }}" method="post" enctype="multipart/form-data">
 	@csrf
 	<input type="hidden" name="owner_id" value="{{ auth()->user()->id }}">
 	<div class="shopCreate-form__inner">
@@ -29,6 +29,15 @@
 			<input class="shopCreate-form__text" type="text" name="name" id="shopName">
 			<span class="error-message">
 				@error('name')
+					{{ $message }}
+				@enderror
+			</span>
+		</div>
+		<div class="shopCreate-form__item">
+			<label class="shopCreate-form__label" for="image">店舗画像</label>
+			<input class="shopCreate-form__img" type="file" name="image" id="image" >
+			<span class="error-message">
+				@error('image')
 					{{ $message }}
 				@enderror
 			</span>
@@ -66,3 +75,7 @@
 	</div>
 </form>
 @endsection
+
+<?php
+phpinfo();
+?>
