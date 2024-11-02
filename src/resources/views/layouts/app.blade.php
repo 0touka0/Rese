@@ -19,8 +19,8 @@
 		@yield('search-form')
 		<div id="header-modal" class="modal">
 			<div class="modal__content">
-        <p class="header-modal__close">&times;</p>
-        <nav class="header-modal__nav">
+				<p class="header-modal__close">&times;</p>
+				<nav class="header-modal__nav">
 					<ul class="header-modal__list">
 						<li class="header-modal__item">
 							<a class="header-modal__link" href="/">Home</a>
