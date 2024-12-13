@@ -180,7 +180,6 @@ main {
     object-fit: contain;
 }
 
-/* 下側レイアウト */
 .rating-form__btn {
     transform: translateX(-50%); /* 中央揃え */
     width: 100%;
@@ -196,4 +195,111 @@ main {
     margin-block-start: 50px;
     font-weight: 600;
     letter-spacing: 2px;
+}
+
+/* レスポンシブ (1200px以下) */
+@media screen and (max-width: 1200px) {
+    main {
+        grid-template-columns: 480px 1fr; /* 左側を480pxに縮小、右側は自動で広がる */
+    }
+
+    .grid-container-left {
+        inline-size: 100%;
+    }
+
+    .grid-container-right {
+        inline-size: 100%;
+    }
+
+    .rating-title {
+        font-size: 35px;
+        text-align: center; /* タイトルを中央寄せ */
+    }
+
+    .shop-card {
+        margin: 0 auto 20px; /* 左側のカードを中央揃え */
+    }
+
+    .rating-form__btn {
+        transform: translateX(0); /* ボタンを中央揃え */
+        margin-inline: auto;
+        inline-size: 85%;
+    }
+}
+
+/* レスポンシブ (768px以下) */
+@media screen and (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr; /* 一列レイアウトに変更 */
+        display: flex;
+        flex-direction: column; /* 縦並び */
+        align-items: center; /* 中央揃え */
+    }
+
+    .grid-container-right {
+        inline-size: 100%; /* フル幅 */
+        margin-inline: auto; /* 左右の中央揃え */
+        text-align: center; /* コンテンツ中央寄せ */
+    }
+
+    .left-content {
+        border-right: none; /* ボーダーを消す */
+        margin-block-end: 80px; /* 下に少し余白 */
+    }
+
+    .shop-card {
+        margin: 0 auto 20px; /* 中央揃えと余白 */
+    }
+
+    .rating-title {
+        font-size: 30px; /* タイトルサイズを調整 */
+        margin-block-end: 30px;
+        text-align: center; /* タイトル中央揃え */
+    }
+
+    .rating-form__btn--submit {
+        transform: translateX(0); /* ボタンの位置をリセット */
+        margin-inline: auto;
+        inline-size: 85%; /* 幅を調整 */
+        block-size: 50px;
+    }
+
+    .rating-form__label,
+    .rating-form__comment-textarea {
+        text-align: center; /* フォーム内の要素を中央揃え */
+        inline-size: 100%;
+    }
+
+    .star-rating {
+        justify-content: center; /* 星評価を中央揃え */
+    }
+}
+
+/* レスポンシブ (428px以下) */
+@media screen and (max-width: 428px) {
+    main {
+        padding-inline: 10px;
+    }
+
+    .grid-container-left,
+    .grid-container-right {
+        margin-inline: auto;
+        inline-size: 100%; /* フル幅 */
+    }
+
+    .rating-title {
+        font-size: 25px;
+        text-align: center; /* タイトル中央寄せ */
+        padding-block-end: 20px;
+    }
+
+    .shop-card {
+        margin: 0 auto 20px;
+        width: 75%; /* カード幅を少し縮小 */
+    }
+
+    .rating-form__btn {
+        inline-size: 100%;
+        block-size: 45px;
+    }
 }

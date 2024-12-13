@@ -29,7 +29,7 @@ class DetailController extends Controller
             ->first();
 
         // 判定結果をビューに渡す
-        $isRated = $existingRating !== null;
+        $isRated = $existingRating == null;
 
         return view('shop_detail', compact('shop', 'user', 'ratings', 'isRated'));
     }
@@ -47,8 +47,8 @@ class DetailController extends Controller
 
         // QRコードの生成
         $qrCode = QrCode::format('png')
-                        ->size(300)
-                        ->generate(route('mypage', ['user_id' => $newReservation->user_id]));
+            ->size(300)
+            ->generate(route('mypage', ['user_id' => $newReservation->user_id]));
 
         // メールの送信
         Mail::to($newReservation->user->email)->send(new ReservationCompleted($newReservation, $qrCode));

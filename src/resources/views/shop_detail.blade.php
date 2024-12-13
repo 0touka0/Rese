@@ -22,39 +22,40 @@
         <p>{{ $shop->overview }}</p>
     </div>
     @if ($isRated)
-    <div class="ratings">
-        <p class="rating-title">全ての口コミ情報</p>
-        @foreach ($ratings as $rating)
-            <nav class="rating-nav">
-                <a class="rating-nav__link" href="/rating/{{ $shop->id }}">口コミを編集</a>
-                <form action="/delete/{{ $rating->id }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <input type="hidden" name="">
-                    <button class="rating-nav__delete">口コミを削除</button>
-                </form>
-            </nav>
-            <div class="ratings-list">
-                <div class="rating-star">
-                    @for ($i = 1; $i <= 5; $i++)
-                        @if ($i <= $rating->score)
-                            <span class="star filled">&#9733;</span> <!-- 塗りつぶし星 -->
-                        @else
-                            <span class="star">&#9733;</span> <!-- 空星 -->
-                        @endif
-                    @endfor
-                </div>
-                <p class="rating-comment">{{ $rating->comment }}</p>
-                @if ($rating->image)
-                    <div class="rating-img">
-                        <img class="rating-img__image" src="{{ asset('storage/' . $rating->image) }}" alt="評価画像">
-                    </div>
-                @endif
-            </div>
-        @endforeach
-    </div>
-    @else
         <a class="rating-link" href="/rating/{{ $shop->id }}">口コミを投稿する</a>
+    @endif
+    @if ($ratings)
+        <div class="ratings">
+            <p class="rating-title">全ての口コミ情報</p>
+            @foreach ($ratings as $rating)
+                <nav class="rating-nav">
+                    <a class="rating-nav__link" href="/rating/{{ $shop->id }}">口コミを編集</a>
+                    <form action="/delete/{{ $rating->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="">
+                        <button class="rating-nav__delete">口コミを削除</button>
+                    </form>
+                </nav>
+                <div class="ratings-list">
+                    <div class="rating-star">
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($i <= $rating->score)
+                                <span class="star filled">&#9733;</span> <!-- 塗りつぶし星 -->
+                            @else
+                                <span class="star">&#9733;</span> <!-- 空星 -->
+                            @endif
+                        @endfor
+                    </div>
+                    <p class="rating-comment">{{ $rating->comment }}</p>
+                    @if ($rating->image)
+                        <div class="rating-img">
+                            <img class="rating-img__image" src="{{ asset('storage/' . $rating->image) }}" alt="評価画像">
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+        </div>
     @endif
 </div>
 @endsection
