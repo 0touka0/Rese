@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class OwnerMiddleware
+class GeneralOrAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class OwnerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role == 2) {
+        if (Auth::user()->role == 1 || Auth::user()->role == 3) {
             return $next($request);
         }
 
