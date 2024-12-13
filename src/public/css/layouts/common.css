@@ -1,6 +1,8 @@
 body {
 	background: rgb(235, 235, 235);
 	font-family: Arial, sans-serif;
+	max-width: 1440px;
+	margin: 0 auto;
 }
 
 .header {

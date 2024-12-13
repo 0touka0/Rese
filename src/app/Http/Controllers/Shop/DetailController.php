@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\ShopRequest;
+use App\Models\Rating;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class DetailController extends Controller
@@ -21,8 +22,16 @@ class DetailController extends Controller
         $user_id = Auth::id();
         $user    = User::where('id', $user_id)->first();
         $shop    = Shop::find($shop_id); // 予約する店舗のデータを取得
+        $ratings  = Rating::all();
 
-        return view('shop_detail', compact('shop', 'user'));
+        $existingRating = Rating::where('user_id', $user_id)
+            ->where('shop_id', $shop_id)
+            ->first();
+
+        // 判定結果をビューに渡す
+        $isRated = $existingRating !== null;
+
+        return view('shop_detail', compact('shop', 'user', 'ratings', 'isRated'));
     }
 
     // 予約機能

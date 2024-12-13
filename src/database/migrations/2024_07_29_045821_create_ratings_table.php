@@ -19,7 +19,9 @@ class CreateRatingsTable extends Migration
             $table->foreignId('shop_id')->constrained()->cascadeOnDelete();
             $table->tinyInteger('score');
             $table->text('comment')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

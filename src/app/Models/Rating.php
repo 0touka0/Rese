@@ -11,6 +11,7 @@ class Rating extends Model
         'shop_id',
         'score',
         'comment',
+        'image'
     ];
 
     public function user()

@@ -76,28 +76,6 @@
 						<a href="{{ $reservation->shop->payment_url }}" class="reservation-card__payment-link" data-reservation-datetime="{{ $reservation->datetime }}">先に支払う</a>
 					</div>
 				</div>
-
-				<!-- 評価フォーム -->
-				<div class="rating-form" style="display: none;">
-					<form action="/rating" method="post">
-						@csrf
-						<input type="hidden" name="user_id" value="{{ $reservation->user_id }}">
-						<input type="hidden" name="shop_id" value="{{ $reservation->shop_id }}">
-						<div class="rating-form__score">
-							<label for="score" class="rating-label">{{ $reservation->shop->name }}評価:</label>
-							<select name="score" id="score" required>
-								@for ($i = 1; $i <= 5; $i++)
-									<option value="{{ $i }}">{{ $i }}</option>
-								@endfor
-							</select>
-						</div>
-						<div class="rating-form__comment">
-							<label for="comment" class="rating-label rating-label__comment">コメント:</label>
-							<textarea name="comment" id="comment" rows="3" maxlength="255" class="rating-label__comment--textarea"></textarea>
-						</div>
-						<button type="submit" class="rating-form__btn">送信</button>
-					</form>
-				</div>
 			</div>
 		@endforeach
 	</div>
@@ -170,8 +148,6 @@
 
 @section('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script src="{{ asset('js/ratingOverlay.js') }}"></script>
 <script src="{{ asset('js/ratingModal.js') }}"></script>
 <script src="{{ asset('js/reservationCard.js') }}"></script>
 @endsection

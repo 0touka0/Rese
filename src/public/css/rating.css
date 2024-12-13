@@ -1,0 +1,199 @@
+main {
+    display: grid;
+    grid-template-columns: 640px 800px;
+}
+
+/* 左側レイアウト */
+.grid-container-left {
+    grid-column: 1;
+    margin-block-start: 75px;
+}
+
+.left-content {
+    border-right: solid 2px #c1c1c1;
+}
+
+.rating-title {
+    inline-size: 55%;
+    margin-inline: auto;
+    padding-block-end: 60px;
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+
+.shop-card {
+    width: 300px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 2px 2px 5px #6e6e6e;
+}
+
+.shop-card__img {
+    height: 150px;
+}
+
+.shop-card__img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.shop-card__content {
+    display: block;
+    max-height: 220px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 13px 20px;
+}
+
+.shop-card__name {
+    display: inline-block;
+    line-height: 36px;
+    font-size: 20px;
+    width: 130px;
+    margin-right: 45px;
+}
+
+.rating {
+    display: inline-block;
+    font-size: 17px;
+}
+
+.fa-star,
+.fa-star-half-alt {
+    color: gold;
+}
+
+.shop-card__tags {
+    margin-bottom: 15px;
+}
+
+.shop-card__tag:first-of-type {
+    margin-right: 3px;
+}
+
+.shop-card__actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-right: 5px;
+}
+
+.shop-card__btn {
+    width: 120px;
+    letter-spacing: 1px;
+    padding: 5px 12px;
+    border-radius: 5px;
+}
+
+.shop-card__liked i {
+    color: red;
+}
+
+.shop-card__not-liked i {
+    color: #e6e6e6;
+}
+
+.fa-heart {
+    font-size: 34px;
+}
+
+/* 右側レイアウト */
+.grid-container-right {
+    grid-column: 2;
+    inline-size: 100%;
+}
+
+.right-content {
+    inline-size: 80%;
+    margin-inline: auto;
+}
+
+.rating-form__score,
+.rating-form__comment {
+    margin-block-end: 35px;
+}
+
+.rating-form__label {
+    inline-size: 280px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    display: block;
+}
+
+.rating-form__comment-textarea,
+.rating-form__image-input {
+    margin-block-start: 16px;
+}
+
+.star-rating {
+    display: inline-flex;
+}
+
+.star {
+    color: #d9d9d9;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.rating-form__comment-textarea {
+    border: solid 2px #c1c1c1;
+    inline-size: 100%;
+    padding: 10px 20px;
+    font-size: 18px;
+    resize: none;
+}
+
+.count {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.rating-form__image-input {
+    block-size: 180px;
+    inline-size: 100%;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.image-input__large-text {
+    padding-block-start: 75px;
+    padding-block-end: 5px;
+    font-size: 14px;
+}
+
+.image-input__small-text {
+    font-size: 12px;
+}
+
+.image-input__image {
+    display: none;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+/* 下側レイアウト */
+.rating-form__btn {
+    transform: translateX(-50%); /* 中央揃え */
+    width: 100%;
+}
+
+.rating-form__btn--submit {
+    inline-size: 85%;
+    block-size: 55px;
+    border-radius: 75px;
+    background-color: #fff;
+    display: block;
+    margin-inline: auto;
+    margin-block-start: 50px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}

@@ -8,6 +8,7 @@ use App\Http\Controllers\Owner\NewShopController;
 use App\Http\Controllers\Owner\ShopConfirmController;
 use App\Http\Controllers\Owner\ShopEditController;
 use App\Http\Controllers\Owner\ShopReservationController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\Shop\DetailController;
 use App\Http\Controllers\Shop\MypageController;
 use App\Http\Controllers\Shop\ShopController;
@@ -48,7 +49,12 @@ Route::middleware('auth', 'role.email.check')->group(function () {
 
 	Route::get('/mypage/{user_id}', [MypageController::class, 'mypage'])->name('mypage');
 	Route::put('/reservation/{reservation_id}', [MypageController::class, 'update'])->name('reservation.update');
-	Route::post('/rating', [MypageController::class, 'rating'])->name('rating');
+
+	Route::get('/rating/{shop_id}', [RatingController::class, 'rating'])->name('rating');
+	Route::post('/ratingCreate', [RatingController::class, 'ratingCreate'])->name('rating.create');
+	Route::put('/ratingCreate/{id}', [RatingController::class, 'update']);
+
+	Route::delete('/delete/{rating_id}', [RatingController::class, 'remove']);
 
 	Route::get('/softdelete/{reservation_id}', function ($reservation_id) {
 		Reservation::find($reservation_id)->delete();

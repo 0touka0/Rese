@@ -24,10 +24,10 @@ class ShopController extends Controller
     // 検索機能
     public function search(Request $request)
     {
-        $shops = Shop::AddressSearch( $request->address)
-                     ->CategorySearch($request->category)
-                     ->KeywordSearch( $request->keyword)
-                     ->get();
+        $shops = Shop::AddressSearch($request->address)
+            ->CategorySearch($request->category)
+            ->KeywordSearch($request->keyword)
+            ->get();
         $likedShops = $this->getUserLikedShops($shops);
 
         return view('shop_all', compact('shops', 'likedShops'));
@@ -41,9 +41,9 @@ class ShopController extends Controller
 
         foreach ($shops as $shop) {
             $isLiked = Like::where('user_id', $user_id)
-                           ->where('shop_id', $shop->id)
-                           ->where('like', 1)
-                           ->exists();
+                ->where('shop_id', $shop->id)
+                ->where('like', 1)
+                ->exists();
             $likedShops[$shop->id] = $isLiked;
         }
 
@@ -55,8 +55,8 @@ class ShopController extends Controller
     {
         $user_id      = Auth::id();
         $existingLike = Like::where('shop_id', $shop_id)
-                            ->where('user_id', $user_id)
-                            ->first();
+            ->where('user_id', $user_id)
+            ->first();
 
         // likeカラムの更新or登録
         if ($existingLike) {

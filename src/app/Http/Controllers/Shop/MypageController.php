@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rating;
 use App\Models\Reservation;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Carbon\Carbon;
 use App\Http\Requests\ShopRequest;
@@ -50,27 +48,5 @@ class MypageController extends Controller
         Reservation::find($reservation_id)->update($reservationData);
 
         return redirect()->back()->with('message', '予約を更新しました');
-    }
-
-    // 店舗の評価作成or更新
-    public function rating(Request $request)
-    {
-        $userId     = $request->input('user_id');
-        $shopId     = $request->input('shop_id');
-        $ratingData = $request->only(['score', 'comment']);
-
-        $existingRating = Rating::where('user_id', $userId)
-        ->where('shop_id', $shopId)
-        ->first();
-
-        if ($existingRating) {
-            $existingRating->update($ratingData);
-            $message = '店舗評価を更新しました';
-        } else {
-            Rating::create(array_merge($ratingData, ['user_id' => $userId, 'shop_id' => $shopId]));
-            $message = '店舗評価を送信しました';
-        }
-
-        return redirect()->back()->with('message', $message);
     }
 }

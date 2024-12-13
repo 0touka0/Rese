@@ -32,9 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// 評価モーダルの表示
 	function initializeModal() {
-		const ratingModal = document.getElementById('ratingModal');
-		const ratingClose = document.querySelector('.rating-modal__close');
-
 		const ratingElements = document.querySelectorAll('.rating');
 		ratingElements.forEach(function (ratingElement) {
 			ratingElement.addEventListener('click', function () {
