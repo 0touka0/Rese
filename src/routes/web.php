@@ -27,12 +27,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get( '/', [ShopController::class, 'index'])->name('index');
-Route::get( '/search', [ShopController::class, 'search'])->name('search');
+Route::get('/', [ShopController::class, 'index'])->name('index');
+Route::get('/search', [ShopController::class, 'search'])->name('search');
 
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get( '/thanks', function () {
+Route::get('/thanks', function () {
 	// 管理者の場合サンクスページの表示は不要
 	if (Gate::allows('isAdmin')) {
 		return redirect()->back()->with('message', '店舗代表者を作成');
@@ -40,7 +40,7 @@ Route::get( '/thanks', function () {
 	return view('auth.thanks')->with('message', '確認用のメールを送信しました。');
 })->name('thanks');
 
-// 利用者ルート
+// メール認証済みのユーザー専用ルート
 Route::middleware('auth', 'role.email.check')->group(function () {
 	Route::post('/like/{shop_id}', [ShopController::class, 'like'])->name('like');
 
@@ -50,19 +50,25 @@ Route::middleware('auth', 'role.email.check')->group(function () {
 	Route::get('/mypage/{user_id}', [MypageController::class, 'mypage'])->name('mypage');
 	Route::put('/reservation/{reservation_id}', [MypageController::class, 'update'])->name('reservation.update');
 
-	Route::get('/rating/{shop_id}', [RatingController::class, 'rating'])->name('rating');
-	Route::post('/ratingCreate', [RatingController::class, 'ratingCreate'])->name('rating.create');
-	Route::put('/ratingCreate/{id}', [RatingController::class, 'update']);
-
-	Route::delete('/delete/{rating_id}', [RatingController::class, 'remove']);
-
 	Route::get('/softdelete/{reservation_id}', function ($reservation_id) {
 		Reservation::find($reservation_id)->delete();
 		return redirect()->back();
 	});
 });
 
-// 管理者ルート
+// 一般ユーザー専用ルート
+Route::middleware('auth', 'general')->group(function () {
+	Route::get('/rating/{shop_id}', [RatingController::class, 'rating'])->name('rating');
+	Route::post('/ratingCreate', [RatingController::class, 'ratingCreate'])->name('rating.create');
+	Route::put('/ratingCreate/{id}', [RatingController::class, 'update']);
+});
+
+// 一般と管理者専用ルート
+Route::middleware(['auth', 'general.or.admin'])->group(function () {
+	Route::delete('/delete/{rating_id}', [RatingController::class, 'remove']);
+});
+
+// 管理者専用ルート
 Route::middleware(['auth', 'admin'])->group(function () {
 	Route::get('/ownerCreate', [OwnerCreateController::class, 'ownerCreate'])->name('owner.create');
 
@@ -72,7 +78,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 	Route::post('/mail/send', [MailSenderController::class, 'sendMail'])->name('mail.send');
 });
 
-// 店舗代表者ルート
+// 店舗代表者専用ルート
 Route::middleware(['auth', 'owner'])->group(function () {
 	Route::get('/shopCreate', [NewShopController::class, 'shopCreate'])->name('shop.create');
 	Route::post('/newShop/store', [NewShopController::class, 'store'])->name('shop.store');
@@ -83,4 +89,4 @@ Route::middleware(['auth', 'owner'])->group(function () {
 	Route::put('/shopEdit/{shop_id}/put', [ShopEditController::class, 'shopPut'])->name('shop.put');
 
 	Route::get('/reservations', [ShopReservationController::class, 'reservations'])->name('reservations');
-	});
+});
