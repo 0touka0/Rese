@@ -58,6 +58,11 @@ body {
 }
 
 .rating-title {
+    padding-bottom: 30px;
+    border-bottom: solid 1px #6e6e6e;
+}
+
+.rating-title__text {
     width: 100%;
     margin-top: 40px;
     padding: 10px 0;
@@ -70,9 +75,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 30px;
     padding: 20px 0;
-    border-top: solid 1px #6e6e6e;
 }
 
 .rating-nav__link {
@@ -131,7 +134,7 @@ body {
     height: 100vh; /* ビューポート全体の高さ */
     grid-column: 2;
     grid-row: 1/3;
-    padding: 40px;
+    padding: 60px;
 }
 
 .reservation__form {

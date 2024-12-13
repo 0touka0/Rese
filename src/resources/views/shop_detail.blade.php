@@ -26,7 +26,9 @@
     @endif
     @if ($ratings)
         <div class="ratings">
-            <p class="rating-title">全ての口コミ情報</p>
+            <div class="rating-title">
+                <p class="rating-title__text">全ての口コミ情報</p>
+            </div>
             @foreach ($ratings as $rating)
                 <nav class="rating-nav">
                     <a class="rating-nav__link" href="/rating/{{ $shop->id }}">口コミを編集</a>
