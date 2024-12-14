@@ -12,13 +12,38 @@ use Illuminate\Support\Facades\Auth;
 class ShopController extends Controller
 {
     // 店舗一覧ページ表示
-    public function index()
+    public function index(Request $request)
     {
-        $shops      = Shop::all();
-        $ratings    = Rating::all();
+        $sortType = $request->get('sort'); // ソートタイプを取得（指定がない場合はnull）
+
+        $shops = Shop::query()
+            ->with(['ratings', 'address', 'category']) // 必要なリレーションをロード
+            ->withAvg('ratings', 'score') // 平均スコアを計算して取得
+            ->when($sortType === 'random', function ($query) {
+                // ランダムソート
+                return $query->inRandomOrder();
+            })
+            ->when($sortType === 'high_rating', function ($query) {
+                // 評価が高い順
+                return $query->orderByRaw("CASE WHEN ratings_avg_score IS NULL THEN 1 ELSE 0 END")
+                    ->orderByDesc('ratings_avg_score')
+                    ->orderBy('id');;
+            })
+            ->when($sortType === 'low_rating', function ($query) {
+                // 評価が低い順
+                return $query->orderByRaw("CASE WHEN ratings_avg_score IS NULL THEN 1 ELSE 0 END")
+                    ->orderBy('ratings_avg_score')
+                    ->orderBy('id');;
+            })
+            ->when(is_null($sortType), function ($query) {
+                // デフォルトの並び順
+                return $query->orderBy('id');
+            })
+            ->get();
+
         $likedShops = $this->getUserLikedShops($shops);
 
-        return view('shop_all', compact('shops', 'ratings', 'likedShops'));
+        return view('shop_all', compact('shops', 'likedShops', 'sortType'));
     }
 
     // 検索機能

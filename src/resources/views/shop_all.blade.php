@@ -6,6 +6,17 @@
 
 <!-- 検索フォーム -->
 @section('search-form')
+<!-- ソート選択 -->
+<div class="sort-controls">
+    <form method="GET" action="/">
+        <select name="sort" id="sort-select" onchange="handleSortChange()">
+			<option value="">並べ替え：評価高/低</option>
+            <option value="random" {{ $sortType === 'random' ? 'selected' : '' }}>ランダム</option>
+            <option value="high_rating" {{ $sortType === 'high_rating' ? 'selected' : '' }}>評価が高い順</option>
+            <option value="low_rating" {{ $sortType === 'low_rating' ? 'selected' : '' }}>評価が低い順</option>
+        </select>
+    </form>
+</div>
 <div class="search-form">
 	<form class="search-form__inner" action="/search" method="get">
 		@csrf
@@ -103,6 +114,6 @@
 @endsection
 
 @section('scripts')
+	<script src="{{ asset('js/sort.js') }}"></script>
 	<script src="{{ asset('js/ratingModal.js') }}"></script>
 @endsection
-
