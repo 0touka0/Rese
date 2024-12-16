@@ -114,32 +114,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- 評価モーダル -->
-			<div id="ratingModal{{ $like->shop->id }}" class="modal">
-				<div class="modal__content">
-					<div class="rating-modal__header">
-						<h2 class="rating-modal__title">レビュー: <span class="modal__shop-name">{{ $like->shop['name'] }}</span></h2>
-						<div class="rating-modal__summary">
-							<div class="rating__icon" data-rating="{{ $like->shop->ratings->avg('score') }}"></div>
-							<p class="rating-modal__average">{{ $like->shop->ratings->avg('score') }}/5</p>
-						</div>
-						<span class="rating-modal__close">&times;</span>
-					</div>
-					<div class="rating-modal__body">
-						@foreach ($like->shop->ratings as $rating)
-							<div class="review-card">
-								<p class="review-card__user-name">{{ $rating->user->name }}</p>
-								<div class="review-card__rating">
-									<div class="rating__icon" data-rating="{{ $rating->score }}"></div>
-								</div>
-								<span class="review-card__date">{{ $rating->created_at->format('Y年m月d日') }}にレビュー済み</span>
-								<p class="review-card__comment">{{ $rating->comment }}</p>
-							</div>
-						@endforeach
-					</div>
-				</div>
-			</div>
 			@endforeach
 		</div>
 	</div>
@@ -148,6 +122,5 @@
 
 @section('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="{{ asset('js/ratingModal.js') }}"></script>
 <script src="{{ asset('js/reservationCard.js') }}"></script>
 @endsection

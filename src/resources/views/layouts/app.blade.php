@@ -16,7 +16,7 @@
 			<button id="modal-open"><i class="fa-solid fa-bars-staggered"></i></button>
 			<h1 class="header-title">Rese</h1>
 		</div>
-		@yield('search-form')
+		@yield('search-sort-form')
 		<div id="header-modal" class="modal">
 			<div class="modal__content">
 				<p class="header-modal__close">&times;</p>

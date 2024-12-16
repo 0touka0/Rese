@@ -8,7 +8,6 @@ use App\Models\Rating;
 use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class RatingController extends Controller
 {
@@ -57,15 +56,15 @@ class RatingController extends Controller
         }
 
         Rating::create(array_merge($ratingData, ['user_id' => $userId, 'shop_id' => $shopId]));
-        $message = '店舗評価を送信しました';
 
-        return redirect()->back()->with('message', $message);
+        return redirect("/detail/{$shopId}")->with('message', '店舗評価を送信しました');
     }
 
     // 店舗の評価更新
     public function update(RatingRequest $request, $id)
     {
         $ratingData = $request->only(['score', 'comment']);
+        $shopId     = $request->input('shop_id');
 
         // 画像の保存処理
         if ($request->hasFile('image')) {
@@ -76,14 +75,27 @@ class RatingController extends Controller
         $existingRating = Rating::findOrFail($id);
         $existingRating->update($ratingData);
 
-        return redirect()->back()->with('message', '店舗評価を更新しました');
+        return redirect("/detail/{$shopId}")->with('message', '店舗評価を更新しました');
     }
 
     // 評価の削除機能
     public function remove($rating_id)
     {
-        Rating::find($rating_id)->delete();
+        $user = Auth::user();
+        $rating = Rating::find($rating_id);
 
-        return redirect()->back();
+        // 管理者ロールの場合、全ての評価を削除可能
+        if ($user->role === 3) {
+            $rating->delete();
+            return redirect()->back()->with('message', '評価を削除しました');
+        }
+
+        // 一般ユーザーの場合、自分の評価のみ削除可能
+        if ($rating->user_id === $user->id) {
+            $rating->delete();
+            return redirect()->back()->with('message', 'あなたの評価を削除しました');
+        }
+
+        return redirect()->back()->with('error', 'あなたの評価ではないため削除できません');
     }
 }

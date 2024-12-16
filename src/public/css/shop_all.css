@@ -8,6 +8,65 @@
 	padding: 0 55px;
 }
 
+.search-sort-container {
+	display: flex;
+	align-items: center;
+	height: 55px;
+}
+
+/* ソートフォーム */
+.sort-dropdown {
+    position: relative;
+    width: 200px;
+	margin-right: 20px;
+	border-radius: 5px;
+	box-shadow: 0px 2px 3px #6e6e6e;
+}
+
+.sort-selected-option {
+    background-color: #fff;
+    padding: 12px;
+	border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.sort-options-list {
+    position: absolute;
+    top: 80%;
+    left: -16px;
+    width: 330px;
+	text-align: left;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+	border-radius: 5px;
+    background-color: #fff;
+    display: none;
+    z-index: 100;
+    list-style: none;
+}
+
+.sort-option {
+    padding: 10px 30px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.sort-option:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* ドロップダウンリストが開いている時 */
+.sort-dropdown.open .sort-options-list {
+    display: block;
+}
+
+/* 非表示フォーム */
+#sort-form {
+    display: none;
+}
+
 /* 検索フォーム */
 .search-form {
 	width: 665px;
@@ -23,12 +82,13 @@
 
 .search-form__select {
 	position: relative;
+	width: 120px;
 	padding-right: 10px;
 }
 
 .search-form__select-box {
 	padding: 18px;
-	width: 120px;
+	width: 100%;
 }
 
 .search-form__select::after {
@@ -164,11 +224,37 @@
 	font-size: 34px;
 }
 
+/* レスポンシブ (1200px以下)*/
+@media screen and (max-width: 1200px) {
+	.search-form {
+		width:550px
+	}
+}
+
 /* レスポンシブ (768px以下)*/
 @media screen and (max-width : 768px) {
 	.header {
-		width: 768px;
-		padding: 0 30px;
+		flex-direction: column;
+		align-items: flex-start;
+		height: auto;
+		padding: 10px 20px;
+	}
+
+	.header-logo {
+		margin-bottom: 15px;
+	}
+
+	.search-sort-container {
+		margin: auto;
+	}
+
+	.search-form {
+		width: 100%;
+		font-size: 14px;
+	}
+
+	.sort-dropdown {
+		width: 250px;
 	}
 
 	.content {
@@ -181,5 +267,49 @@
 
 	.shop-lists {
 	grid-template-columns: 1fr 1fr;
+	}
+}
+
+/* レスポンシブ (480px以下)*/
+@media screen and (max-width: 480px) {
+	.header {
+		height: 200px;
+	}
+
+	.sort-dropdown {
+		width: 180px;
+		margin-bottom: 15px;
+	}
+
+	.search-sort-container {
+		flex-direction: column;
+		align-items: stretch;
+		margin-bottom: 60px;
+	}
+
+	.search-form__select {
+		width: 100px;
+	}
+
+	.search-form__select-box {
+		padding: 18px 12px;
+	}
+
+	.search-form__select::after {
+		right: 5px;
+	}
+
+	.search-form__input::before {
+		left: 3px;
+	}
+
+	.main {
+		margin-top: 10px;
+		padding: 20px;
+	}
+
+	.shop-lists {
+		grid-template-columns: 1fr;
+		gap: 30px;
 	}
 }

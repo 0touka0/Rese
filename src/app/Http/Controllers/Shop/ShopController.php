@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
 use App\Models\Like;
-use App\Models\Rating;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,32 +13,19 @@ class ShopController extends Controller
     // 店舗一覧ページ表示
     public function index(Request $request)
     {
-        $sortType = $request->get('sort'); // ソートタイプを取得（指定がない場合はnull）
+        // 検索条件とソート条件を取得
+        $filters = [
+            'address' => $request->query('address', null),
+            'category' => $request->query('category', null),
+            'keyword' => $request->query('keyword', null),
+        ];
+        $sortType = $request->query('sort', null);
 
-        $shops = Shop::query()
-            ->with(['ratings', 'address', 'category']) // 必要なリレーションをロード
-            ->withAvg('ratings', 'score') // 平均スコアを計算して取得
-            ->when($sortType === 'random', function ($query) {
-                // ランダムソート
-                return $query->inRandomOrder();
-            })
-            ->when($sortType === 'high_rating', function ($query) {
-                // 評価が高い順
-                return $query->orderByRaw("CASE WHEN ratings_avg_score IS NULL THEN 1 ELSE 0 END")
-                    ->orderByDesc('ratings_avg_score')
-                    ->orderBy('id');;
-            })
-            ->when($sortType === 'low_rating', function ($query) {
-                // 評価が低い順
-                return $query->orderByRaw("CASE WHEN ratings_avg_score IS NULL THEN 1 ELSE 0 END")
-                    ->orderBy('ratings_avg_score')
-                    ->orderBy('id');;
-            })
-            ->when(is_null($sortType), function ($query) {
-                // デフォルトの並び順
-                return $query->orderBy('id');
-            })
-            ->get();
+        // 検索処理
+        $searchShops = $this->searchShops($filters);
+
+        // ソート処理
+        $shops = $this->sortShops($searchShops, $sortType);
 
         $likedShops = $this->getUserLikedShops($shops);
 
@@ -47,15 +33,36 @@ class ShopController extends Controller
     }
 
     // 検索機能
-    public function search(Request $request)
+    private function searchShops(array $filters)
     {
-        $shops = Shop::AddressSearch($request->address)
-            ->CategorySearch($request->category)
-            ->KeywordSearch($request->keyword)
+        return Shop::query()
+            ->withAvg('ratings', 'score')
+            ->AddressSearch($filters['address'])
+            ->CategorySearch($filters['category'])
+            ->KeywordSearch($filters['keyword'])
             ->get();
-        $likedShops = $this->getUserLikedShops($shops);
+    }
 
-        return view('shop_all', compact('shops', 'likedShops'));
+    // ソート機能
+    private function sortShops($shops, ?string $sortType)
+    {
+        if ($sortType === 'random') {
+            return $shops->shuffle();
+        }
+
+        if ($sortType === 'high_rating') {
+            return $shops->sortByDesc(function ($shop) {
+                return $shop->ratings_avg_score ?? 0; // 評価が高い順
+            });
+        }
+
+        if ($sortType === 'low_rating') {
+            return $shops->sortBy(function ($shop) {
+                return $shop->ratings_avg_score ?? PHP_INT_MAX; // 評価が低い順
+            });
+        }
+
+        return $shops;
     }
 
     // ユーザーのお気に入り店舗の情報取得

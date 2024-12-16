@@ -39,11 +39,6 @@
 
 <div class="grid-container-right">
 	<div class="right-content">
-		@if (session('message'))
-			<div class="message">
-				{{ session('message') }}
-			</div>
-		@endif
 		<!-- 評価フォーム -->
 		<div class="rating-form">
 			<form action="{{ $rating ? '/ratingCreate/' . $rating->id : '/ratingCreate' }}" method="post" enctype="multipart/form-data">

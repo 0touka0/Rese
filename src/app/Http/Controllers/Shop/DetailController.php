@@ -22,7 +22,7 @@ class DetailController extends Controller
         $user_id = Auth::id();
         $user    = User::where('id', $user_id)->first();
         $shop    = Shop::find($shop_id); // 予約する店舗のデータを取得
-        $ratings  = Rating::all();
+        $ratings = Rating::where('shop_id', $shop_id)->get();
 
         $existingRating = Rating::where('user_id', $user_id)
             ->where('shop_id', $shop_id)

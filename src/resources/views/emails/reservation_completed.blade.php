@@ -10,7 +10,11 @@
 
     <p>予約日時: {{ $reservation->datetime }}</p>
 
-    <p>QRコードを添付ファイルとしてお送りします。このQRコードを店舗で提示してください。</p>
+    <p>当日は以下のQRコードを店舗でご提示ください。</p>
+
+    <div style="text-align: center; margin: 60px 0;">
+        <img src="data:image/png;base64,{{ base64_encode($qrCode) }}" alt="QRコード">
+    </div>
 
     <p>ご不明な点がございましたら、お気軽にお問い合わせください。</p>
 </body>

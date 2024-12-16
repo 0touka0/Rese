@@ -1,6 +1,7 @@
 body {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 120px auto;
 }
 
 .main {
@@ -75,15 +76,16 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 20px 0;
+    padding-top: 20px;
 }
 
 .rating-nav__link {
-    margin-right: 20px;
+    margin-left: 30px;
     color: #000;
 }
 
 .rating-nav__delete {
+    margin-left: 20px;
     text-decoration: underline;
 }
 
@@ -93,6 +95,7 @@ body {
 
 .rating-star {
     display: inline-flex;
+    padding-top: 20px;
     font-size: 36px;
 }
 
@@ -245,9 +248,11 @@ body {
         grid-column: 1;
         grid-row: 3;
         width: 100%;
+        height: auto;
         margin: 0 auto;
     }
 }
+
 /* レスポンシブ (768px以下)*/
 @media screen and (max-width: 768px) {
     .main {
@@ -255,36 +260,32 @@ body {
     }
 
     .shop-detail {
-        max-width: 90%; /* 画面幅に合わせる */
+        max-width: 90%;
     }
 
     .shop-detail__image img {
-        height: auto; /* 高さを自動調整 */
+        height: auto;
         width: 100%;
     }
 
     .reservation__form {
-        height: auto; /* 高さを自動調整 */
-        max-width: 90%; /* フォームの幅を画面幅に合わせる */
+        height: auto;
     }
 
     .reservation__form-inner {
         padding: 20px;
-        height: auto; /* 高さを自動調整 */
+        height: auto;
     }
 }
 
-@media screen and (max-width: 428px) {
+/* レスポンシブ (480px以下)*/
+@media screen and (max-width: 480px) {
     .main {
         padding: 10px;
     }
 
     .shop-detail__title {
-        font-size: 18px; /* タイトルのフォントサイズを調整 */
-    }
-
-    .reservation__form {
-        padding: 15px;
+        font-size: 18px;
     }
 
     .reservation__form-group:first-of-type,
@@ -293,15 +294,16 @@ body {
     }
 
     .reservation__confirm-label {
-        display: block;
         margin-bottom: 4px;
     }
 
     .reservation__confirm-value {
+        display: inline-block;
+        width: 100px;
         padding-left: 12px;
     }
 
     .reservation__btn {
-        font-size: 14px; /* ボタンのフォントサイズを小さく */
+        font-size: 14px;
     }
 }

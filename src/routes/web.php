@@ -4,6 +4,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Admin\OwnerCreateController;
 use App\Http\Controllers\Admin\OwnersConfirmController;
 use App\Http\Controllers\Admin\MailSenderController;
+use App\Http\Controllers\CsvController;
 use App\Http\Controllers\Owner\NewShopController;
 use App\Http\Controllers\Owner\ShopConfirmController;
 use App\Http\Controllers\Owner\ShopEditController;
@@ -58,7 +59,7 @@ Route::middleware('auth', 'role.email.check')->group(function () {
 
 // 一般ユーザー専用ルート
 Route::middleware('auth', 'general')->group(function () {
-	Route::get('/rating/{shop_id}', [RatingController::class, 'rating'])->name('rating');
+	Route::get('/rating/{id}', [RatingController::class, 'rating'])->name('rating');
 	Route::post('/ratingCreate', [RatingController::class, 'ratingCreate'])->name('rating.create');
 	Route::put('/ratingCreate/{id}', [RatingController::class, 'update']);
 });
@@ -76,6 +77,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 	Route::get('/mail', [MailSenderController::class, 'mailForm'])->name('mail.create');
 	Route::post('/mail/send', [MailSenderController::class, 'sendMail'])->name('mail.send');
+
+	Route::post('/import', [CsvController::class, 'import'])->name('csv.import');
+
 });
 
 // 店舗代表者専用ルート

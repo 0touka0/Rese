@@ -24,14 +24,24 @@
     @if ($isRated)
         <a class="rating-link" href="/rating/{{ $shop->id }}">口コミを投稿する</a>
     @endif
-    @if ($ratings)
+
+    <!-- 口コミ情報 -->
+    @if ($ratings->count() > 0)
         <div class="ratings">
             <div class="rating-title">
                 <p class="rating-title__text">全ての口コミ情報</p>
+                @if (session('message'))
+                    <div class="message">
+                        {{ session('message') }}
+                    </div>
+                @endif
             </div>
             @foreach ($ratings as $rating)
+            @if ($rating->user_id == $user->id || $user->role == 3)
                 <nav class="rating-nav">
-                    <a class="rating-nav__link" href="/rating/{{ $shop->id }}">口コミを編集</a>
+                    @if ($rating->user_id == $user->id)
+                        <a class="rating-nav__link" href="/rating/{{ $shop->id }}">口コミを編集</a>
+                    @endif
                     <form action="/delete/{{ $rating->id }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -39,6 +49,7 @@
                         <button class="rating-nav__delete">口コミを削除</button>
                     </form>
                 </nav>
+            @endif
                 <div class="ratings-list">
                     <div class="rating-star">
                         @for ($i = 1; $i <= 5; $i++)

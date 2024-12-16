@@ -27,7 +27,7 @@ class AddressesTableSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'address' => '福岡市',
+                'address' => '福岡県',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],

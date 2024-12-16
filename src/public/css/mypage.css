@@ -7,7 +7,7 @@
 .grid-container {
 	display: grid;
 	grid-template-columns: 1fr 2fr;
-	grid-template-rows: 80px 500px;
+	grid-template-rows: 80px 380px;
 	max-width: 1440px;
 	margin: 0 auto;
 }
@@ -48,7 +48,6 @@
 	position: relative;
 	height: 280px;
 	width: 460px;
-	margin-bottom: 50px;
 	padding: 30px;
 	background: rgb(48, 86, 255);
 	color: #fff;
@@ -115,76 +114,6 @@ button.reservation-detail__btn--submit, .reservation-card__payment-link {
 .show-rating-form-btn {
 	float: right;
 	color: #fff;
-}
-
-/* 評価フォームオーバーレイ */
-.overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.7);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 3;
-}
-
-.overlay-content {
-	background: #fff;
-	padding: 10px;
-	border-radius: 5px;
-	height: 80%;
-	max-width: 500px;
-	width: 90%;
-}
-
-.close-button, .rating-form__btn {
-	background: #ff5c5c;
-	color: white;
-	border: none;
-	padding: 5px 10px;
-	border-radius: 5px;
-	cursor: pointer;
-	float: right;
-}
-
-.rating-form__btn {
-	background: rgb(48, 86, 255);
-}
-
-.rating-form {
-	height: 80%;
-}
-
-.rating-label {
-	color: #000;
-}
-
-.rating-form__score {
-	padding: 15px 10px;
-}
-
-.rating-form__comment {
-	position: relative;
-	height: 115px;
-}
-
-.rating-label__comment {
-	position: absolute;
-	top: 10%;
-	left: 2%;
-}
-
-.rating-label__comment--textarea {
-	position: absolute;
-	top: 10%;
-	left: 22%;
-	height: 80%;
-	width: 300px;
-	border: solid 1px #000;
-	border-radius: 3px;
 }
 
 /* お気に入り店舗 */
@@ -275,7 +204,29 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* レスポンシブ (768px以下)*/
 @media screen and (max-width : 768px) {
-	.reservation-confirm {
-	padding: 0 20px;
+	.grid-container {
+		grid-template-columns: 1fr;
+		margin: 0 auto;
+	}
+
+	.user-name {
+		grid-column: 1;
+		text-align: center;
+	}
+
+	.reservation-card {
+		margin: 0 auto;
+	}
+
+	.likes-confirm {
+		padding: 0 80px;
+	}
+
+	.likes-confirm__lists {
+		display: block;
+	}
+
+	.shop-card {
+		margin: 0 auto 30px;
 	}
 }
