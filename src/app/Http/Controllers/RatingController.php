@@ -79,7 +79,7 @@ class RatingController extends Controller
     }
 
     // 評価の削除機能
-    public function remove($rating_id)
+    public function softdelete($rating_id)
     {
         $user = Auth::user();
         $rating = Rating::find($rating_id);
@@ -87,13 +87,13 @@ class RatingController extends Controller
         // 管理者ロールの場合、全ての評価を削除可能
         if ($user->role === 3) {
             $rating->delete();
-            return redirect()->back()->with('message', '評価を削除しました');
+            return redirect()->back()->with('delete-message', '評価を削除しました');
         }
 
         // 一般ユーザーの場合、自分の評価のみ削除可能
         if ($rating->user_id === $user->id) {
             $rating->delete();
-            return redirect()->back()->with('message', 'あなたの評価を削除しました');
+            return redirect()->back()->with('delete-message', 'あなたの評価を削除しました');
         }
 
         return redirect()->back()->with('error', 'あなたの評価ではないため削除できません');

@@ -12,6 +12,7 @@
 - http://localhost/login
 - http://localhost/mypage/user_id
 - http://localhost/detail/shop_id
+- http://localhost/rating/shop_id
 - http://localhost/done
 - mailhog
 - http://localhost:8025
@@ -52,25 +53,34 @@
 - 会員登録
 - ログイン
 - ログアウト
-- ユーザー情報取得
-- ユーザー飲食店お気に入り一覧取得
-- ユーザー飲食店予約情報取得
 - 飲食店一覧取得
 - 飲食店詳細取得
-- 飲食店お気に入り追加
-- 飲食店お気に入り削除
 - 飲食店予約情報追加
 - 飲食店予約情報削除
+- 飲食店お気に入り追加
+- 飲食店お気に入り削除
+- 飲食店一覧ソート
 - エリアで検索する
 - ジャンルで検索する
 - 店名で検索する
+- ユーザー情報取得
+- ユーザー飲食店予約情報取得
+- ユーザー飲食店お気に入り一覧取得
+- 飲食店評価追加
+- 飲食店評価更新
+- 飲食店評価削除
+
+管理者
 - 店舗代表者作成
 - 店舗代表者一覧取得
 - メール配信
-- 店舗追加
-- 店舗一覧取得
-- 店舗編集
-- 店舗予約一覧取得
+- csvインポート(飲食店追加)
+
+店舗代表者
+- 飲食店追加
+- 飲食店一覧取得(詳細)
+- 飲食店情報更新
+- 飲食店予約一覧取得
 
 ## 使用技術(実行環境)
 - PHP 7.4.9
@@ -80,11 +90,83 @@
 - mailhog
 
 ## テーブル設計
-![Rese-table](https://github.com/user-attachments/assets/48a2e9f9-145e-4dc9-9fa9-9e07e5b16d60)
-![Rese-table2](https://github.com/user-attachments/assets/7199b870-fd1e-43ba-a4b4-e729fde8b8ab)
+### Users テーブル
+| カラム名     | データ型          | 制約                             | 備考                   |
+| ------------ | ----------------- | -------------------------------- | -------------------- |
+| id           | BIGINT UNSIGNED   | PRIMARY KEY, AUTO_INCREMENT      | ユーザーの一意識別子   |
+| name         | VARCHAR(255)      | NOT NULL                         | ユーザーの名前         |
+| email        | VARCHAR(255)      | NOT NULL, UNIQUE                 | ユーザーのメールアドレス |
+| password     | VARCHAR(255)      | NOT NULL                         | ユーザーのパスワード   |
+| role         | TINYINT           | NOT NULL                         | ユーザーの役割         |
+| created_at   | TIMESTAMP         |                                  | レコード作成日時       |
+| updated_at   | TIMESTAMP         |                                  | レコード更新日時       |
+
+### Shops テーブル
+| カラム名     | データ型          | 制約                             | 備考                   |
+| ------------ | ----------------- | -------------------------------- | -------------------- |
+| id           | BIGINT UNSIGNED   | PRIMARY KEY, AUTO_INCREMENT      | 店舗の一意識別子       |
+| address_id   | BIGINT UNSIGNED   | FOREIGN KEY REFERENCES addresses(id) | 店舗の住所の識別子   |
+| category_id  | BIGINT UNSIGNED   | FOREIGN KEY REFERENCES categories(id) | 店舗のカテゴリ識別子  |
+| user_id      | BIGINT UNSIGNED   | FOREIGN KEY REFERENCES users(id) | 店舗オーナーの識別子   |
+| name         | VARCHAR(255)      | NOT NULL                         | 店舗の名前             |
+| overview     | TEXT              |                                  | 店舗の概要             |
+| image        | VARCHAR(255)      |                                  | 店舗の画像URL          |
+| payment_url  | VARCHAR(255)      |                                  | 支払いURL              |
+| created_at   | TIMESTAMP         |                                  | レコード作成日時       |
+| updated_at   | TIMESTAMP         |                                  | レコード更新日時       |
+
+### Reservations テーブル
+| カラム名     | データ型          | 制約                             | 備考                   |
+| ------------ | ----------------- | -------------------------------- | -------------------- |
+| id           | BIGINT UNSIGNED   | PRIMARY KEY, AUTO_INCREMENT      | 予約の一意識別子       |
+| user_id      | BIGINT UNSIGNED   | FOREIGN KEY REFERENCES users(id), NOT NULL | ユーザーID   |
+| shop_id      | BIGINT UNSIGNED   | FOREIGN KEY REFERENCES shops(id), NOT NULL | 店舗ID       |
+| datetime     | TIMESTAMP         | NOT NULL                         | 予約日時               |
+| number       | INT               | NOT NULL                         | 予約人数               |
+| created_at   | TIMESTAMP         |                                  | レコード作成日時       |
+| updated_at   | TIMESTAMP         |                                  | レコード更新日時       |
+| deleted_at   | TIMESTAMP         |                                  | レコード削除日時       |
+
+### Likes テーブル
+| カラム名     | データ型          | 制約                             | 備考                   |
+| ------------ | ----------------- | -------------------------------- | -------------------- |
+| id           | BIGINT UNSIGNED   | PRIMARY KEY, AUTO_INCREMENT      | お気に入り登録の一意識別子 |
+| user_id      | BIGINT UNSIGNED   | FOREIGN KEY REFERENCES users(id), NOT NULL | ユーザーID   |
+| shop_id      | BIGINT UNSIGNED   | FOREIGN KEY REFERENCES shops(id), NOT NULL | 店舗ID       |
+| favorite     | TINYINT(1)        | NOT NULL                         | お気に入り登録の状態   |
+| created_at   | TIMESTAMP         |                                  | レコード作成日時       |
+| updated_at   | TIMESTAMP         |                                  | レコード更新日時       |
+
+### Ratings テーブル
+| カラム名     | データ型          | 制約                             | 備考                   |
+| ------------ | ----------------- | -------------------------------- | -------------------- |
+| id           | BIGINT UNSIGNED   | PRIMARY KEY, AUTO_INCREMENT      | レビューの一意識別子   |
+| user_id      | BIGINT UNSIGNED   | FOREIGN KEY REFERENCES users(id), NOT NULL | ユーザーID   |
+| shop_id      | BIGINT UNSIGNED   | FOREIGN KEY REFERENCES shops(id), NOT NULL | 店舗ID       |
+| score        | INT               | NOT NULL                         | 評価スコア             |
+| comment      | TEXT              |                                  | 評価コメント           |
+| created_at   | TIMESTAMP         |                                  | レコード作成日時       |
+| updated_at   | TIMESTAMP         |                                  | レコード更新日時       |
+
+### Addresses テーブル
+| カラム名     | データ型          | 制約                             | 備考                   |
+| ------------ | ----------------- | -------------------------------- | -------------------- |
+| id           | BIGINT UNSIGNED   | PRIMARY KEY, AUTO_INCREMENT      | 住所の一意識別子       |
+| address      | VARCHAR(255)      | NOT NULL                         | 住所                  |
+| created_at   | TIMESTAMP         |                                  | レコード作成日時       |
+| updated_at   | TIMESTAMP         |                                  | レコード更新日時       |
+
+### Categories テーブル
+| カラム名     | データ型          | 制約                             | 備考                   |
+| ------------ | ----------------- | -------------------------------- | -------------------- |
+| id           | BIGINT UNSIGNED   | PRIMARY KEY, AUTO_INCREMENT      | カテゴリの一意識別子   |
+| category     | VARCHAR(255)      | NOT NULL                         | カテゴリ名            |
+| created_at   | TIMESTAMP         |                                  | レコード作成日時       |
+| updated_at   | TIMESTAMP         |                                  | レコード更新日時       |
+
 
 ## ER図
-![rese_ER図](https://github.com/user-attachments/assets/f4498123-4c25-4646-8938-ae99817c3ae9)
+![rese_ER図](https://github.com/user-attachments/assets/fbbda0a2-976f-4005-b524-b9735e09007f)
 
 # 環境構築
 Dockerビルド
@@ -114,6 +196,38 @@ Laravel環境構築
 - ユーザー名：店舗代表者
 - メールアドレス：owner@example.com
 - パスワード：ownerexample
+
+## csvファイル構成
+- 提出用CSVファイルの仕様
+以下の形式でCSVファイルを作成し、提出してください。
+
+ファイル形式
+ファイル名: store_list.csv（例）
+文字コード: UTF-8
+区切り文字: カンマ ,
+ヘッダー行: 必須（最初の行に列名を記述すること）
+
+- 各列の説明
+列名	説明	必須/任意	備考
+店舗名	店舗の正式な名前	必須	例: 寿司太郎
+地域	店舗が位置する都道府県・地域名	必須	例: 大阪府
+ジャンル	店舗のジャンルを記述	必須	例: 寿司, カフェ, ラーメンなど
+店舗概要	店舗の簡単な説明・紹介文	必須	例: 新鮮なネタの寿司屋
+画像URL	店舗の画像ファイルのURL	必須	例: http://example.com/sushi.jpeg
+
+- 記述例
+店舗名,地域,ジャンル,店舗概要,画像URL
+寿司太郎,大阪府,寿司,新鮮なネタの寿司屋,http://example.com/sushi.jpeg
+ラーメン花子,東京都,ラーメン,自家製麺が自慢のラーメン店,http://example.com/ramen.jpeg
+カフェひまわり,愛知県,カフェ,落ち着いた雰囲気のカフェ,http://example.com/cafe.jpeg
+
+- 注意事項
+カンマ , はデータ内に使用しないこと。
+例: 店舗概要に「美味しい、安い」と記述するのではなく、「美味しくて安い」と記述してください。
+ヘッダー行は必須です。
+上記サンプルのように1行目に列名を必ず記述してください。
+URL は正しい形式で記述してください（http:// または https:// から始まるもの）。
+文字化けを防ぐために UTF-8 形式で保存してください。
 
 ## 注意事項
 - ストレージはS3を使用しているので、ローカル環境では店舗作成時画像の保存が行えません

@@ -66,7 +66,7 @@ Route::middleware('auth', 'general')->group(function () {
 
 // 一般と管理者専用ルート
 Route::middleware(['auth', 'general.or.admin'])->group(function () {
-	Route::delete('/delete/{rating_id}', [RatingController::class, 'remove']);
+	Route::get('/ratingDelete/{rating_id}', [RatingController::class, 'softdelete']);
 });
 
 // 管理者専用ルート

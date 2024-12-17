@@ -24,6 +24,11 @@
     @if ($isRated)
         <a class="rating-link" href="/rating/{{ $shop->id }}">口コミを投稿する</a>
     @endif
+    @if (session('delete-message'))
+        <div class="message">
+            {{ session('delete-message') }}
+        </div>
+    @endif
 
     <!-- 口コミ情報 -->
     @if ($ratings->count() > 0)
@@ -42,10 +47,7 @@
                     @if ($rating->user_id == $user->id)
                         <a class="rating-nav__link" href="/rating/{{ $shop->id }}">口コミを編集</a>
                     @endif
-                    <form action="/delete/{{ $rating->id }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input type="hidden" name="">
+                    <form action="/ratingDelete/{{ $rating->id }}" method="get">
                         <button class="rating-nav__delete">口コミを削除</button>
                     </form>
                 </nav>
