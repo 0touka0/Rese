@@ -217,7 +217,8 @@ Laravel環境構築
 | 画像URL | 店舗の画像ファイルのURL         | 必須      | 例: http://example.com/sushi.jpeg |
 
 
-記述例
+記述例 
+
 店舗名,地域,ジャンル,店舗概要,画像URL  
 寿司太郎,大阪府,寿司,新鮮なネタの寿司屋,http://example.com/sushi.jpeg  
 ラーメン花子,東京都,ラーメン,自家製麺が自慢のラーメン店,http://example.com/ramen.jpeg  
