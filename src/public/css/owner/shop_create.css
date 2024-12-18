@@ -24,7 +24,6 @@
   font-weight: bold;
 }
 
-
 .shopCreate-form__text {
   width: 80%;
   line-height: 18px;
@@ -55,6 +54,10 @@
 
 .shopCreate-form__btn--submit:hover {
   background-color: #2f8f33;
+}
+
+.csv-error {
+  text-align: center;
 }
 
 /* レスポンシブ (768px以下)*/

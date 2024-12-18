@@ -77,9 +77,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 	Route::get('/mail', [MailSenderController::class, 'mailForm'])->name('mail.create');
 	Route::post('/mail/send', [MailSenderController::class, 'sendMail'])->name('mail.send');
-
-	Route::post('/import', [CsvController::class, 'import'])->name('csv.import');
-
 });
 
 // 店舗代表者専用ルート
@@ -93,4 +90,6 @@ Route::middleware(['auth', 'owner'])->group(function () {
 	Route::put('/shopEdit/{shop_id}/put', [ShopEditController::class, 'shopPut'])->name('shop.put');
 
 	Route::get('/reservations', [ShopReservationController::class, 'reservations'])->name('reservations');
+
+	Route::post('/import', [CsvController::class, 'import'])->name('csv.import');
 });

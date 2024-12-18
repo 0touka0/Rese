@@ -20,20 +20,6 @@
 @endsection
 
 @section('content')
-	<form action="{{ route('csv.import') }}" method="POST" enctype="multipart/form-data" class="upload-form">
-		@csrf
-		@if ($errors->has('csv'))
-			<div class="error-message">
-				{{ $errors->first('csv') }}
-			</div>
-		@endif
-		<label for="csv" class="custom-file-label">
-			<span id="file-label-text">店舗情報CSVファイルを選択：</span>
-			<span id="file-name">未選択</span>
-		</label>
-		<input type="file" name="csv" id="csv" accept=".csv" class="custom-file-input">
-		<button type="submit" class="custom-submit-button">インポート</button>
-	</form>
 	<table class="owners-table">
 		<tr class="owners-table__tr">
 			<th class="owners-table__th">id</th>
@@ -53,6 +39,3 @@
 	</table>
 @endsection
 
-@section('scripts')
-	<script src="{{ asset('js/csvInput.js') }}"></script>
-@endsection

@@ -2,23 +2,17 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\Requests\CsvImportRequest;
 use App\Models\Address;
 use App\Models\Category;
 use App\Models\Shop;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class CsvController extends Controller
 {
-    public function import(Request $request)
+    public function import(CsvImportRequest $request)
     {
-        // 1. CSVファイルのバリデーション
-        $request->validate([
-            'csv' => 'required|file|mimes:csv,txt|max:2048',
-        ]);
-
-        // 2. CSVファイルを開く
+        // CSVファイルを開く
         $file = fopen($request->file('csv')->getRealPath(), 'r');
         $header = fgetcsv($file); // ヘッダー行を取得
 
@@ -31,7 +25,18 @@ class CsvController extends Controller
 
         // データを1行ずつ処理
         while ($row = fgetcsv($file)) {
+            // カラム数のチェック
+            if (count($row) !== count($header)) {
+                fclose($file);
+                return back()->withErrors(['csv' => 'CSVのデータに欠けている項目があります。']);
+            }
+
+            // データをヘッダーと結合
             $data = array_combine($header, $row);
+            if ($data === false) {
+                fclose($file);
+                return back()->withErrors(['csv' => 'CSVのデータに欠けている項目があります。']);
+            }
 
             // 地域（address_id）の取得
             $address = Address::where('address', $data['地域'])->first();
@@ -48,31 +53,40 @@ class CsvController extends Controller
             }
 
             // データのバリデーション
-            $validator = Validator::make($data, [
-                '店舗名'     => 'required|string|max:50',
-                '店舗概要' => 'required|string|max:400',
-                '画像URL'    => 'url|ends_with:.jpg,.jpeg,.png',
-            ]);
-
-            if ($validator->fails()) {
+            $errors = $this->validateCsvRow($data);
+            if ($errors) {
                 fclose($file);
-                return back()->withErrors(['csv' => 'CSVの内容にエラーがあります: ' . implode(', ', $validator->errors()->all())]);
+                return back()->withErrors(['csv' => 'CSVの内容にエラーがあります: ' . implode(', ', $errors->all())]);
             }
 
-            // データベースに保存（owner_id を現在ログイン中の管理者に設定）
+            // データベースに保存
             Shop::create([
                 'name' => $data['店舗名'],
                 'address_id' => $address->id,
                 'category_id' => $category->id,
-                'owner_id' => auth()->id(), // 現在ログインしている管理者のID
+                'owner_id' => auth()->id(),
                 'overview' => $data['店舗概要'],
                 'image' => $data['画像URL'],
             ]);
         }
-        // dd('保存成功');
 
         fclose($file);
 
-        return back()->with('success', '店舗情報をインポートしました！');
+        return redirect()->route('shops.confirm')->with('success', '店舗情報をインポートしました！');
+    }
+
+    private function validateCsvRow(array $data)
+    {
+        $validator = Validator::make($data, [
+            '店舗名'     => 'required|string|max:50',
+            '店舗概要'   => 'required|string|max:400',
+            '画像URL'    => 'required|url|ends_with:.jpg,.jpeg,.png',
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        return null; // エラーがない場合
     }
 }

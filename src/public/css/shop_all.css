@@ -2,22 +2,23 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	height: 120px;
-	max-width: 1440px;
-	margin: 0 auto;
-	padding: 0 55px;
+	/* flex-wrap: wrap; */
+	width: 100%;
+	padding: 30px 55px;
+	margin-bottom: 20px;
 }
 
 .search-sort-container {
 	display: flex;
 	align-items: center;
 	height: 55px;
+	width: 880px;
 }
 
 /* ソートフォーム */
 .sort-dropdown {
     position: relative;
-    width: 200px;
+    min-width: 200px;
 	margin-right: 20px;
 	border-radius: 5px;
 	box-shadow: 0px 2px 3px #6e6e6e;
@@ -69,7 +70,7 @@
 
 /* 検索フォーム */
 .search-form {
-	width: 665px;
+	flex: 2;
 	background: #fff;
 	border-radius: 5px;
 	box-shadow: 2px 2px 3px #6e6e6e;
@@ -224,19 +225,13 @@
 	font-size: 34px;
 }
 
-/* レスポンシブ (1200px以下)*/
-@media screen and (max-width: 1200px) {
-	.search-form {
-		width:550px
-	}
-}
-
 /* レスポンシブ (768px以下)*/
 @media screen and (max-width : 768px) {
 	.header {
 		flex-direction: column;
 		align-items: flex-start;
 		height: auto;
+		width: 100%;
 		padding: 10px 20px;
 	}
 
@@ -245,20 +240,21 @@
 	}
 
 	.search-sort-container {
-		margin: auto;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		width: 100%;
+		margin: 0 auto 70px;
+		gap: 15px;
 	}
 
 	.search-form {
+		flex: none;
 		width: 100%;
 		font-size: 14px;
 	}
 
-	.sort-dropdown {
-		width: 250px;
-	}
-
-	.content {
-		width: 768px;
+	.main {
+		width: 100%;
 	}
 
 	.verify-message {
@@ -266,25 +262,23 @@
 	}
 
 	.shop-lists {
-	grid-template-columns: 1fr 1fr;
+	max-width: 100%;
+	}
+
+	.shop-card {
+		max-width: 100%;
+		box-sizing: border-box;
 	}
 }
 
 /* レスポンシブ (480px以下)*/
 @media screen and (max-width: 480px) {
-	.header {
-		height: 200px;
-	}
-
-	.sort-dropdown {
-		width: 180px;
-		margin-bottom: 15px;
-	}
-
 	.search-sort-container {
-		flex-direction: column;
-		align-items: stretch;
-		margin-bottom: 60px;
+		margin: 0 auto 50px;
+	}
+
+	.search-form {
+		min-width: 360px;
 	}
 
 	.search-form__select {
@@ -311,5 +305,13 @@
 	.shop-lists {
 		grid-template-columns: 1fr;
 		gap: 30px;
+	}
+
+	.shop-card {
+		width: 280px;
+	}
+
+	.shop-card__name {
+		margin-right: 9px;
 	}
 }

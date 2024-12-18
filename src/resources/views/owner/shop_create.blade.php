@@ -15,11 +15,29 @@
 @endsection
 
 @section('content')
-<span class="success-message">
-	@if (session('success'))
+@if (session('success'))
+	<div class="success-message">
 		{{ session('success') }}
-	@endif
-</span>
+	</div>
+@endif
+@if ($errors->has('csv'))
+	<div class="error-message csv-error">
+		{{ $errors->first('csv') }}
+	</div>
+@endif
+<form action="{{ route('csv.import') }}" method="POST" enctype="multipart/form-data" class="csvImport-form">
+    @csrf
+    <div class="csvImport-form__item">
+        <label for="csv" class="csvImport-form__label">
+            <span class="csvImport-form__label-text">店舗情報CSVファイルを選択：</span>
+            <span id="file-name" class="csvImport-form__file-name">未選択</span>
+        </label>
+        <input type="file" name="csv" id="csv" accept=".csv" class="csvImport-form__input">
+    </div>
+    <div class="csvImport-form__btn">
+        <button type="submit" class="csvImport-form__btn--submit">インポート</button>
+    </div>
+</form>
 <form class="shopCreate-form" action="{{ route('shop.store') }}" method="post" enctype="multipart/form-data">
 	@csrf
 	<input type="hidden" name="owner_id" value="{{ auth()->user()->id }}">
@@ -74,4 +92,8 @@
 		</div>
 	</div>
 </form>
+@endsection
+
+@section('scripts')
+	<script src="{{ asset('js/csvInput.js') }}"></script>
 @endsection

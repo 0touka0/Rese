@@ -47,7 +47,7 @@ body {
 }
 
 /* csvのインポートフォーム */
-.upload-form {
+.csvImport-form {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
@@ -55,7 +55,7 @@ body {
 }
 
 /* ファイル選択ボタン */
-.custom-file-label {
+.csvImport-form__label {
     display: inline-block;
     padding: 10px 20px;
     margin-left: 10px;
@@ -70,18 +70,24 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.custom-file-label:hover {
+.csvImport-form__label:hover {
     background-color: #007bff;
     color: #ffffff;
 }
 
 /* 実際のファイル選択ボタンを非表示に */
-.custom-file-input {
+.csvImport-form__input {
     display: none;
 }
 
+.csvImport-form__item,
+.csvImport-form__btn {
+    display: inline-block;
+}
+
 /* 送信ボタン */
-.custom-submit-button {
+
+.csvImport-form__btn--submit {
     padding: 10px 20px;
     margin-left: 20px;
     font-size: 14px;
@@ -93,7 +99,7 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.custom-submit-button:hover {
+.csvImport-form__btn--submit:hover {
     background-color: #4caf50;
     color: #ffffff;
 }
