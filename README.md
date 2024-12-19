@@ -18,6 +18,9 @@
 mailhog
 - http://localhost:8025
 
+phpmyadmin(開発環境のみ)
+- http://localhost:8080
+
 管理者用のURL
 - http://localhost/ownerCreate
 - http://localhost/owners
@@ -94,6 +97,7 @@ mailhog
 - Laravel 8
 - MySQL 8.0.26
 - nginx 1.21.1
+- phpmyadmin
 - mailhog
 
 ## テーブル設計
