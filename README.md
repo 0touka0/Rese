@@ -181,7 +181,7 @@ Laravel環境構築
 
 1. `docker-compose exec php bash`
 2. `composer install`
-3. `.env.example`ファイルから`.env`を作成し、環境変数を変更<br>
+3. `cp .env.example .env`を実行し、`.env`の環境変数を変更  
 - DBの設定を行って下さい
 - セッションの値をDBに保存しているので`SESSION_DRIVER=database`に変更してください
 - `MAIL_FROM_ADDRESS`に`mailtest@example.com`等のような送信側のメールアドレス設定を行ってください
@@ -230,3 +230,5 @@ Laravel環境構築
 
 ## 注意事項
 - ストレージはS3を使用しているので、ローカル環境では店舗作成時画像の保存が行えません
+- ソート機能をリセットするにはロゴからHOMEリンクを使って再度アクセスを行うか、  
+  もしくはURLのクエリパラメータを削除してください。
