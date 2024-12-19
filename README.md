@@ -14,13 +14,16 @@
 - http://localhost/detail/shop_id
 - http://localhost/rating/shop_id
 - http://localhost/done
-- mailhog
+
+mailhog
 - http://localhost:8025
-- 管理者用のURL
+
+管理者用のURL
 - http://localhost/ownerCreate
 - http://localhost/owners
 - http://localhost/mail
-- 店舗代表者用のURL
+
+店舗代表者用のURL
 - http://localhost/shopCreate
 - http://localhost/shopsConfirm
 - http://localhost/shopEdit/shop_id
@@ -34,13 +37,16 @@
 - http://13.208.191.95/mypage/user_id
 - http://13.208.191.95/detail/shop_id
 - http://13.208.191.95/done
-- mailhog
+
+mailhog
 - http://13.208.191.95:8025
-- 管理者用のURL
+
+管理者用のURL
 - http://13.208.191.95/ownerCreate
 - http://13.208.191.95/owners
 - http://13.208.191.95/mail
-- 店舗代表者用のURL
+
+店舗代表者用のURL
 - http://13.208.191.95/shopCreate
 - http://13.208.191.95/shopsConfirm
 - http://13.208.191.95/shopEdit/shop_id
@@ -74,13 +80,14 @@
 - 店舗代表者作成
 - 店舗代表者一覧取得
 - メール配信
-- csvインポート(飲食店追加)
 
 店舗代表者
 - 飲食店追加
 - 飲食店一覧取得(詳細)
 - 飲食店情報更新
 - 飲食店予約一覧取得
+- csvインポート(飲食店追加機能)
+   -インポート機能は飲食店の追加画面に実装
 
 ## 使用技術(実行環境)
 - PHP 7.4.9
