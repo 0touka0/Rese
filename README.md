@@ -148,6 +148,7 @@
 | image        | VARCHAR(255)      |                                  | 画像URL               |
 | created_at   | TIMESTAMP         |                                  | レコード作成日時       |
 | updated_at   | TIMESTAMP         |                                  | レコード更新日時       |
+| deleted_at   | TIMESTAMP         |                                  | レコード削除日時       |
 
 ### Addresses テーブル
 | カラム名     | データ型          | 制約                             | 備考                   |
