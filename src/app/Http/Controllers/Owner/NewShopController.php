@@ -29,17 +29,20 @@ class NewShopController extends Controller
         ]);
 
         try {
-            // ファイルの取得とアップロード
+            // // ファイルの取得とアップロード
             $image = $request->file('image');
-            $path = Storage::disk('s3')->put('rese-image', $image);
-            $url = Storage::disk('s3')->url($path); // エディタの拡張機能側でエラー判定になる場合があるが機能に問題は無い
+            $path = $image->store('images', 'public');
+            $url = Storage::url($path); // /storage/images/xxx.jpg
 
-            // Shopの作成
-            $shop = $request->only(['owner_id', 'name', 'overview']);
-            $shop['category_id'] = $createdCategory->id;
-            $shop['address_id'] = $createdAddress->id;
-            $shop['image'] = $url;
-            Shop::create($shop);
+            // Shopデータを作成
+            Shop::create([
+                'owner_id'    => $request->input('owner_id'),
+                'name'        => $request->input('name'),
+                'overview'    => $request->input('overview'),
+                'category_id' => $createdCategory->id,
+                'address_id'  => $createdAddress->id,
+                'image'       => $url,
+            ]);
 
             return redirect()->back()->with('success', '店舗を作成しました');
         } catch (\Exception $e) {
