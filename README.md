@@ -33,27 +33,27 @@ phpmyadmin(開発環境のみ)
 - http://localhost/reservations
 
 ## アプリケーションURL(デプロイ)
-- http://13.208.191.95/
-- http://13.208.191.95/register
-- http://13.208.191.95/thanks
-- http://13.208.191.95/login
-- http://13.208.191.95/mypage/user_id
-- http://13.208.191.95/detail/shop_id
-- http://13.208.191.95/done
+- ~~http://13.208.191.95/
+- ~~http://13.208.191.95/register~~
+- ~~http://13.208.191.95/thanks~~
+- ~~http://13.208.191.95/login~~
+- ~~http://13.208.191.95/mypage/user_id~~
+- ~~http://13.208.191.95/detail/shop_id~~
+- ~~http://13.208.191.95/done~~
 
 mailhog
-- http://13.208.191.95:8025
+- ~~http://13.208.191.95:8025~~
 
 管理者用のURL
-- http://13.208.191.95/ownerCreate
-- http://13.208.191.95/owners
-- http://13.208.191.95/mail
+- ~~http://13.208.191.95/ownerCreate~~
+- ~~http://13.208.191.95/owners~~
+- ~~http://13.208.191.95/mail~~
 
 店舗代表者用のURL
-- http://13.208.191.95/shopCreate
-- http://13.208.191.95/shopsConfirm
-- http://13.208.191.95/shopEdit/shop_id
-- http://13.208.191.95/reservations
+- ~~http://13.208.191.95/shopCreate~~
+- ~~http://13.208.191.95/shopsConfirm~~
+- ~~http://13.208.191.95/shopEdit/shop_id~~
+- ~~http://13.208.191.95/reservations~~
 
 ## 他のリポジトリ
 無し
@@ -193,7 +193,7 @@ Laravel環境構築
 
 1. `docker-compose exec php bash`
 2. `composer install`
-3. `cp .env.example .env`を実行し、`.env`の環境変数を変更  
+3. `cp .env.example .env`を実行し、`.env`の環境変数を変更
 - DBの設定を行って下さい
 - セッションの値をDBに保存しているので`SESSION_DRIVER=database`に変更してください
 - `MAIL_FROM_ADDRESS`に`mailtest@example.com`等のような送信側のメールアドレス設定を行ってください
@@ -225,11 +225,11 @@ Laravel環境構築
 
 4. **入力必須項目の制限**
 
-   - **店舗名**: 店舗の正式な名前（50文字以内）  
-   - **地域**: 「東京都」「大阪府」「福岡県」のいずれか  
-   - **ジャンル**: 「寿司」「焼肉」「イタリアン」「居酒屋」「ラーメン」のいずれか  
-   - **店舗概要**: 店舗の簡単な説明を記述する（400文字以内）  
-   - **画像URL**: JPEGまたはPNG形式（例: `http://example.com/sushi.jpeg`）  
+   - **店舗名**: 店舗の正式な名前（50文字以内）
+   - **地域**: 「東京都」「大阪府」「福岡県」のいずれか
+   - **ジャンル**: 「寿司」「焼肉」「イタリアン」「居酒屋」「ラーメン」のいずれか
+   - **店舗概要**: 店舗の簡単な説明を記述する（400文字以内）
+   - **画像URL**: JPEGまたはPNG形式（例: `http://example.com/sushi.jpeg`）
 
 ### サンプルデータ
 
@@ -241,6 +241,7 @@ Laravel環境構築
 ```
 
 ## 注意事項
-- ストレージはS3を使用しているので、ローカル環境では店舗作成時画像の保存が行えません
+- ~~ストレージはS3を使用しているので、ローカル環境では店舗作成時画像の保存が行えません~~
+- AWSを停止したのでストレージをローカルに変更したので店舗画像の保存ができるようになりました。
 - ソート機能をリセットするにはロゴや別ページから飲食店一覧へのリンクを使って再度アクセスを行うか、  
   もしくはURLのクエリパラメータを削除してください。
