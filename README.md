@@ -33,7 +33,7 @@ phpmyadmin(開発環境のみ)
 - http://localhost/reservations
 
 ## アプリケーションURL(デプロイ)
-- ~~http://13.208.191.95/
+- ~~http://13.208.191.95/~~
 - ~~http://13.208.191.95/register~~
 - ~~http://13.208.191.95/thanks~~
 - ~~http://13.208.191.95/login~~
